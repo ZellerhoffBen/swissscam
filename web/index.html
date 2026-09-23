@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>swissscam skeleton</title>
+  <style>
+    body { max-width: 640px; margin: 48px auto; padding: 0 20px; font: 18px/1.6 system-ui; }
+    audio { display: block; width: 100%; margin: 20px 0; }
+    button { padding: 10px 18px; font: inherit; cursor: pointer; }
+    pre { white-space: pre-wrap; background: #f3f4f6; padding: 16px; font-size: 15px; }
+  </style>
+</head>
+<body>
+  <h1>swissscam</h1>
+  <p>Skeleton only. Transcription and detection are both mocked.</p>
+  <audio controls src="/audio/demo.wav" aria-label="Prepared demo recording"></audio>
+  <button id="analyze" type="button">Analyze demo audio</button>
+  <p id="status" role="status">Ready. Playback is optional; analysis processes the whole demo.</p>
+  <h2>Transcript</h2>
+  <p id="transcript">—</p>
+  <h2>Detection result</h2>
+  <pre id="result">—</pre>
+
+  <script>
+    const button = document.querySelector("#analyze");
+    const statusText = document.querySelector("#status");
+    const transcript = document.querySelector("#transcript");
+    const result = document.querySelector("#result");
+
+    async function postJson(url, data) {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error(`Request failed (${response.status}).`);
+      return response.json();
+    }
+
+    button.addEventListener("click", async () => {
+      button.disabled = true;
+      transcript.textContent = "—";
+      result.textContent = "—";
+      try {
+        // Step 1: the backend resolves the ID to a prepared local audio file.
+        statusText.textContent = "Transcribing (mock)…";
+        const transcription = await postJson("/api/transcribe", { audio_id: "demo" });
+        transcript.textContent = transcription.text;
+
+        // Step 2: detection receives text only, independent of the audio source.
+        statusText.textContent = "Analyzing (mock)…";
+        const detection = await postJson("/api/analyze", { transcript: transcription.text });
+        result.textContent = JSON.stringify(detection, null, 2);
+        statusText.textContent = "Done — mock result, not a real safety assessment.";
+      } catch (error) {
+        statusText.textContent = error.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

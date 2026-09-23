@@ -4,7 +4,35 @@ A local scam-call detector that analyses conversations as they unfold and warns 
 
 Built for the Swisscom identity-fraud challenge at the Swiss AI Weeks Zurich Hackathon.
 
-> Proposed technical design. The application is not implemented yet.
+> A minimal mock skeleton is implemented. The sections below describe the target application.
+
+## Run the skeleton
+
+With Python 3.13+ and uv installed:
+
+```sh
+uv sync
+uv run uvicorn main:app --reload
+```
+
+Open http://127.0.0.1:8000 and click **Analyze demo audio**. No API keys are needed.
+
+```text
+Prepared audio ID → POST /api/transcribe → fixed transcript
+                  → POST /api/analyze    → mock detection result
+```
+
+The page can play `data/audio/demo.wav`, a synthetic spoken sample. Playback is optional and not synchronised with analysis yet. The transcription mock checks that the file exists but does not process its audio. The detector warns whenever the text contains “bank” (case-insensitive); this is only a wiring check.
+
+| File | Responsibility |
+| --- | --- |
+| `main.py` | Serve the page/audio and connect the endpoints. |
+| `schemas.py` | Request and response data structures. |
+| `transcription.py` | Replace the fixed text with speech recognition here. |
+| `detector.py` | Replace the keyword rule with real detection here. |
+| `web/index.html` | Small UI and two sequential HTTP requests. |
+
+`POST /api/transcribe` accepts `{"audio_id": "demo"}` and returns `{"text": "..."}`. `POST /api/analyze` accepts `{"transcript": "..."}` and returns `warning`, `signals` and `reason`. Endpoint documentation: http://127.0.0.1:8000/docs.
 
 ## app
 
@@ -102,7 +130,7 @@ data/             # Demo recordings, scripts and training data
 evaluation/       # Held-out conversations and evaluation results
 ```
 
-This is the intended layout; only the initial Python project exists today. Demo/test conversations are kept separate from training data.
+The skeleton also includes `schemas.py`; the evaluation directory is not created yet. Future demo/test conversations will be kept separate from training data.
 
 ## Validation
 
@@ -111,4 +139,3 @@ Evaluate on held-out scam and legitimate calls, including legitimate security ca
 Report detected scams, false alarms and the first warning time relative to the victim sharing information or agreeing to payment. Audio mode is evaluated separately to capture transcription errors and processing delay.
 
 Consented, labelled internal fraud examples could improve scenario coverage and reduce false alarms. The prototype does not depend on access to Swisscom data.
-
