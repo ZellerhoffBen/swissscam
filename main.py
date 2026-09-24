@@ -22,7 +22,7 @@ def index():
 def transcribe_audio(request: TranscribeRequest) -> Transcript:
     if request.audio_id != "demo":
         raise HTTPException(status_code=404, detail="Unknown demo audio")
-    return Transcript(text=transcribe(ROOT / "data/audio/demo.wav"))
+    return transcribe(ROOT / "data/audio/demo.wav")
 
 
 @app.post("/api/analyze")

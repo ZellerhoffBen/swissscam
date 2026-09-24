@@ -7,8 +7,15 @@ class TranscribeRequest(BaseModel):
     audio_id: str
 
 
+class TranscriptSegment(BaseModel):
+    text: str
+    start_seconds: float
+    end_seconds: float
+
+
 class Transcript(BaseModel):
     text: str
+    segments: list[TranscriptSegment] = Field(default_factory=list)
 
 
 class AnalyzeRequest(BaseModel):
