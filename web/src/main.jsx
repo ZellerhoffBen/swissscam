@@ -64,9 +64,8 @@ function App() {
   }
 
   function issueScamWarning() {
-    audioRef.current?.pause();
     setShowScamWarning(true);
-    setStatus("Possible scam detected. The call was paused.");
+    setStatus("Possible scam detected.");
 
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
