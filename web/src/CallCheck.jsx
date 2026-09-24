@@ -9,7 +9,7 @@ export function CallCheck({ detection, history, elapsed, analysisState }) {
   const title = detection
     ? warning ? "Potential scam detected" : "No warning so far"
     : { idle: "Ready to analyse", processing: "Listening for speech…",
-        complete: "No speech recognised", error: "Analysis stopped" }[analysisState];
+        complete: "No speech recognised", stopped: "Analysis ended", error: "Analysis stopped" }[analysisState];
   const thresholdLabel = Math.round(threshold * 100);
   // The chart starts at the first measurement, never at an invented zero score.
   const endTime = Math.max(elapsed, history.at(-1)?.seconds ?? 0, 1);
@@ -20,12 +20,13 @@ export function CallCheck({ detection, history, elapsed, analysisState }) {
     : `H ${x(point.seconds)} V ${y(point.score)}`).join(" ");
 
   return (
-    <div className={`result ${warning ? "warning" : detection ? "clear" : "empty"}`}>
-      <div className="section-index">STATUS</div>
+    <section className={`result ${warning ? "warning" : detection ? "clear" : "empty"}`} aria-labelledby="call-check-title">
       <div className="result-content">
-        <p className="label">CALL CHECK</p>
         <div className="risk-readout">
-          <h2>{title}</h2>
+          <div>
+            <h2 className="card-title" id="call-check-title">Call check</h2>
+            <h3>{title}</h3>
+          </div>
           <div className="risk-value"><span>Risk score</span><strong>
             {score == null ? "—" : Math.floor(score * 100)}<small> / 100</small>
           </strong></div>
@@ -54,10 +55,12 @@ export function CallCheck({ detection, history, elapsed, analysisState }) {
         </div>
         <div className="risk-scale"><span>0:00</span><span>{timeLabel(elapsed)}</span></div>
         {detection && <div className="risk-reason">
-          <h3>{warning ? "Scam reason" : "Assessment"}</h3>
-          <p>{detection.reason || "No warning on the text analysed so far. The call may still be a scam."}</p>
+          <h3>Assessment</h3>
+          <p>{warning
+            ? "Possible scam pattern detected. Do not send money or share personal information. Verify the caller independently."
+            : "No warning on the text analysed so far. The call may still be a scam."}</p>
         </div>}
       </div>
-    </div>
+    </section>
   );
 }
