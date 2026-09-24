@@ -166,7 +166,13 @@ function App() {
           <div className="analysis-header"><div><p className="eyebrow">CALL NOTES</p><h2>Conversation log</h2></div><label className="upload-audio"><input type="file" accept="audio/*" onChange={handleAudioUpload} /><span>＋ Add recording</span></label><span className={`analysis-state ${analysisState}`}>{{ idle: "Standby", processing: "Processing", complete: "Complete", error: "Stopped" }[analysisState]}</span></div>
           <p className="audio-source">Recording: {audioFile?.name || "demo.wav"}</p>
           <p className="status" role="status">{status}</p>
-          <div className="insight-block"><div className="section-index">NOW</div><div><p className="label">TRANSCRIPT</p><p className="transcript">{transcript || "The conversation will appear here when the call starts."}</p></div></div>
+          <div className="insight-block"><div className="section-index">NOW</div><div><p className="label">TRANSCRIPT</p><div className="transcript">
+            {transcript
+              ? transcript.split(/\n{2,}/).filter(Boolean).map((segment, index) => (
+                <p key={`${segment}-${index}`}>{segment}</p>
+              ))
+              : <p>The conversation will appear here when the call starts.</p>}
+          </div></div></div>
           <div className={`result ${detection?.warning ? "warning" : detection ? "clear" : "empty"}`}>
             <div className="section-index">STATUS</div><div className="result-content"><p className="label">CALL CHECK</p>
             {detection ? <><div className="risk-line"><h2>{detection.warning ? "Pause before sharing" : "No warning so far"}</h2></div><p>{detection.reason || "No warning from the model on the transcript so far. This does not guarantee the call is safe."}</p>{detection.signals?.length > 0 && <div className="signals">{detection.signals.map((signal) => <span key={signal}>{signal.replace("_", " ")}</span>)}</div>}</> : <><h2>No notes yet</h2><p>Accept the call to begin the live transcript and call check.</p></>}</div>

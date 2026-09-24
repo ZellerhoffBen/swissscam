@@ -95,7 +95,7 @@ export function startCall({ audio, file, onTranscript, onDetection, onTime, onDo
         if (end > audio.currentTime) break;
         heard.push(segment.text);
         nextSegment += 1;
-        const text = heard.join(" ");
+        const text = heard.join("\n\n");
         onTranscript(text);
         const result = await postJson("/api/analyze", { transcript: text }, signal);
         if (signal.aborted) return;

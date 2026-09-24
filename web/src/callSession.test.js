@@ -51,7 +51,7 @@ test("only heard segments reach the model, in order, with accumulated text", asy
   assert.equal(requests.length, 1, "do not send overlapping analysis requests");
   releaseFirst();
   await flush();
-  assert.deepEqual(requests, [segments[0].text, segments.map((s) => s.text).join(" ")]);
+  assert.deepEqual(requests, [segments[0].text, segments.map((s) => s.text).join("\n\n")]);
   assert.deepEqual(results.map((r) => r.warning), [false, true]);
 });
 

@@ -199,7 +199,8 @@ audio { margin-bottom: 14px; }
 .result.warning { border: 0; border-bottom: 1px solid rgba(240, 155, 85, .34); background: transparent; box-shadow: none; }
 .section-index { color: rgba(123, 216, 196, .52); font: 500 11px "DM Mono", monospace; }
 .label { margin-bottom: 14px; }
-.transcript { max-width: 590px; color: rgba(240, 247, 237, .82); font-size: 17px; line-height: 1.65; }
+.transcript { display: grid; gap: 10px; max-width: 590px; color: rgba(240, 247, 237, .82); font-size: 17px; line-height: 1.65; }
+.transcript p { margin: 0; }
 .result h2 { margin: 0 0 9px; font-size: 27px; letter-spacing: -.045em; }
 .result.warning h2 { color: #f6a061; }
 .result p { max-width: 560px; margin-bottom: 0; }
