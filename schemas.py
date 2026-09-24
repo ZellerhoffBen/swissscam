@@ -1,5 +1,7 @@
 """Shared request and response formats for the two processing steps."""
 
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -20,9 +22,10 @@ class Transcript(BaseModel):
 
 
 class TranscriptUpdate(BaseModel):
-    type: str
+    type: Literal["segment", "done", "error"]
     text: str
     segment: TranscriptSegment | None = None
+    error: str | None = None
 
 
 class AnalyzeRequest(BaseModel):
