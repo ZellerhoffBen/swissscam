@@ -10,6 +10,7 @@ from detector import detect, load_model
 from evaluate import measure
 from prepare_data import behavior_rows, iter_prefixes, validate_behaviors
 from evaluate_external import source_metrics, verify_file
+from evaluate_validation import audio_outcome, audio_summary, compare_reports, load_suite, SUITE
 
 
 def call(label: int) -> dict:
@@ -25,6 +26,49 @@ def call(label: int) -> dict:
 
 
 class EvaluationTests(unittest.TestCase):
+    def test_validation_suite_is_frozen_balanced_and_separate(self) -> None:
+        calls, manifest = load_suite()
+        self.assertEqual(len(calls), 40)
+        self.assertEqual(sum(c["label"] for c in calls), 20)
+        self.assertEqual(len(manifest["audio"]), 14)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)
+            (path / "manifest.json").write_text((SUITE / "manifest.json").read_text())
+            (path / "calls.jsonl").write_text((SUITE / "calls.jsonl").read_text() + "\n")
+            with self.assertRaisesRegex(ValueError, "Frozen validation cases changed"):
+                load_suite(path)
+
+    def test_unlabelled_audio_and_missing_onsets_are_not_passing_tests(self) -> None:
+        self.assertEqual(audio_outcome(None, None, 5), "unlabelled")
+        self.assertEqual(audio_outcome(1, None, 5), "onset_not_annotated")
+        self.assertEqual(audio_outcome(1, 10, 5), "premature_warning")
+        self.assertEqual(audio_outcome(1, 10, 10), "detected")
+        self.assertEqual(audio_outcome(1, 10, None), "missed")
+        self.assertEqual(audio_outcome(0, None, 0), "false_alarm")
+        self.assertEqual(audio_outcome(0, None, None), "correctly_quiet")
+
+    def test_audio_summary_separates_call_warnings_from_verified_onsets(self) -> None:
+        report = audio_summary([
+            {"status": "missing"},
+            {"status": "tested", "label": None},
+            {"status": "tested", "label": 1, "ever_warned": True, "warning_onset_seconds": None},
+            {"status": "tested", "label": 0, "ever_warned": True, "warning_onset_seconds": None},
+        ])
+        self.assertEqual(report["labelled_recordings_tested"], 2)
+        self.assertEqual(report["scam_calls_flagged"], 1)
+        self.assertEqual(report["false_alarms"], 1)
+        self.assertEqual(report["scam_calls_without_onset_annotation"], 1)
+
+    def test_comparison_reports_lost_detections_even_if_false_alarms_improve(self) -> None:
+        before = {"cases_sha256": "same", "model_files_sha256": {"model.safetensors": "old"},
+                  "text": measure([call(1), call(0)], [[0, 0, 1, 1], [0, 0, 1, 1]], 0.5)}
+        after = {**before, "text": measure([call(1), call(0)], [[0]*4, [0]*4], 0.5)}
+        result = compare_reports(after, before)
+        self.assertEqual(result["count_changes"]["false_alarm"], -1)
+        self.assertEqual(result["lost_detections"], ["fixture-1"])
+        with self.assertRaisesRegex(ValueError, "different test cases"):
+            compare_reports({**after, "cases_sha256": "different"}, before)
+
     def test_external_metrics_keep_both_classes_and_serialize_numpy_scores(self) -> None:
         import numpy as np
         rows = [{"id": "scam", "label": 1}, {"id": "legitimate", "label": 0}]

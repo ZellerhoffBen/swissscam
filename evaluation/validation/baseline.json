@@ -1,0 +1,2056 @@
+{
+  "created_utc": "2026-09-24T20:40:57.248437+00:00",
+  "suite_version": 1,
+  "cases_sha256": "1b64f9aa1b53e20e8cffe714e5bee9c943207fd0263d8e886d8b0a3392f86b34",
+  "manifest_sha256": "142ef2d9fbb87e73a02104d1e424f4eba21a58d16d4213cb23d655a5ce1f6a41",
+  "model_files_sha256": {
+    "config.json": "adc3795e1239eafb56e2ccfd7733b1123ce80d2523918d7b1fa9173cae612178",
+    "metadata.json": "5655ff39ed7c629fec06178969a2938f2f08b2c8c46d86895613418440a20df9",
+    "model.safetensors": "abd240fdd2c522e2bf14fd9717375192762dcd474bb48176b2d7509095f131d8",
+    "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+    "tokenizer.json": "087b994af273e815a843d4aae3a7121e3c81ad2c70ecd6932e7ac07c525a58b0",
+    "tokenizer_config.json": "006899804a199ebc1fd8c865d86775a0b2f91ebbbe9e10ff8f704f12f9bd4c8e",
+    "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+  },
+  "evaluator_sha256": {
+    "evaluate_validation.py": "14b7b5b29c418b808a68ac404d05e50ac5357afef173459fc5079395a4634f2b",
+    "evaluate.py": "230a6531a246a67360f9ef94d2b245b61262be3c94e6b3cb01a33399b592a10b",
+    "context_model.py": "8a1115cd9a0501396e92ef47e0120f93779bd37f31bab81ac292fc99eb44d3ba",
+    "transcription.py": "ac772a681bd8a026903da05145ca209fa919ad9148ee51c1ed5096673b20f31d"
+  },
+  "threshold": 0.9500000000000001,
+  "text": {
+    "threshold": 0.9500000000000001,
+    "scam_calls": 20,
+    "legitimate_calls": 20,
+    "detected": 20,
+    "missed": 0,
+    "premature_warning": 0,
+    "false_alarm": 4,
+    "correctly_quiet": 16,
+    "balanced_call_score": 0.9,
+    "mean_delay_turns": 0,
+    "calls": [
+      {
+        "id": "s01",
+        "category": "family_impersonation",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001726,
+          0.001692,
+          0.001699,
+          0.001723,
+          0.998368,
+          0.998371
+        ]
+      },
+      {
+        "id": "s02",
+        "category": "family_impersonation",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.002176,
+          0.001942,
+          0.99829,
+          0.998176,
+          0.998242,
+          0.998267
+        ]
+      },
+      {
+        "id": "s03",
+        "category": "family_impersonation",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001786,
+          0.001764,
+          0.001818,
+          0.001845,
+          0.998301,
+          0.998292
+        ]
+      },
+      {
+        "id": "s04",
+        "category": "family_impersonation",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.00184,
+          0.00182,
+          0.998156,
+          0.998137,
+          0.998173,
+          0.99819
+        ]
+      },
+      {
+        "id": "s05",
+        "category": "shock_call",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.00168,
+          0.001684,
+          0.998143,
+          0.998165,
+          0.998188,
+          0.99821
+        ]
+      },
+      {
+        "id": "s06",
+        "category": "shock_call",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001677,
+          0.001865,
+          0.0018,
+          0.001921,
+          0.998348,
+          0.998327
+        ]
+      },
+      {
+        "id": "s07",
+        "category": "shock_call",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001799,
+          0.001718,
+          0.998351,
+          0.998348,
+          0.998344,
+          0.99833
+        ]
+      },
+      {
+        "id": "s08",
+        "category": "shock_call",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001686,
+          0.001682,
+          0.00169,
+          0.001714,
+          0.998357,
+          0.99836
+        ]
+      },
+      {
+        "id": "s09",
+        "category": "police_impersonation",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001712,
+          0.00167,
+          0.001821,
+          0.001763,
+          0.998354,
+          0.998354
+        ]
+      },
+      {
+        "id": "s10",
+        "category": "police_impersonation",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001714,
+          0.001674,
+          0.998273,
+          0.998242,
+          0.998233,
+          0.998248
+        ]
+      },
+      {
+        "id": "s11",
+        "category": "police_impersonation",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001736,
+          0.001684,
+          0.001702,
+          0.001682,
+          0.998333,
+          0.998299
+        ]
+      },
+      {
+        "id": "s12",
+        "category": "police_impersonation",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001653,
+          0.001668,
+          0.998213,
+          0.998192,
+          0.998207,
+          0.998184
+        ]
+      },
+      {
+        "id": "s13",
+        "category": "bank_impersonation",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001715,
+          0.001662,
+          0.001758,
+          0.001771,
+          0.998274,
+          0.99826
+        ]
+      },
+      {
+        "id": "s14",
+        "category": "bank_impersonation",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001652,
+          0.001642,
+          0.998372,
+          0.99838,
+          0.998373,
+          0.998372
+        ]
+      },
+      {
+        "id": "s15",
+        "category": "bank_impersonation",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001678,
+          0.001673,
+          0.001701,
+          0.001684,
+          0.998155,
+          0.998133
+        ]
+      },
+      {
+        "id": "s16",
+        "category": "bank_impersonation",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001741,
+          0.001694,
+          0.998382,
+          0.998378,
+          0.998385,
+          0.998384
+        ]
+      },
+      {
+        "id": "s17",
+        "category": "support_impersonation",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001684,
+          0.001669,
+          0.998304,
+          0.99836,
+          0.998343,
+          0.998349
+        ]
+      },
+      {
+        "id": "s18",
+        "category": "support_impersonation",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001653,
+          0.001663,
+          0.001709,
+          0.001686,
+          0.998344,
+          0.998332
+        ]
+      },
+      {
+        "id": "s19",
+        "category": "support_impersonation",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001666,
+          0.001641,
+          0.001719,
+          0.001739,
+          0.998309,
+          0.998308
+        ]
+      },
+      {
+        "id": "s20",
+        "category": "support_impersonation",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.001856,
+          0.001731,
+          0.998359,
+          0.998357,
+          0.998343,
+          0.998347
+        ]
+      },
+      {
+        "id": "n01",
+        "category": "appointment",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001658,
+          0.001674,
+          0.001662,
+          0.001716,
+          0.004432,
+          0.005905
+        ]
+      },
+      {
+        "id": "n02",
+        "category": "delivery",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001686,
+          0.00179,
+          0.001945,
+          0.001949,
+          0.002489,
+          0.002262
+        ]
+      },
+      {
+        "id": "n03",
+        "category": "family",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001702,
+          0.001689,
+          0.00168,
+          0.001863,
+          0.001836,
+          0.001943
+        ]
+      },
+      {
+        "id": "n04",
+        "category": "restaurant",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001807,
+          0.001735,
+          0.001695,
+          0.001792,
+          0.001863,
+          0.00184
+        ]
+      },
+      {
+        "id": "n05",
+        "category": "repair",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001691,
+          0.001719,
+          0.002093,
+          0.002003,
+          0.002466,
+          0.003075
+        ]
+      },
+      {
+        "id": "n06",
+        "category": "library",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001688,
+          0.001833,
+          0.001871,
+          0.001881,
+          0.001949,
+          0.001944
+        ]
+      },
+      {
+        "id": "n07",
+        "category": "neighbour",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.00175,
+          0.001734,
+          0.001712,
+          0.009235,
+          0.014162,
+          0.00886
+        ]
+      },
+      {
+        "id": "n08",
+        "category": "school",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001681,
+          0.001695,
+          0.001723,
+          0.001958,
+          0.008299,
+          0.00369
+        ]
+      },
+      {
+        "id": "n09",
+        "category": "work",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001738,
+          0.001687,
+          0.001997,
+          0.002005,
+          0.002213,
+          0.002266
+        ]
+      },
+      {
+        "id": "n10",
+        "category": "lost_property",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001701,
+          0.001795,
+          0.00192,
+          0.001845,
+          0.002281,
+          0.002161
+        ]
+      },
+      {
+        "id": "h01",
+        "category": "bank_security",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001798,
+          0.001917,
+          0.001888,
+          0.002473,
+          0.218357,
+          0.066819
+        ]
+      },
+      {
+        "id": "h02",
+        "category": "card_check",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001701,
+          0.001675,
+          0.001758,
+          0.001789,
+          0.022459,
+          0.009851
+        ]
+      },
+      {
+        "id": "h03",
+        "category": "security_advice",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001703,
+          0.001712,
+          0.003012,
+          0.003641,
+          0.004843,
+          0.003993
+        ]
+      },
+      {
+        "id": "h04",
+        "category": "scam_report",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": 3,
+        "outcome": "false_alarm",
+        "delay_turns": null,
+        "scores": [
+          0.001667,
+          0.001733,
+          0.99832,
+          0.998109,
+          0.998117,
+          0.998087
+        ]
+      },
+      {
+        "id": "h05",
+        "category": "police_appointment",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001645,
+          0.001671,
+          0.001688,
+          0.001691,
+          0.0017,
+          0.001693
+        ]
+      },
+      {
+        "id": "h06",
+        "category": "family_emergency",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001738,
+          0.00174,
+          0.001767,
+          0.001974,
+          0.00378,
+          0.006029
+        ]
+      },
+      {
+        "id": "h07",
+        "category": "requested_support",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": 5,
+        "outcome": "false_alarm",
+        "delay_turns": null,
+        "scores": [
+          0.001673,
+          0.001675,
+          0.18888,
+          0.925873,
+          0.995127,
+          0.993457
+        ]
+      },
+      {
+        "id": "h08",
+        "category": "refund",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": 3,
+        "outcome": "false_alarm",
+        "delay_turns": null,
+        "scores": [
+          0.001674,
+          0.001666,
+          0.997917,
+          0.996941,
+          0.99779,
+          0.997095
+        ]
+      },
+      {
+        "id": "h09",
+        "category": "invoice",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.001719,
+          0.001667,
+          0.001801,
+          0.001846,
+          0.002138,
+          0.00211
+        ]
+      },
+      {
+        "id": "h10",
+        "category": "account_recovery",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": 4,
+        "outcome": "false_alarm",
+        "delay_turns": null,
+        "scores": [
+          0.001742,
+          0.001724,
+          0.008188,
+          0.972109,
+          0.983686,
+          0.966846
+        ]
+      }
+    ]
+  },
+  "groups": {
+    "scam": {
+      "total": 20,
+      "outcomes": {
+        "detected": 20
+      }
+    },
+    "normal": {
+      "total": 10,
+      "outcomes": {
+        "correctly_quiet": 10
+      }
+    },
+    "hard_legitimate": {
+      "total": 10,
+      "outcomes": {
+        "correctly_quiet": 6,
+        "false_alarm": 4
+      }
+    }
+  },
+  "audio_requested": true,
+  "audio": [
+    {
+      "id": "s01",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s01.m4a",
+      "status": "tested",
+      "sha256": "0901c3f3669bda8919ac61bd9c2b7a3e444369539f0bfad33a082bf983e1b67c",
+      "frozen": true,
+      "label": 1,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": 31.36,
+      "outcome": "onset_not_annotated",
+      "scores": [
+        0.0025717741809785366,
+        0.001752300770021975,
+        0.001722145825624466,
+        0.0016851439140737057,
+        0.0016911928541958332,
+        0.001691148616373539,
+        0.0016850453102961183,
+        0.0017027703579515219,
+        0.9982183575630188,
+        0.9983550906181335,
+        0.9983710646629333,
+        0.9983715415000916,
+        0.9983685612678528,
+        0.9983616471290588
+      ],
+      "ever_warned": true,
+      "final_warning": true,
+      "reference_final_score": 0.9983708262443542,
+      "reference_final_warning": true,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hello, Grandpa. It's Daniel. I'm",
+          "start_seconds": 1.4199999999999995,
+          "end_seconds": 4.74
+        },
+        {
+          "text": "using a borrowed phone because mine broke this morning. Can",
+          "start_seconds": 4.74,
+          "end_seconds": 8.02
+        },
+        {
+          "text": "you hear me properly? Yes,",
+          "start_seconds": 8.02,
+          "end_seconds": 11.38
+        },
+        {
+          "text": "I can hear you. What happened to your phone? I",
+          "start_seconds": 11.58,
+          "end_seconds": 16.52
+        },
+        {
+          "text": "dropped it while",
+          "start_seconds": 16.52,
+          "end_seconds": 17.16
+        },
+        {
+          "text": "I was out. I'm at a garage now and there's a problem with",
+          "start_seconds": 17.16,
+          "end_seconds": 20.28
+        },
+        {
+          "text": "the bill. Are you",
+          "start_seconds": 20.28,
+          "end_seconds": 23.34
+        },
+        {
+          "text": "alright? Should",
+          "start_seconds": 23.34,
+          "end_seconds": 27.26
+        },
+        {
+          "text": "call mom? I need you to withdraw 2000",
+          "start_seconds": 27.26,
+          "end_seconds": 31.36
+        },
+        {
+          "text": "francs now and give the cash to a friend. I'll send",
+          "start_seconds": 31.36,
+          "end_seconds": 34.4
+        },
+        {
+          "text": "to your house, okay? Please do it before anyone",
+          "start_seconds": 34.4,
+          "end_seconds": 37.72
+        },
+        {
+          "text": "finds out. Wait",
+          "start_seconds": 37.72,
+          "end_seconds": 41.08
+        },
+        {
+          "text": "a moment. I need to understand",
+          "start_seconds": 41.08,
+          "end_seconds": 42.9
+        },
+        {
+          "text": "what you're asking.",
+          "start_seconds": 42.9,
+          "end_seconds": 43.88
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s05.m4a",
+      "status": "tested",
+      "sha256": "37c15a0f51dda33dc16059ffe2ec8cc9babe70aae17a2295d560f93445363d11",
+      "frozen": true,
+      "label": 1,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": 17.52,
+      "outcome": "onset_not_annotated",
+      "scores": [
+        0.003061151597648859,
+        0.0017364232335239649,
+        0.001712542842142284,
+        0.0017143541481345892,
+        0.0016835371498018503,
+        0.9910300970077515,
+        0.9981811046600342,
+        0.9981725215911865,
+        0.9981629252433777,
+        0.9982024431228638,
+        0.9981955885887146,
+        0.9981978535652161,
+        0.9982017278671265,
+        0.9982169270515442
+      ],
+      "ever_warned": true,
+      "final_warning": true,
+      "reference_final_score": 0.9982099533081055,
+      "reference_final_warning": true,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "But after noon, this is Mr. Adams.",
+          "start_seconds": 0.7800000000000005,
+          "end_seconds": 3.38
+        },
+        {
+          "text": "I'm calling about an incident involving your daughter this morning.",
+          "start_seconds": 4.24,
+          "end_seconds": 7.1
+        },
+        {
+          "text": "An incident?",
+          "start_seconds": 8.2,
+          "end_seconds": 8.74
+        },
+        {
+          "text": "Is she hurt?",
+          "start_seconds": 9.2,
+          "end_seconds": 9.78
+        },
+        {
+          "text": "She has been arrested after a traffic accident.",
+          "start_seconds": 10.9,
+          "end_seconds": 13.62
+        },
+        {
+          "text": "To release her today, you must bring 5,000 francs",
+          "start_seconds": 14.22,
+          "end_seconds": 17.52
+        },
+        {
+          "text": "in cash to our career outside the station.",
+          "start_seconds": 17.52,
+          "end_seconds": 20.96
+        },
+        {
+          "text": "Do not contact anyone else.",
+          "start_seconds": 21.72,
+          "end_seconds": 23.62
+        },
+        {
+          "text": "Can I speak to her first?",
+          "start_seconds": 24.860000000000003,
+          "end_seconds": 26.6
+        },
+        {
+          "text": "There's no time for that.",
+          "start_seconds": 27.32,
+          "end_seconds": 28.54
+        },
+        {
+          "text": "But the career is waiting and she will stay in custody",
+          "start_seconds": 28.54,
+          "end_seconds": 31.76
+        },
+        {
+          "text": "if you delay.",
+          "start_seconds": 31.76,
+          "end_seconds": 32.74
+        },
+        {
+          "text": "I haven't agreed to anything, please explain who",
+          "start_seconds": 33.58,
+          "end_seconds": 36.88
+        },
+        {
+          "text": "you work for.",
+          "start_seconds": 36.88,
+          "end_seconds": 37.56
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s09.m4a",
+      "status": "tested",
+      "sha256": "9a8beaab4c5c9edb6df6522e32e9ee0c2095722979a7b861de872a898a9bb681",
+      "frozen": true,
+      "label": 1,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": 32.24,
+      "outcome": "onset_not_annotated",
+      "scores": [
+        0.0021480312570929527,
+        0.0017380616627633572,
+        0.0017070668982341886,
+        0.0016664521535858512,
+        0.0016726577887311578,
+        0.0016875715227797627,
+        0.001883688848465681,
+        0.0018822576384991407,
+        0.0018271375447511673,
+        0.9981597065925598,
+        0.9982931017875671,
+        0.9983468055725098,
+        0.998357355594635,
+        0.9983530044555664,
+        0.9983533620834351
+      ],
+      "ever_warned": true,
+      "final_warning": true,
+      "reference_final_score": 0.9983541965484619,
+      "reference_final_warning": true,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Good evening. This is Inspector Lewis. We",
+          "start_seconds": 1.3000000000000003,
+          "end_seconds": 5.0
+        },
+        {
+          "text": "are contacting residents in your area about",
+          "start_seconds": 5.0,
+          "end_seconds": 7.58
+        },
+        {
+          "text": "a recent series of burglaries. I",
+          "start_seconds": 7.58,
+          "end_seconds": 11.54
+        },
+        {
+          "text": "see. Has something happened in my street? We",
+          "start_seconds": 11.54,
+          "end_seconds": 16.1
+        },
+        {
+          "text": "believe",
+          "start_seconds": 16.1,
+          "end_seconds": 16.36
+        },
+        {
+          "text": "some houses nearby may be targeted. Do you keep",
+          "start_seconds": 16.36,
+          "end_seconds": 19.58
+        },
+        {
+          "text": "any jewelry or cash at home? I",
+          "start_seconds": 19.58,
+          "end_seconds": 23.78
+        },
+        {
+          "text": "have a few",
+          "start_seconds": 23.78,
+          "end_seconds": 24.26
+        },
+        {
+          "text": "things? Why do you ask? Put",
+          "start_seconds": 24.26,
+          "end_seconds": 29.18
+        },
+        {
+          "text": "your jewelry and cash into a bag. An",
+          "start_seconds": 29.18,
+          "end_seconds": 32.24
+        },
+        {
+          "text": "undercover officer",
+          "start_seconds": 32.24,
+          "end_seconds": 33.42
+        },
+        {
+          "text": "will collect it tonight for safekeeping. Don't",
+          "start_seconds": 33.42,
+          "end_seconds": 36.68
+        },
+        {
+          "text": "tell your neighbors or call the local station",
+          "start_seconds": 36.68,
+          "end_seconds": 39.02
+        },
+        {
+          "text": "because that could expose the operation. I'd",
+          "start_seconds": 39.02,
+          "end_seconds": 44.14
+        },
+        {
+          "text": "like to verify this before anyone comes to my door.",
+          "start_seconds": 44.14,
+          "end_seconds": 46.9
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s13.m4a",
+      "status": "tested",
+      "sha256": "900ced49fa30cc639fe3c86f518bb2ddfa52e203ff7fdf718526bdc75610b080",
+      "frozen": true,
+      "label": 1,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": 25.34,
+      "outcome": "onset_not_annotated",
+      "scores": [
+        0.001843133824877441,
+        0.0018171108094975352,
+        0.0017217547865584493,
+        0.001674996456131339,
+        0.001823092927224934,
+        0.0019316963152959943,
+        0.0017732487758621573,
+        0.001821727491915226,
+        0.998047947883606,
+        0.9979612827301025,
+        0.9982427358627319,
+        0.9982179999351501,
+        0.9982219338417053
+      ],
+      "ever_warned": true,
+      "final_warning": true,
+      "reference_final_score": 0.9982603192329407,
+      "reference_final_warning": true,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hello, this is Rachel from the Account Security Team",
+          "start_seconds": 0.6799999999999995,
+          "end_seconds": 3.92
+        },
+        {
+          "text": "at Citibank.",
+          "start_seconds": 3.92,
+          "end_seconds": 4.72
+        },
+        {
+          "text": "We are checking a recent card purchase.",
+          "start_seconds": 5.2,
+          "end_seconds": 7.26
+        },
+        {
+          "text": "Which purchase are you calling about?",
+          "start_seconds": 8.26,
+          "end_seconds": 10.12
+        },
+        {
+          "text": "A payment of 3000 and 20 francs",
+          "start_seconds": 11.38,
+          "end_seconds": 14.56
+        },
+        {
+          "text": "at an electronics shop.",
+          "start_seconds": 14.56,
+          "end_seconds": 15.8
+        },
+        {
+          "text": "Did you make that purchase today?",
+          "start_seconds": 16.46,
+          "end_seconds": 17.94
+        },
+        {
+          "text": "No, I haven't used my card today.",
+          "start_seconds": 19.3,
+          "end_seconds": 21.26
+        },
+        {
+          "text": "To cancel it, read me the 6th digit login code",
+          "start_seconds": 22.04,
+          "end_seconds": 25.34
+        },
+        {
+          "text": "that has just arrived on your phone.",
+          "start_seconds": 25.34,
+          "end_seconds": 27.7
+        },
+        {
+          "text": "I need that code before I can block the payment.",
+          "start_seconds": 27.7,
+          "end_seconds": 30.74
+        },
+        {
+          "text": "The message says to not share it.",
+          "start_seconds": 32.42,
+          "end_seconds": 34.8
+        },
+        {
+          "text": "Why do you need it?",
+          "start_seconds": 35.18,
+          "end_seconds": 35.94
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s17.m4a",
+      "status": "tested",
+      "sha256": "7a8ce209e57cb39eb065dd8aaa3deffca731d8787f703d00a3ca0faa3327c10b",
+      "frozen": true,
+      "label": 1,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": 15.12,
+      "outcome": "onset_not_annotated",
+      "scores": [
+        0.0017183431191369891,
+        0.0016835026908665895,
+        0.0016721300780773163,
+        0.9823366403579712,
+        0.9866523146629333,
+        0.9983068704605103,
+        0.9983097314834595,
+        0.998291552066803,
+        0.9983574748039246,
+        0.9983505010604858,
+        0.99834144115448,
+        0.9983470439910889
+      ],
+      "ever_warned": true,
+      "final_warning": true,
+      "reference_final_score": 0.9983494281768799,
+      "reference_final_warning": true,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hello, I'm calling from the computer service team.",
+          "start_seconds": 1.1999999999999995,
+          "end_seconds": 4.52
+        },
+        {
+          "text": "Are you near your laptop at the moment?",
+          "start_seconds": 4.92,
+          "end_seconds": 6.72
+        },
+        {
+          "text": "Yes, but I haven't requested any support. We've",
+          "start_seconds": 7.8,
+          "end_seconds": 11.64
+        },
+        {
+          "text": "detected a virus on it. Install a remote control",
+          "start_seconds": 11.64,
+          "end_seconds": 15.12
+        },
+        {
+          "text": "program,",
+          "start_seconds": 15.12,
+          "end_seconds": 15.82
+        },
+        {
+          "text": "give me the access code, and open your online banking",
+          "start_seconds": 16.3,
+          "end_seconds": 19.42
+        },
+        {
+          "text": "so I can check whether the virus has",
+          "start_seconds": 19.42,
+          "end_seconds": 22.84
+        },
+        {
+          "text": "reached your account.",
+          "start_seconds": 22.84,
+          "end_seconds": 23.82
+        },
+        {
+          "text": "Why would you need to see my banking? The",
+          "start_seconds": 25.200000000000003,
+          "end_seconds": 28.68
+        },
+        {
+          "text": "security check won't work unless I can control the computer",
+          "start_seconds": 28.68,
+          "end_seconds": 32.0
+        },
+        {
+          "text": "while you sign in.",
+          "start_seconds": 32.0,
+          "end_seconds": 33.26
+        },
+        {
+          "text": "I'm going to stop and check this first.",
+          "start_seconds": 34.5,
+          "end_seconds": 36.68
+        }
+      ]
+    },
+    {
+      "id": "s20",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s20.m4a",
+      "status": "tested",
+      "sha256": "bef90be6c4284f75bd7f5657312a421276376fb8c2cc11085e5bd3a269c6c050",
+      "frozen": true,
+      "label": 1,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": 19.26,
+      "outcome": "onset_not_annotated",
+      "scores": [
+        0.0018046586774289608,
+        0.001724693807773292,
+        0.0018375612562522292,
+        0.0017690774984657764,
+        0.0029419283382594585,
+        0.9983514547348022,
+        0.99835205078125,
+        0.9983546137809753,
+        0.9983546137809753,
+        0.9983524084091187,
+        0.998349666595459,
+        0.9983528852462769,
+        0.9983491897583008
+      ],
+      "ever_warned": true,
+      "final_warning": true,
+      "reference_final_score": 0.9983469247817993,
+      "reference_final_warning": true,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Good afternoon. This is the customer refund",
+          "start_seconds": 1.3999999999999986,
+          "end_seconds": 4.52
+        },
+        {
+          "text": "department. We have a refund connected to your",
+          "start_seconds": 4.52,
+          "end_seconds": 7.64
+        },
+        {
+          "text": "computer service contract. How",
+          "start_seconds": 7.64,
+          "end_seconds": 10.7
+        },
+        {
+          "text": "much is the refund supposed to be? 200",
+          "start_seconds": 10.7,
+          "end_seconds": 13.7
+        },
+        {
+          "text": "francs. To release it,",
+          "start_seconds": 13.7,
+          "end_seconds": 15.38
+        },
+        {
+          "text": "tell me your online banking password and the verification",
+          "start_seconds": 15.64,
+          "end_seconds": 19.26
+        },
+        {
+          "text": "code on your phone. I will log in",
+          "start_seconds": 19.26,
+          "end_seconds": 22.4
+        },
+        {
+          "text": "and put the refunds straight into your account. Can't",
+          "start_seconds": 22.4,
+          "end_seconds": 26.56
+        },
+        {
+          "text": "you refund the card I originally used?",
+          "start_seconds": 26.56,
+          "end_seconds": 28.7
+        },
+        {
+          "text": "A refund system needs those log-in details. Please",
+          "start_seconds": 30.0,
+          "end_seconds": 33.44
+        },
+        {
+          "text": "read them to me before the session",
+          "start_seconds": 33.44,
+          "end_seconds": 35.28
+        },
+        {
+          "text": "expires. I'm not going to give you",
+          "start_seconds": 35.28,
+          "end_seconds": 38.5
+        },
+        {
+          "text": "access to my account.",
+          "start_seconds": 38.5,
+          "end_seconds": 39.82
+        }
+      ]
+    },
+    {
+      "id": "n01",
+      "kind": "human",
+      "file": "evaluation/validation/audio/n01.m4a",
+      "status": "tested",
+      "sha256": "92187997bb1a6182d558d5f4e239afb08cf6fb3aaa045711abc4eddc6965f0c0",
+      "frozen": true,
+      "label": 0,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": null,
+      "outcome": "correctly_quiet",
+      "scores": [
+        0.0017697132425382733,
+        0.0016588917933404446,
+        0.001668243668973446,
+        0.0016945935785770416,
+        0.0016962181543931365,
+        0.0016779188299551606,
+        0.0016709516057744622,
+        0.0016759781865403056,
+        0.0017163900192826986,
+        0.0018635756568983197,
+        0.00716688297688961,
+        0.0025998149067163467,
+        0.002669898560270667
+      ],
+      "ever_warned": false,
+      "final_warning": false,
+      "reference_final_score": 0.005905412137508392,
+      "reference_final_warning": false,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hello, this is Mia from the Dental Practice. I'm",
+          "start_seconds": 0.8600000000000003,
+          "end_seconds": 4.36
+        },
+        {
+          "text": "calling about your checkup next Tuesday",
+          "start_seconds": 4.36,
+          "end_seconds": 6.3
+        },
+        {
+          "text": "at 10 in the morning. Hello, yes,",
+          "start_seconds": 6.3,
+          "end_seconds": 9.36
+        },
+        {
+          "text": "I have that in my calendar. The dentist",
+          "start_seconds": 9.88,
+          "end_seconds": 12.92
+        },
+        {
+          "text": "has a meeting",
+          "start_seconds": 12.92,
+          "end_seconds": 13.66
+        },
+        {
+          "text": "that morning. Would you be able to come at 11",
+          "start_seconds": 13.66,
+          "end_seconds": 16.84
+        },
+        {
+          "text": "instead? The appointment will still take",
+          "start_seconds": 16.84,
+          "end_seconds": 19.9
+        },
+        {
+          "text": "about half an hour. 11 works",
+          "start_seconds": 19.9,
+          "end_seconds": 22.94
+        },
+        {
+          "text": "for me. Do I need to bring anything?",
+          "start_seconds": 22.94,
+          "end_seconds": 25.14
+        },
+        {
+          "text": "Please bring your usual insurance",
+          "start_seconds": 28.04,
+          "end_seconds": 31.04
+        },
+        {
+          "text": "card when you come to reception. We don't need any",
+          "start_seconds": 31.04,
+          "end_seconds": 34.14
+        },
+        {
+          "text": "details over the phone today. Great, thanks",
+          "start_seconds": 34.14,
+          "end_seconds": 37.78
+        },
+        {
+          "text": "for letting me know. I'll see you on Tuesday.",
+          "start_seconds": 37.78,
+          "end_seconds": 40.28
+        }
+      ]
+    },
+    {
+      "id": "n03",
+      "kind": "human",
+      "file": "evaluation/validation/audio/n03.m4a",
+      "status": "tested",
+      "sha256": "256e3b8b0596bc2aeca318ef05cf4721d6c1fc5f4137083ef68610fc6e47079f",
+      "frozen": true,
+      "label": 0,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": null,
+      "outcome": "correctly_quiet",
+      "scores": [
+        0.002293988363817334,
+        0.0017705524805933237,
+        0.0016976551851257682,
+        0.0016968875424936414,
+        0.001708640600554645,
+        0.0016889666439965367,
+        0.0016889343969523907,
+        0.001701450441032648,
+        0.0018518550787121058,
+        0.0018726749112829566,
+        0.001833491725847125,
+        0.001831262488849461,
+        0.0019178541842848063
+      ],
+      "ever_warned": false,
+      "final_warning": false,
+      "reference_final_score": 0.0019428873201832175,
+      "reference_final_warning": false,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hi Dad, it's Emma, the train has been cancelled",
+          "start_seconds": 1.4000000000000012,
+          "end_seconds": 4.68
+        },
+        {
+          "text": "and I'm waiting at the station.",
+          "start_seconds": 4.68,
+          "end_seconds": 6.4
+        },
+        {
+          "text": "Could you pick me up when you finish work?",
+          "start_seconds": 6.98,
+          "end_seconds": 8.62
+        },
+        {
+          "text": "Of course, which entrance are you waiting at?",
+          "start_seconds": 10.48,
+          "end_seconds": 13.54
+        },
+        {
+          "text": "The one beside the bakery, it's raining quite hard,",
+          "start_seconds": 15.02,
+          "end_seconds": 18.34
+        },
+        {
+          "text": "so I'm standing outside for now.",
+          "start_seconds": 18.82,
+          "end_seconds": 20.52
+        },
+        {
+          "text": "There's no rush, I have a book with me.",
+          "start_seconds": 21.18,
+          "end_seconds": 23.26
+        },
+        {
+          "text": "I can be there in about 20 minutes.",
+          "start_seconds": 26.08,
+          "end_seconds": 28.36
+        },
+        {
+          "text": "Would you like me to bring your coat?",
+          "start_seconds": 29.0,
+          "end_seconds": 30.4
+        },
+        {
+          "text": "Yes, please.",
+          "start_seconds": 31.74,
+          "end_seconds": 32.42
+        },
+        {
+          "text": "It's on the chair by the kitchen door.",
+          "start_seconds": 33.16,
+          "end_seconds": 34.84
+        },
+        {
+          "text": "I'll watch for your car.",
+          "start_seconds": 35.54,
+          "end_seconds": 36.62
+        },
+        {
+          "text": "All right, stay inside and I'll call when I arrive.",
+          "start_seconds": 38.46,
+          "end_seconds": 41.76
+        }
+      ]
+    },
+    {
+      "id": "n06",
+      "kind": "human",
+      "file": "evaluation/validation/audio/n06.m4a",
+      "status": "tested",
+      "sha256": "2d5296b1639dadc463665ceafb25187ac464bdaf7d3bc2893f1ac435713310b5",
+      "frozen": true,
+      "label": 0,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": null,
+      "outcome": "correctly_quiet",
+      "scores": [
+        0.0020226885098963976,
+        0.0017076259246096015,
+        0.0016877828165888786,
+        0.0017080081161111593,
+        0.0018333208281546831,
+        0.0017553947400301695,
+        0.0019123679958283901,
+        0.0018597354646772146,
+        0.0019366070628166199,
+        0.0018675412284210324,
+        0.00194631889462471,
+        0.001987184165045619,
+        0.00194874731823802,
+        0.0018966970965266228,
+        0.0019434200366958976
+      ],
+      "ever_warned": false,
+      "final_warning": false,
+      "reference_final_score": 0.0019440121250227094,
+      "reference_final_warning": false,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hello, this is the Town Library.",
+          "start_seconds": 1.2799999999999996,
+          "end_seconds": 3.34
+        },
+        {
+          "text": "The book you reserved last week has arrived, and",
+          "start_seconds": 4.06,
+          "end_seconds": 7.3
+        },
+        {
+          "text": "I'm calling to let you know it's ready.",
+          "start_seconds": 7.3,
+          "end_seconds": 9.12
+        },
+        {
+          "text": "Lovely.",
+          "start_seconds": 10.1,
+          "end_seconds": 10.4
+        },
+        {
+          "text": "How long can you hold it for me?",
+          "start_seconds": 10.92,
+          "end_seconds": 12.28
+        },
+        {
+          "text": "We'll keep it at the front desk until such Saturday.",
+          "start_seconds": 13.64,
+          "end_seconds": 16.24
+        },
+        {
+          "text": "Bring your library card when you come in and we'll check it out",
+          "start_seconds": 16.96,
+          "end_seconds": 20.02
+        },
+        {
+          "text": "for you.",
+          "start_seconds": 20.02,
+          "end_seconds": 20.46
+        },
+        {
+          "text": "I can visit tomorrow afternoon, or you're open after",
+          "start_seconds": 21.44,
+          "end_seconds": 24.74
+        },
+        {
+          "text": "four?",
+          "start_seconds": 24.74,
+          "end_seconds": 25.12
+        },
+        {
+          "text": "Yes.",
+          "start_seconds": 26.46,
+          "end_seconds": 26.94
+        },
+        {
+          "text": "We close at seven on Thursdays.",
+          "start_seconds": 26.94,
+          "end_seconds": 29.18
+        },
+        {
+          "text": "The entrance on the square is open as usual.",
+          "start_seconds": 29.68,
+          "end_seconds": 32.92
+        },
+        {
+          "text": "Thank you.",
+          "start_seconds": 34.44,
+          "end_seconds": 35.28
+        },
+        {
+          "text": "I'll pick it up tomorrow.",
+          "start_seconds": 35.72,
+          "end_seconds": 36.68
+        }
+      ]
+    },
+    {
+      "id": "h01",
+      "kind": "human",
+      "file": "evaluation/validation/audio/h01.m4a",
+      "status": "tested",
+      "sha256": "ad3594c11494a0b37aac8f001f05d6905e7a32f0c3f761a938df7e967e62e2f4",
+      "frozen": true,
+      "label": 0,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": null,
+      "outcome": "correctly_quiet",
+      "scores": [
+        0.002245308831334114,
+        0.0017842811066657305,
+        0.002179427770897746,
+        0.0020594375673681498,
+        0.002488893922418356,
+        0.0025105520617216825,
+        0.002408271422609687,
+        0.0024546165950596333,
+        0.0023087039589881897,
+        0.0036126491613686085,
+        0.009029042907059193,
+        0.024308523163199425,
+        0.06564375013113022,
+        0.335989773273468,
+        0.2535463273525238,
+        0.08980146050453186
+      ],
+      "ever_warned": false,
+      "final_warning": false,
+      "reference_final_score": 0.06681874394416809,
+      "reference_final_warning": false,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hello, this is Claire from the city bank.",
+          "start_seconds": 2.1999999999999993,
+          "end_seconds": 5.16
+        },
+        {
+          "text": "We notice an unusual card payment and if temporarily",
+          "start_seconds": 5.46,
+          "end_seconds": 8.78
+        },
+        {
+          "text": "frozen the card as a precaution.",
+          "start_seconds": 8.78,
+          "end_seconds": 10.76
+        },
+        {
+          "text": "I haven't bought anything today.",
+          "start_seconds": 11.8,
+          "end_seconds": 13.64
+        },
+        {
+          "text": "What should I do?",
+          "start_seconds": 14.04,
+          "end_seconds": 14.62
+        },
+        {
+          "text": "Please open your usual banking app and review",
+          "start_seconds": 16.3,
+          "end_seconds": 19.32
+        },
+        {
+          "text": "the payment there or call the number printed",
+          "start_seconds": 19.32,
+          "end_seconds": 22.18
+        },
+        {
+          "text": "on your card.",
+          "start_seconds": 22.18,
+          "end_seconds": 22.86
+        },
+        {
+          "text": "You can also visit your branch.",
+          "start_seconds": 23.46,
+          "end_seconds": 25.0
+        },
+        {
+          "text": "Do you need my password or verification code?",
+          "start_seconds": 27.48,
+          "end_seconds": 30.94
+        },
+        {
+          "text": "No, keep both private.",
+          "start_seconds": 31.82,
+          "end_seconds": 34.14
+        },
+        {
+          "text": "I'm only notifying you.",
+          "start_seconds": 34.66,
+          "end_seconds": 35.82
+        },
+        {
+          "text": "You do not need to give me any account details or move",
+          "start_seconds": 36.32,
+          "end_seconds": 39.34
+        },
+        {
+          "text": "any money on this call.",
+          "start_seconds": 39.34,
+          "end_seconds": 40.62
+        },
+        {
+          "text": "Thank you.",
+          "start_seconds": 42.02,
+          "end_seconds": 42.58
+        },
+        {
+          "text": "I'll contact the bank using the number on my card.",
+          "start_seconds": 42.58,
+          "end_seconds": 45.84
+        }
+      ]
+    },
+    {
+      "id": "h03",
+      "kind": "human",
+      "file": "evaluation/validation/audio/h03.m4a",
+      "status": "tested",
+      "sha256": "5e57b0ae17db8641b9049d875ea84b76c80a69e421bbec567c5a165ea849662d",
+      "frozen": true,
+      "label": 0,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": null,
+      "outcome": "correctly_quiet",
+      "scores": [
+        0.0026666629128158092,
+        0.0017521223053336143,
+        0.0017019511433318257,
+        0.0016806871863082051,
+        0.0017371689900755882,
+        0.0017845561960712075,
+        0.001834883471019566,
+        0.002007207600399852,
+        0.003830308560281992,
+        0.004883954301476479,
+        0.004220174625515938,
+        0.004361167084425688,
+        0.00822509452700615,
+        0.005986898671835661
+      ],
+      "ever_warned": false,
+      "final_warning": false,
+      "reference_final_score": 0.003992930985987186,
+      "reference_final_warning": false,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hi mom, it's Laura.",
+          "start_seconds": 1.6399999999999988,
+          "end_seconds": 3.42
+        },
+        {
+          "text": "You mentioned getting a strange bank call yesterday and",
+          "start_seconds": 4.24,
+          "end_seconds": 7.74
+        },
+        {
+          "text": "I wanted to check you're all right.",
+          "start_seconds": 7.74,
+          "end_seconds": 9.22
+        },
+        {
+          "text": "I'm fine, but the caller sound is very convincing.",
+          "start_seconds": 10.0,
+          "end_seconds": 12.78
+        },
+        {
+          "text": "They said something about the security code.",
+          "start_seconds": 13.36,
+          "end_seconds": 15.54
+        },
+        {
+          "text": "Please don't share a banking password or a one-time",
+          "start_seconds": 16.72,
+          "end_seconds": 19.76
+        },
+        {
+          "text": "code with anyone who calls you.",
+          "start_seconds": 19.76,
+          "end_seconds": 21.42
+        },
+        {
+          "text": "If you're worried, hang up and contact your",
+          "start_seconds": 22.12,
+          "end_seconds": 25.14
+        },
+        {
+          "text": "bank using your card or the official app.",
+          "start_seconds": 25.14,
+          "end_seconds": 27.82
+        },
+        {
+          "text": "I ended the call without telling them anything.",
+          "start_seconds": 30.04,
+          "end_seconds": 32.98
+        },
+        {
+          "text": "Good. We can look through your account together",
+          "start_seconds": 33.94,
+          "end_seconds": 37.0
+        },
+        {
+          "text": "when I visit.",
+          "start_seconds": 37.0,
+          "end_seconds": 38.12
+        },
+        {
+          "text": "But keep your login details to yourself.",
+          "start_seconds": 39.2,
+          "end_seconds": 41.26
+        },
+        {
+          "text": "Thank you. I'll see you tomorrow.",
+          "start_seconds": 42.32,
+          "end_seconds": 44.28
+        }
+      ]
+    },
+    {
+      "id": "h07",
+      "kind": "human",
+      "file": "evaluation/validation/audio/h07.m4a",
+      "status": "tested",
+      "sha256": "4db5cf59e35d2578c456a6262b2a78ade137955bf2ebcfbd5d1a298a9cde1e0b",
+      "frozen": true,
+      "label": 0,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": 33.42,
+      "outcome": "false_alarm",
+      "scores": [
+        0.0019641576800495386,
+        0.0016997568309307098,
+        0.0016512743895873427,
+        0.0016549446154385805,
+        0.0016613566549494863,
+        0.0017522223060950637,
+        0.0025340819265693426,
+        0.027184410020709038,
+        0.1942790299654007,
+        0.8499399423599243,
+        0.9951851963996887,
+        0.9952532052993774,
+        0.9942209720611572
+      ],
+      "ever_warned": true,
+      "final_warning": true,
+      "reference_final_score": 0.9934569001197815,
+      "reference_final_warning": true,
+      "final_decision_differs_from_script": false,
+      "segments": [
+        {
+          "text": "Hello, this is Sam from the Internet Help",
+          "start_seconds": 0.0,
+          "end_seconds": 3.18
+        },
+        {
+          "text": "Desk, returning the support request you opened",
+          "start_seconds": 3.18,
+          "end_seconds": 6.12
+        },
+        {
+          "text": "about your connection dropping.",
+          "start_seconds": 6.12,
+          "end_seconds": 8.04
+        },
+        {
+          "text": "Thanks for calling back, it has stopped working twice",
+          "start_seconds": 9.06,
+          "end_seconds": 12.32
+        },
+        {
+          "text": "this afternoon.",
+          "start_seconds": 12.32,
+          "end_seconds": 13.14
+        },
+        {
+          "text": "Let's try restarting the router.",
+          "start_seconds": 14.32,
+          "end_seconds": 16.48
+        },
+        {
+          "text": "Unplug its power cable, wait 20 seconds",
+          "start_seconds": 17.3,
+          "end_seconds": 20.64
+        },
+        {
+          "text": "and plug it back in.",
+          "start_seconds": 20.64,
+          "end_seconds": 22.02
+        },
+        {
+          "text": "I'll stay on the line while the lights come back.",
+          "start_seconds": 22.86,
+          "end_seconds": 25.2
+        },
+        {
+          "text": "Do you need the Wi-Fi password from the label?",
+          "start_seconds": 26.459999999999997,
+          "end_seconds": 29.3
+        },
+        {
+          "text": "No, keep that private, just tell me whether",
+          "start_seconds": 30.24,
+          "end_seconds": 33.42
+        },
+        {
+          "text": "the Internet light turns green again.",
+          "start_seconds": 33.42,
+          "end_seconds": 35.72
+        },
+        {
+          "text": "It's green now, and the page on my laptop is loading.",
+          "start_seconds": 36.48,
+          "end_seconds": 39.78
+        }
+      ]
+    },
+    {
+      "id": "english_us_0004",
+      "kind": "original_robocall",
+      "file": "evaluation/external/robocalls/english_us_0004.wav",
+      "status": "tested",
+      "sha256": "41b4dbbde9a5b9ddc081ab74b5e5052aac97d837d37b2269473d2c16d24dde5b",
+      "frozen": true,
+      "label": null,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": null,
+      "outcome": "unlabelled",
+      "scores": [
+        0.0019953185692429543,
+        0.0017788842087611556,
+        0.0017700882162898779,
+        0.0017623299499973655,
+        0.0017543621361255646,
+        0.0017636660486459732,
+        0.001795995282009244,
+        0.0017677843570709229,
+        0.0017753771971911192,
+        0.0017299230676144361,
+        0.0017328677931800485,
+        0.001726376824080944,
+        0.0017243482870981097,
+        0.0017173755913972855
+      ],
+      "ever_warned": false,
+      "final_warning": false,
+      "source": "robocalls",
+      "transcript_sha256": "7533afbf9b8a09f07e53b548dfe17275dce0a1313748c85bae22b76976c7b508"
+    },
+    {
+      "id": "english_us_0006",
+      "kind": "original_robocall",
+      "file": "evaluation/external/robocalls/english_us_0006.wav",
+      "status": "tested",
+      "sha256": "d12297c860b1c3f31fff54f406808bb3d21df698d06b1a493a434c6f36f6ff59",
+      "frozen": true,
+      "label": null,
+      "warning_onset_seconds": null,
+      "first_warning_audio_seconds": null,
+      "outcome": "unlabelled",
+      "scores": [
+        0.0017936340300366282,
+        0.001678820000961423,
+        0.0016915453597903252,
+        0.0018250583671033382,
+        0.0018143538618460298
+      ],
+      "ever_warned": false,
+      "final_warning": false,
+      "source": "robocalls",
+      "transcript_sha256": "e52a33dfebd36e4dce11bddd2b266e34f2cb5a352c1830ad977f726dccb807f2"
+    }
+  ],
+  "limitations": [
+    "Authored, assistant-reviewed cases; not independent human validation or real-world accuracy.",
+    "Repeated runs are regression checks; do not train or tune on these cases.",
+    "Twelve audio cases are a subset, not twelve additional independent conversations.",
+    "Original robocalls are unlabelled exploratory checks, excluded from accuracy counts.",
+    "Audio times locate speech, not wall-clock latency or smartphone performance."
+  ],
+  "audio_status": {
+    "tested": 14
+  },
+  "audio_summary": {
+    "labelled_recordings_tested": 12,
+    "scam_calls": 6,
+    "scam_calls_flagged": 6,
+    "legitimate_calls": 6,
+    "false_alarms": 1,
+    "scam_calls_without_onset_annotation": 6,
+    "note": "Flagged means a warning occurred somewhere in the call, not necessarily at the right point."
+  }
+}

@@ -9,3 +9,4 @@ web/dist/
 **/.vite/
 models/candidate/
 evaluation/external/
+evaluation/validation/runs/

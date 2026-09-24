@@ -14,6 +14,11 @@ uv run python evaluate_external.py              # External corpus, downloaded be
 uv run python evaluate.py --model models/candidate
 ```
 
+For the fixed **20 scam / 10 normal / 10 harder legitimate** pitch-validation set,
+run `uv run python evaluate_validation.py`. See [protocol, results and recording
+scripts](validation/README.md). It supports candidate comparison and optional audio
+checks; missing recordings are reported rather than counted as passing tests.
+
 The three scripts write `results.json`, `audio_results.json` and
 `external_results.json`, including model/data hashes. Candidate evaluation writes
 inside the candidate directory. No evaluation command changes model weights.
