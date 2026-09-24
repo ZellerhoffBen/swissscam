@@ -37,6 +37,7 @@ function App() {
   function endCall() {
     stopCallRef.current?.();
     stopCallRef.current = null;
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     setPhoneState("home");
     setAnalysisState("idle");
     setTranscript("");
@@ -62,6 +63,35 @@ function App() {
     setStatus("Incoming call ready. Accept it to start the recording.");
   }
 
+  function issueScamWarning() {
+    audioRef.current?.pause();
+    setShowScamWarning(true);
+    setStatus("Possible scam detected. The call was paused.");
+
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const message = new SpeechSynthesisUtterance("Achtung. Dieser Anruf könnte Betrug sein. Legen Sie jetzt auf. Teilen Sie keine Codes, Passwörter oder Bankdaten.");
+      message.lang = "de-CH";
+      message.rate = 0.85;
+      window.speechSynthesis.speak(message);
+    }
+
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const context = new AudioContext();
+    [0, 0.32, 0.64].forEach((offset) => {
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.frequency.value = 880;
+      gain.gain.setValueAtTime(0.0001, context.currentTime + offset);
+      gain.gain.exponentialRampToValueAtTime(0.16, context.currentTime + offset + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + offset + 0.24);
+      oscillator.connect(gain).connect(context.destination);
+      oscillator.start(context.currentTime + offset);
+      oscillator.stop(context.currentTime + offset + 0.25);
+    });
+  }
+
   function acceptCall() {
     stopCallRef.current?.();
     setPhoneState("active");
@@ -84,7 +114,7 @@ function App() {
         // Dismissing a warning keeps analysis running without repeating the popup.
         if (result.warning && !warned) {
           warned = true;
-          setShowScamWarning(true);
+          issueScamWarning();
         }
       },
       onDone: (hasSpeech) => {
@@ -129,7 +159,7 @@ function App() {
               </div>}
               {phoneState === "active" && <div className="active-call">
                 <PhoneStatusBar /><div className="active-call-head">{formatTime(elapsed)}</div><h2>Marlene</h2><p className="phone-caption">mobile</p>
-                {showScamWarning && <div className="phone-scam-warning" role="alert"><AlertTriangle /><div><strong>Possible scam</strong><small>Pause and verify the caller independently.</small></div><button type="button" onClick={() => setShowScamWarning(false)} aria-label="Dismiss warning">×</button></div>}
+                {showScamWarning && <div className="phone-scam-warning" role="alert"><AlertTriangle /><div><strong>Achtung: möglicher Betrug</strong><small>Teilen Sie keine Codes oder Bankdaten.</small><button type="button" className="warning-end-call" onClick={endCall}><PhoneOff />Jetzt auflegen</button><button type="button" className="warning-dismiss" onClick={() => setShowScamWarning(false)}>Warnung schließen</button></div></div>}
                 <div className="call-tools"><button type="button"><span><MicOff /></span><small>mute</small></button><button type="button"><span><Grid3X3 /></span><small>keypad</small></button><button type="button"><span><Volume2 /></span><small>audio</small></button><button type="button"><span><Plus /></span><small>add call</small></button><button type="button"><span><Video /></span><small>FaceTime</small></button><button type="button"><span><CircleUserRound /></span><small>contacts</small></button></div><button type="button" className="end-call-button" aria-label="End call" onClick={endCall}><PhoneOff /><span>End call</span></button>
               </div>}
               <div className="home-indicator" />
