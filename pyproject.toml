@@ -9,6 +9,8 @@ dependencies = [
     "faster-whisper",
     "pydantic",
     "python-multipart",
+    "python-dotenv",
     "scikit-learn>=1.7,<2",
     "uvicorn",
+    "whisperx>=3.8.6",
 ]
