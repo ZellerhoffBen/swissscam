@@ -49,14 +49,17 @@ const fragmentShader = `
     float veilC = smoothstep(0.48, 0.0, abs(q.y - sin(q.x * 3.2 - t * 0.11) * 0.14));
     float grain = fbm(q * 2.5 + t * 0.035);
 
-    vec3 base = vec3(0.015, 0.024, 0.027);
-    vec3 mint = vec3(0.13, 0.73, 0.60);
-    vec3 ember = vec3(0.94, 0.25, 0.10);
-    vec3 gold = vec3(0.92, 0.65, 0.22);
-    vec3 color = base + mint * veilA * 0.35 + ember * veilB * 0.22 + gold * veilC * 0.08;
-    color += (grain - 0.5) * 0.025;
-    color *= 0.78 + 0.15 * sin(uv.y * 3.14 + t * 0.1);
-    gl_FragColor = vec4(pow(max(color, vec3(0.0)), vec3(0.92)), 1.0);
+    vec3 base = vec3(0.985, 0.99, 1.0);
+    vec3 blue = vec3(0.03, 0.42, 0.86);
+    vec3 magenta = vec3(0.69, 0.0, 0.43);
+    vec3 red = vec3(0.86, 0.0, 0.09);
+    vec3 color = base;
+    color = mix(color, blue, veilA * 0.025);
+    color = mix(color, magenta, veilB * 0.012);
+    color = mix(color, red, veilC * 0.006);
+    color += (grain - 0.5) * 0.006;
+    color *= 0.995 + 0.005 * sin(uv.y * 3.14 + t * 0.1);
+    gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
   }
 `;
 
