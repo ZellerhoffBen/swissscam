@@ -63,6 +63,40 @@ during cleanup. This table retains the historical result; the remaining scripts
 reproduce the active model's results. The active weight hash is recorded in
 `models/context/metadata.json`. Cleanup did not retrain or alter the model.
 
+## Discarded Apertus experiment (2026-09-24)
+
+We tested official Apertus Mini v1.1 Instruct 1.5B and 4B MLX INT4 models locally
+as a second opinion on MiniLM. The final task was only a choice between scam
+suspicion, no evidence yet, and uncertainty; no generated explanations or JSON.
+Prompts and hybrid triggers were selected on 48 existing validation calls, then
+frozen before evaluating 40 new synthetic calls (20 scam, 20 legitimate).
+The hybrid consulted Apertus at MiniLM scores >=0.70; uncertainty fell back to
+MiniLM's existing 0.95 threshold. We counted the first warning in each call.
+
+| System | Timely scam warnings | Missed scams | Premature scam warnings | Legitimate calls flagged |
+| --- | ---: | ---: | ---: | ---: |
+| MiniLM | 20/20 | 0 | 0 | 5/20 |
+| MiniLM + Apertus 1.5B | 19/20 | 0 | 1 | 6/20 |
+| MiniLM + Apertus 4B | 18/20 | 1 | 1 | 4/20 |
+
+**Decision: keep MiniLM.** With the selected prompt, 1.5B labelled every prefix
+suspicious. The 4B hybrid removed one false alarm but suppressed a correct warning
+on a request to approve a new bank device and share its activation code. Its
+improvement on validation calls did not carry over to the new cases. Reported
+scams and protective advice remained difficult. Simplifying the output removed
+format failures, but did not solve the classification problem.
+
+Speed was acceptable on an M1 Pro with 16GB RAM: 4B averaged 0.87s per check
+(p95 2.18s), with 3.46GB peak MLX allocation, excluding other application memory.
+This was not tested on a smartphone or alongside Whisper. The cases were
+assistant-authored and labelled, with paired scenarios; they do not establish
+real-world accuracy or rule out other local LLM configurations.
+
+The experiment code, dependencies, weights, datasets and raw reports were removed.
+This note retains the findings, not a reproducible benchmark. The active model
+and application were unchanged. Future candidates need new, independently reviewed
+calls and fewer false alarms without losing timely scam detections.
+
 ## External data
 
 [Tee Connie et al., Scam and Non-Scam Call Conversation Dataset, version 1](https://www.kaggle.com/datasets/teeconnie/scam-and-non-scam-call-conversation-dataset/versions/1)
