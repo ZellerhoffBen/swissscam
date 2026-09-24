@@ -9,3 +9,5 @@ def detect(transcript: str) -> DetectionResult:
         signals=["mock_bank_keyword"] if warning else [],
         reason="Mock: the transcript contains 'bank'." if warning else "",
     )
+
+
