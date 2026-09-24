@@ -210,7 +210,6 @@ function App() {
               <div className="home-indicator" />
             </div>
           </div>
-          <p className="simulator-note">Simulated phone · English recordings</p>
           <audio className="hidden-audio" ref={audioRef} src={audioUrl} onEnded={() => setPhoneState("ended")} aria-label="Selected call recording" />
         </div>
         <div className="insights-panel">
@@ -238,7 +237,6 @@ function App() {
           <CallCheck detection={detection} history={riskHistory} elapsed={elapsed} analysisState={analysisState} />
         </div>
       </section>
-      <p className="disclaimer">Prototype trained on synthetic examples. A call without a warning may still be a scam.</p>
     </main>
   );
 }

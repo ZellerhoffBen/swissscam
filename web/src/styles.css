@@ -26,7 +26,7 @@ button { cursor: pointer; }
 button:disabled { cursor: default; }
 h1, h2, h3, p { margin: 0; }
 button:focus-visible, .upload-audio:focus-within, .transcript:focus-visible { outline: 3px solid var(--swisscom-light-blue); outline-offset: 3px; }
-.shell { position: relative; isolation: isolate; max-width: 1180px; margin: auto; padding: 14px 28px 12px; }
+.shell { position: relative; isolation: isolate; max-width: 1320px; margin: auto; padding: 14px 28px 12px; }
 .topbar { display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid var(--swisscom-line); }
 .brand { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 700; letter-spacing: -.03em; }
 .brand-logo { width: 58px; height: 58px; object-fit: contain; }
@@ -34,9 +34,7 @@ button:focus-visible, .upload-audio:focus-within, .transcript:focus-visible { ou
 .intro { display: none; }
 .workspace { display: grid; grid-template-columns: minmax(320px, .9fr) minmax(0, 1.1fr); gap: 32px; }
 .call-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 18px 24px; }
-.simulator-note { color: var(--swisscom-muted); font-size: 11px; text-align: center; }
 .hidden-audio { display: none; }
-.disclaimer { padding-top: 10px; color: var(--swisscom-muted); font-size: 11px; text-align: right; line-height: 1.4; }
 
 /* Two related cards: conversation above, assessment below. */
 .insights-panel { min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
@@ -88,7 +86,7 @@ button:focus-visible, .upload-audio:focus-within, .transcript:focus-visible { ou
 .risk-reason p { color: var(--swisscom-muted); font-size: 13px; line-height: 1.45; }
 
 /* iPhone-inspired simulator, with display-only controls visibly disabled. */
-.phone-frame { position: relative; flex-shrink: 0; height: min(640px, calc(100dvh - 204px)); aspect-ratio: 9 / 19.5; padding: 7px; border: 2px solid #929ba9; border-radius: 44px; background: linear-gradient(145deg, #333943, #090b10 58%, #434b56); box-shadow: 0 0 0 1px #46516a, inset 0 0 0 1px rgba(255,255,255,.24), 0 22px 42px rgba(0,17,85,.22); }
+.phone-frame { position: relative; flex-shrink: 0; height: min(720px, calc(100dvh - 148px)); aspect-ratio: 9 / 19.5; padding: 7px; border: 2px solid #929ba9; border-radius: 44px; background: linear-gradient(145deg, #333943, #090b10 58%, #434b56); box-shadow: 0 0 0 1px #46516a, inset 0 0 0 1px rgba(255,255,255,.24), 0 22px 42px rgba(0,17,85,.22); }
 .phone-screen { position: relative; height: 100%; overflow: hidden; border-radius: 35px; background: var(--swisscom-navy); font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; color: #fff; }
 .phone-side { position: absolute; width: 3px; border-radius: 2px; background: #45494a; }
 .phone-side-left-one { top: 94px; left: -5px; height: 30px; }
@@ -153,8 +151,29 @@ button:focus-visible, .upload-audio:focus-within, .transcript:focus-visible { ou
 @keyframes state-pulse { to { opacity: .4; } }
 
 @media (min-width: 761px) {
-  .shell { height: 100dvh; min-height: 720px; display: grid; grid-template-rows: 64px minmax(0, 1fr) auto; }
+  .shell { height: 100dvh; min-height: 720px; display: grid; grid-template-rows: 64px minmax(0, 1fr); }
   .workspace { margin-top: 20px; min-height: 0; }
+}
+@media (min-width: 1001px) and (min-height: 800px) {
+  .transcript-card, .result { padding: 24px 28px; }
+  .transcript-card { max-height: 360px; }
+  .card-header h2, .card-title { font-size: 28px; }
+  .transcript { font-size: 20px; }
+  .risk-readout h3 { font-size: 20px; }
+  .risk-value strong { font-size: 34px; }
+  .analysis-state, .risk-value > span, .risk-scale, .risk-history-heading { font-size: 12px; }
+  .audio-source, .status, .upload-audio { font-size: 13px; }
+  .risk-chart { height: 72px; }
+  .risk-reason h3, .risk-reason p { font-size: 14px; }
+  .incoming-call h2, .active-call h2 { font-size: 34px; }
+  .phone-caption { font-size: 17px; }
+  .phone-time { font-size: 76px; }
+  .lock-date, .incoming-notification strong { font-size: 14px; }
+  .incoming-notification small, .call-tools small { font-size: 12px; }
+  .call-tools span { width: 58px; height: 58px; }
+  .call-action span, .end-call-button { width: 66px; height: 66px; }
+  .phone-scam-warning strong { font-size: 16px; }
+  .phone-scam-warning small { font-size: 13px; }
 }
 @media (max-width: 1000px) and (min-width: 761px) {
   .shell { padding-left: 16px; padding-right: 16px; }
@@ -178,7 +197,6 @@ button:focus-visible, .upload-audio:focus-within, .transcript:focus-visible { ou
   .transcript-card { flex: none; height: 280px; }
   .risk-readout h3 { font-size: 17px; }
   .risk-chart { height: 72px; }
-  .disclaimer { padding-top: 20px; text-align: left; font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
