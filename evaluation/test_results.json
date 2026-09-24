@@ -1,0 +1,696 @@
+{
+  "split": "test",
+  "model_sha256": "83b5f191b934c2128e000072392e4c51262edcf5c0b72a4416ee6fb1fd7eb1a8",
+  "test_sha256": "98d938f3df0deac106cf8b697dba31cd9198f208efe05bdca91d7104f6bfe498",
+  "classifier": {
+    "threshold": 0.7,
+    "scam_calls": 20,
+    "legitimate_calls": 20,
+    "detected": 19,
+    "missed": 1,
+    "premature_warning": 0,
+    "false_alarm": 0,
+    "correctly_quiet": 20,
+    "balanced_call_score": 0.975,
+    "mean_delay_turns": 0.2631578947368421,
+    "calls": [
+      {
+        "id": "local-test-test-family-orchestra-scam",
+        "category": "family",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 4,
+        "outcome": "detected",
+        "delay_turns": 1,
+        "scores": [
+          0.228237,
+          0.243367,
+          0.649961,
+          0.802876
+        ]
+      },
+      {
+        "id": "local-test-test-family-orchestra-legitimate",
+        "category": "family",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.228237,
+          0.243367,
+          0.119847,
+          0.290412
+        ]
+      },
+      {
+        "id": "local-test-test-family-dentist-scam",
+        "category": "family",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.1437,
+          0.074224,
+          0.147684,
+          0.176961,
+          0.74475,
+          0.849161
+        ]
+      },
+      {
+        "id": "local-test-test-family-dentist-legitimate",
+        "category": "family",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.1437,
+          0.074224,
+          0.147684,
+          0.176961,
+          0.133527,
+          0.255728
+        ]
+      },
+      {
+        "id": "local-test-test-shock-laboratory-scam",
+        "category": "shock",
+        "label": 1,
+        "warning_turn": 7,
+        "first_warning_turn": 7,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.090815,
+          0.031404,
+          0.030835,
+          0.051762,
+          0.112293,
+          0.145071,
+          0.772347,
+          0.859827
+        ]
+      },
+      {
+        "id": "local-test-test-shock-laboratory-legitimate",
+        "category": "shock",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.090815,
+          0.031404,
+          0.030835,
+          0.051762,
+          0.112293,
+          0.145071,
+          0.121499,
+          0.238686
+        ]
+      },
+      {
+        "id": "local-test-test-shock-maternity-scam",
+        "category": "shock",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.153416,
+          0.236916,
+          0.8671,
+          0.915215
+        ]
+      },
+      {
+        "id": "local-test-test-shock-maternity-legitimate",
+        "category": "shock",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.153416,
+          0.236916,
+          0.200255,
+          0.371016
+        ]
+      },
+      {
+        "id": "local-test-test-police-coincollection-scam",
+        "category": "police",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": null,
+        "outcome": "missed",
+        "delay_turns": null,
+        "scores": [
+          0.096466,
+          0.046219,
+          0.103339,
+          0.120116,
+          0.361475,
+          0.59269
+        ]
+      },
+      {
+        "id": "local-test-test-police-coincollection-legitimate",
+        "category": "police",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.096466,
+          0.046219,
+          0.103339,
+          0.120116,
+          0.085421,
+          0.195447
+        ]
+      },
+      {
+        "id": "local-test-test-police-witnessfare-scam",
+        "category": "police",
+        "label": 1,
+        "warning_turn": 7,
+        "first_warning_turn": 8,
+        "outcome": "detected",
+        "delay_turns": 1,
+        "scores": [
+          0.185431,
+          0.057046,
+          0.052214,
+          0.085513,
+          0.178649,
+          0.198568,
+          0.612759,
+          0.768967
+        ]
+      },
+      {
+        "id": "local-test-test-police-witnessfare-legitimate",
+        "category": "police",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.185431,
+          0.057046,
+          0.052214,
+          0.085513,
+          0.178649,
+          0.198568,
+          0.104685,
+          0.231681
+        ]
+      },
+      {
+        "id": "local-test-test-bank-accessibility-scam",
+        "category": "bank",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.36559,
+          0.627281,
+          0.914914,
+          0.947792
+        ]
+      },
+      {
+        "id": "local-test-test-bank-accessibility-legitimate",
+        "category": "bank",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.36559,
+          0.627281,
+          0.326145,
+          0.541582
+        ]
+      },
+      {
+        "id": "local-test-test-bank-cardcollection-scam",
+        "category": "bank",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.174294,
+          0.079428,
+          0.169412,
+          0.228088,
+          0.764537,
+          0.852375
+        ]
+      },
+      {
+        "id": "local-test-test-bank-cardcollection-legitimate",
+        "category": "bank",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.174294,
+          0.079428,
+          0.169412,
+          0.228088,
+          0.121544,
+          0.226387
+        ]
+      },
+      {
+        "id": "local-test-test-support-thermostat-scam",
+        "category": "support",
+        "label": 1,
+        "warning_turn": 7,
+        "first_warning_turn": 8,
+        "outcome": "detected",
+        "delay_turns": 1,
+        "scores": [
+          0.114413,
+          0.037348,
+          0.035463,
+          0.059536,
+          0.128856,
+          0.153781,
+          0.629361,
+          0.755014
+        ]
+      },
+      {
+        "id": "local-test-test-support-thermostat-legitimate",
+        "category": "support",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.114413,
+          0.037348,
+          0.035463,
+          0.059536,
+          0.128856,
+          0.153781,
+          0.333045,
+          0.504976
+        ]
+      },
+      {
+        "id": "local-test-test-support-subtitles-scam",
+        "category": "support",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.127503,
+          0.389588,
+          0.781669,
+          0.890274
+        ]
+      },
+      {
+        "id": "local-test-test-support-subtitles-legitimate",
+        "category": "support",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.127503,
+          0.389588,
+          0.459943,
+          0.679721
+        ]
+      },
+      {
+        "id": "local-test-test-refund-locker-scam",
+        "category": "refund",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.231958,
+          0.103655,
+          0.212134,
+          0.234442,
+          0.738101,
+          0.845828
+        ]
+      },
+      {
+        "id": "local-test-test-refund-locker-legitimate",
+        "category": "refund",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.231958,
+          0.103655,
+          0.212134,
+          0.234442,
+          0.516938,
+          0.684195
+        ]
+      },
+      {
+        "id": "local-test-test-refund-workshop-scam",
+        "category": "refund",
+        "label": 1,
+        "warning_turn": 7,
+        "first_warning_turn": 7,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.134486,
+          0.034837,
+          0.035422,
+          0.06456,
+          0.150961,
+          0.192192,
+          0.834,
+          0.903578
+        ]
+      },
+      {
+        "id": "local-test-test-refund-workshop-legitimate",
+        "category": "refund",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.134486,
+          0.034837,
+          0.035422,
+          0.06456,
+          0.150961,
+          0.192192,
+          0.265153,
+          0.460184
+        ]
+      },
+      {
+        "id": "local-test-test-delivery-flour-scam",
+        "category": "delivery",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 4,
+        "outcome": "detected",
+        "delay_turns": 1,
+        "scores": [
+          0.070883,
+          0.422798,
+          0.656475,
+          0.818685
+        ]
+      },
+      {
+        "id": "local-test-test-delivery-flour-legitimate",
+        "category": "delivery",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.070883,
+          0.422798,
+          0.239992,
+          0.465765
+        ]
+      },
+      {
+        "id": "local-test-test-delivery-luggage-scam",
+        "category": "delivery",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 6,
+        "outcome": "detected",
+        "delay_turns": 1,
+        "scores": [
+          0.110852,
+          0.038186,
+          0.130331,
+          0.165256,
+          0.654757,
+          0.788676
+        ]
+      },
+      {
+        "id": "local-test-test-delivery-luggage-legitimate",
+        "category": "delivery",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.110852,
+          0.038186,
+          0.130331,
+          0.165256,
+          0.155941,
+          0.300878
+        ]
+      },
+      {
+        "id": "local-test-test-insurance-volunteer-scam",
+        "category": "insurance",
+        "label": 1,
+        "warning_turn": 7,
+        "first_warning_turn": 7,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.210232,
+          0.057079,
+          0.051786,
+          0.087137,
+          0.186862,
+          0.203491,
+          0.793198,
+          0.885972
+        ]
+      },
+      {
+        "id": "local-test-test-insurance-volunteer-legitimate",
+        "category": "insurance",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.210232,
+          0.057079,
+          0.051786,
+          0.087137,
+          0.186862,
+          0.203491,
+          0.177144,
+          0.355367
+        ]
+      },
+      {
+        "id": "local-test-test-insurance-petoperation-scam",
+        "category": "insurance",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.255212,
+          0.227503,
+          0.837743,
+          0.913274
+        ]
+      },
+      {
+        "id": "local-test-test-insurance-petoperation-legitimate",
+        "category": "insurance",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.255212,
+          0.227503,
+          0.205504,
+          0.364994
+        ]
+      },
+      {
+        "id": "local-test-test-support-ebook-scam",
+        "category": "support",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.198426,
+          0.090626,
+          0.182226,
+          0.210948,
+          0.786506,
+          0.878905
+        ]
+      },
+      {
+        "id": "local-test-test-support-ebook-legitimate",
+        "category": "support",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.198426,
+          0.090626,
+          0.182226,
+          0.210948,
+          0.256125,
+          0.435014
+        ]
+      },
+      {
+        "id": "local-test-test-refund-charger-scam",
+        "category": "refund",
+        "label": 1,
+        "warning_turn": 7,
+        "first_warning_turn": 7,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.069196,
+          0.017112,
+          0.021733,
+          0.045538,
+          0.12138,
+          0.225057,
+          0.873563,
+          0.925876
+        ]
+      },
+      {
+        "id": "local-test-test-refund-charger-legitimate",
+        "category": "refund",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.069196,
+          0.017112,
+          0.021733,
+          0.045538,
+          0.12138,
+          0.225057,
+          0.255028,
+          0.421864
+        ]
+      },
+      {
+        "id": "local-test-test-delivery-costume-scam",
+        "category": "delivery",
+        "label": 1,
+        "warning_turn": 3,
+        "first_warning_turn": 3,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.131218,
+          0.216843,
+          0.939336,
+          0.959454
+        ]
+      },
+      {
+        "id": "local-test-test-delivery-costume-legitimate",
+        "category": "delivery",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.131218,
+          0.216843,
+          0.414302,
+          0.606568
+        ]
+      },
+      {
+        "id": "local-test-test-insurance-cyclerace-scam",
+        "category": "insurance",
+        "label": 1,
+        "warning_turn": 5,
+        "first_warning_turn": 5,
+        "outcome": "detected",
+        "delay_turns": 0,
+        "scores": [
+          0.052905,
+          0.02229,
+          0.085537,
+          0.114403,
+          0.763296,
+          0.875966
+        ]
+      },
+      {
+        "id": "local-test-test-insurance-cyclerace-legitimate",
+        "category": "insurance",
+        "label": 0,
+        "warning_turn": null,
+        "first_warning_turn": null,
+        "outcome": "correctly_quiet",
+        "delay_turns": null,
+        "scores": [
+          0.052905,
+          0.02229,
+          0.085537,
+          0.114403,
+          0.110085,
+          0.273166
+        ]
+      }
+    ]
+  },
+  "limitation": "Small synthetic text test; not evidence of real-call or speech-recognition performance."
+}
