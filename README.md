@@ -56,7 +56,10 @@ ignored. Failed transcription or analysis stops playback and displays an error.
 `POST /api/transcribe` transcribes the built-in recording. Uploaded recordings use
 `POST /api/transcribe/upload`, which streams transcript segments. The frontend
 sends only heard text to `POST /api/analyze`. Model outputs replace all scripted
-warnings; the UI does not display invented confidence percentages.
+warnings. Call Check shows the actual model score on a 0–100 scale, the warning
+threshold and a history of completed checks. Scores are not calibrated probabilities.
+Whisper's [word timestamps](https://github.com/SYSTRAN/faster-whisper#word-level-timestamps)
+provide roughly three-second text updates; recognition delays can still postpone them.
 
 Run `uv run python -m unittest -v` and `npm test` for the API, classifier and playback
 checks. Tests use controlled transcription fixtures; the app uses real Whisper.
@@ -99,7 +102,7 @@ uv run python evaluate.py                    # Evaluate on test calls
 ```
 
 The model is saved to `models/scam_classifier.pkl`; results go to `evaluation/`.
-`detector.py` loads the model and returns `warning`, an empty `signals` list and a
+`detector.py` loads the model and returns `warning`, `score`, `threshold`, an empty `signals` list and a
 general explanation. Specific scam tactics are not predicted. Restart the app after
 retraining. Only load trusted pickle files.
 
