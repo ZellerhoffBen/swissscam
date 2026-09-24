@@ -277,12 +277,14 @@ audio { margin-bottom: 14px; }
 .active-call .end-call-button { position: absolute; right: 50%; bottom: 27px; display: grid; width: 57px; height: 57px; margin: 0; transform: translateX(50%); place-items: center; border: 0; border-radius: 50%; color: #fff; background: #ff3b30; }
 .active-call .end-call-button svg { width: 26px; height: 26px; }
 .active-call .end-call-button span { display: none; }
-.phone-scam-warning { position: absolute; z-index: 6; top: 101px; right: 12px; left: 12px; display: grid; grid-template-columns: 24px 1fr 18px; gap: 8px; align-items: center; border: 1px solid rgba(255, 181, 119, .62); border-radius: 15px; padding: 10px; color: #fff; text-align: left; background: rgba(117, 39, 25, .82); box-shadow: 0 8px 24px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.16); backdrop-filter: blur(18px) saturate(1.2); animation: warning-in .35s ease-out; }
+.phone-scam-warning { position: absolute; z-index: 6; top: 86px; right: 12px; left: 12px; display: grid; grid-template-columns: 27px 1fr; gap: 8px; align-items: start; border: 1px solid rgba(255, 190, 124, .72); border-radius: 16px; padding: 12px; color: #fff; text-align: left; background: rgba(116, 34, 20, .94); box-shadow: 0 10px 28px rgba(0,0,0,.32), inset 0 1px rgba(255,255,255,.16); backdrop-filter: blur(18px) saturate(1.25); animation: warning-in .35s ease-out; }
 .phone-scam-warning > svg { width: 21px; color: #ffbf76; }
 .phone-scam-warning strong, .phone-scam-warning small { display: block; }
-.phone-scam-warning strong { font-size: 10px; }
-.phone-scam-warning small { margin-top: 2px; color: rgba(255,255,255,.72); font-size: 7px; line-height: 1.2; }
-.phone-scam-warning button { border: 0; padding: 0; color: rgba(255,255,255,.75); background: transparent; font-size: 19px; line-height: 1; }
+.phone-scam-warning strong { font-size: 11px; line-height: 1.15; }
+.phone-scam-warning small { margin-top: 3px; color: rgba(255,255,255,.82); font-size: 8px; line-height: 1.25; }
+.warning-end-call { display: flex; width: 100%; align-items: center; justify-content: center; gap: 5px; grid-column: 1 / -1; margin-top: 3px; border: 0; border-radius: 9px; padding: 8px; color: #fff; background: #ee3d31; font-size: 10px; font-weight: 800; }
+.warning-end-call svg { width: 14px; height: 14px; }
+.warning-dismiss { grid-column: 1 / -1; border: 0; padding: 1px; color: rgba(255,255,255,.62); background: transparent; font-size: 8px; text-decoration: underline; }
 @keyframes warning-in { from { transform: translateY(-8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @media (max-width: 760px) { .phone-frame { width: min(82vw, 310px); } }
 
