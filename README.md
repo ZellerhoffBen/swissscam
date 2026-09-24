@@ -17,8 +17,8 @@ uv run uvicorn main:app --reload
 
 Open http://127.0.0.1:8000. Use the demo recording or **Add recording**, then tap the
 incoming-call notification and **Accept**. Transcript updates and warnings follow
-playback. **End call** stops playback and discards pending results. Dismissing a
-warning keeps analysis running.
+playback. A warning leaves playback and analysis running; dismissing it closes only
+the popup. **End call** stops playback and discards pending results.
 
 No API key is needed. On first transcription, faster-whisper downloads its `base`
 model; subsequent calls run locally on CPU. The scam classifier is included.
@@ -36,14 +36,15 @@ flowchart LR
     B --> C[Text segments with timestamps]
     C --> D[Transcript heard so far]
     P[Audio playback position] --> D
-    D --> E[Scam classifier]
-    E --> F[Warning in the UI]
+    D --> E[Local MiniLM classifier]
+    E --> F[Risk score, history and warning]
 ```
 
 This is a recording-based call simulator, not microphone streaming. Whisper can
 process ahead, but a segment reaches the classifier only after playback passes its
-end timestamp. Late segments are processed in order; results from ended calls are
-ignored. Failed transcription or analysis stops playback and displays an error.
+end timestamp. Late segments are processed in order, even after the recording
+finishes. Manually ending a call discards pending results. Failed transcription or
+analysis stops playback and displays an error.
 
 | Component | File | Responsibility |
 | --- | --- | --- |
@@ -93,6 +94,7 @@ uv run python prepare_data.py       # Validate data and split boundaries
 uv run python train.py              # Train a separate MiniLM candidate
 uv run python evaluate.py           # Evaluate the active model on known call cases
 uv run python evaluate_audio.py     # Check the two supplied recordings
+uv run python evaluate_validation.py # Run the fixed 40-call validation set
 ```
 
 Training writes to ignored `models/candidate/`. The active weights are included;
@@ -119,3 +121,14 @@ scores do not establish real-world accuracy. No warning does not mean a safe cal
 
 See [data and labels](data/scam/README.md) and [evaluation details](evaluation/README.md)
 for external download instructions, recorded comparisons and limitations.
+
+The [repeatable validation set](evaluation/validation/README.md) adds 40 fixed
+scenarios, recording scripts and per-model reports. Its first text run detected
+20/20 scams with no premature warnings and flagged 4/20 legitimate calls. The
+12 team-recorded audio cases triggered warnings on 6/6 scam calls and 1/6 legitimate
+calls; warning timing in those recordings remains unverified. Two original robocalls
+were processed separately without fraud labels or accuracy claims.
+
+A local Apertus second-opinion experiment did not reliably improve detection and
+was removed. MiniLM remains the only scam classifier; the
+[findings](evaluation/README.md#discarded-apertus-experiment-2026-09-24) are retained.
