@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { AlarmClock, AlertTriangle, BatteryFull, CircleUserRound, Grid3X3, Info, MessageCircle, MicOff, Phone, PhoneCall, PhoneOff, Plus, Signal, Video, Volume2, Wifi } from "lucide-react";
 import { ShaderBackground } from "./ShaderBackground";
 import { startCall } from "./callSession";
+import { CallCheck } from "./CallCheck";
 import "./styles.css";
 
 function PhoneStatusBar() {
@@ -18,6 +19,7 @@ function App() {
   const [status, setStatus] = useState("Choose a recording or start the demo call.");
   const [transcript, setTranscript] = useState("");
   const [detection, setDetection] = useState(null);
+  const [riskHistory, setRiskHistory] = useState([]);
   const [analysisState, setAnalysisState] = useState("idle");
   const [phoneState, setPhoneState] = useState("home");
   const [elapsed, setElapsed] = useState(0);
@@ -40,6 +42,7 @@ function App() {
     setAnalysisState("idle");
     setTranscript("");
     setDetection(null);
+    setRiskHistory([]);
     setElapsed(0);
     setShowScamWarning(false);
     setStatus("Call ended. Start another demo when ready.");
@@ -61,9 +64,8 @@ function App() {
   }
 
   function issueScamWarning() {
-    audioRef.current?.pause();
     setShowScamWarning(true);
-    setStatus("Possible scam detected. The call was paused.");
+    setStatus("Possible scam detected.");
 
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
@@ -95,6 +97,7 @@ function App() {
     setAnalysisState("processing");
     setTranscript("");
     setDetection(null);
+    setRiskHistory([]);
     setElapsed(0);
     setShowScamWarning(false);
     setStatus("Playing and transcribing locally. Transcription may lag behind the audio.");
@@ -104,8 +107,9 @@ function App() {
       file: audioFile,
       onTime: setElapsed,
       onTranscript: setTranscript,
-      onDetection: (result) => {
+      onDetection: (result, seconds) => {
         setDetection(result);
+        setRiskHistory((history) => [...history, { seconds, score: result.score }]);
         // Dismissing a warning keeps analysis running without repeating the popup.
         if (result.warning && !warned) {
           warned = true;
@@ -167,10 +171,7 @@ function App() {
           <p className="audio-source">Recording: {audioFile?.name || "demo.wav"}</p>
           <p className="status" role="status">{status}</p>
           <div className="insight-block"><div className="section-index">NOW</div><div><p className="label">TRANSCRIPT</p><p className="transcript">{transcript || "The conversation will appear here when the call starts."}</p></div></div>
-          <div className={`result ${detection?.warning ? "warning" : detection ? "clear" : "empty"}`}>
-            <div className="section-index">STATUS</div><div className="result-content"><p className="label">CALL CHECK</p>
-            {detection ? <><div className="risk-line"><h2>{detection.warning ? "Pause before sharing" : "No warning so far"}</h2></div><p>{detection.reason || "No warning from the model on the transcript so far. This does not guarantee the call is safe."}</p>{detection.signals?.length > 0 && <div className="signals">{detection.signals.map((signal) => <span key={signal}>{signal.replace("_", " ")}</span>)}</div>}</> : <><h2>No notes yet</h2><p>Accept the call to begin the live transcript and call check.</p></>}</div>
-          </div>
+          <CallCheck detection={detection} history={riskHistory} elapsed={elapsed} analysisState={analysisState} />
         </div>
       </section>
       <p className="disclaimer">Prototype trained on synthetic examples. A call without a warning may still be a scam.</p>
