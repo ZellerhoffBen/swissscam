@@ -1,6 +1,6 @@
-import { StrictMode, useRef, useState } from "react";
+import { StrictMode, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { AlarmClock, BatteryFull, CircleUserRound, Grid3X3, Info, MessageCircle, MicOff, Phone, PhoneCall, PhoneOff, Plus, Signal, Video, Volume2, Wifi } from "lucide-react";
+import { AlarmClock, AlertTriangle, BatteryFull, CircleUserRound, Grid3X3, Info, MessageCircle, MicOff, Phone, PhoneCall, PhoneOff, Plus, Signal, Video, Volume2, Wifi } from "lucide-react";
 import { ShaderBackground } from "./ShaderBackground";
 import "./styles.css";
 
@@ -18,31 +18,67 @@ function PhoneStatusBar() {
   return <div className="ios-status-bar"><span>9:41</span><div><Signal /><Wifi /><BatteryFull /></div></div>;
 }
 
+const mockTranscriptSegments = [
+  { text: "Hello, this is your bank calling about a security check.", confidence: 18, signals: [] },
+  { text: "We noticed unusual activity and need to verify your account immediately.", confidence: 42, signals: ["urgency"] },
+  { text: "Please read me the verification code we just sent to your phone.", confidence: 78, signals: ["urgency", "otp_request"] },
+  { text: "Do not share this call with anyone or your account could be blocked.", confidence: 94, signals: ["urgency", "otp_request", "isolation"] },
+];
+
 function App() {
   const [status, setStatus] = useState("Ready to inspect the demo call.");
   const [transcript, setTranscript] = useState("");
   const [detection, setDetection] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [phoneState, setPhoneState] = useState("home");
+  const [mockStep, setMockStep] = useState(0);
+  const [confidence, setConfidence] = useState(0);
+  const [audioUrl, setAudioUrl] = useState("/audio/demo.wav");
+  const [showScamWarning, setShowScamWarning] = useState(false);
   const audioRef = useRef(null);
 
-  async function analyzeDemo() {
+  useEffect(() => {
+    if (phoneState !== "active" || !isAnalyzing) return undefined;
+    const timer = window.setInterval(() => {
+      setMockStep((step) => {
+        const nextStep = Math.min(step + 1, mockTranscriptSegments.length);
+        const segment = mockTranscriptSegments[nextStep - 1];
+        if (segment) {
+          setTranscript(mockTranscriptSegments.slice(0, nextStep).map(({ text }) => text).join(" "));
+          setConfidence(segment.confidence);
+          setShowScamWarning(segment.confidence >= 70);
+          setDetection({
+            warning: segment.confidence >= 70,
+            signals: segment.signals,
+            reason: segment.confidence >= 70 ? "The caller is creating pressure and asking for a one-time verification code." : "The conversation is still being monitored for suspicious patterns.",
+          });
+        }
+        if (nextStep >= mockTranscriptSegments.length) {
+          setIsAnalyzing(false);
+          setStatus("Live mock analysis complete.");
+          window.clearInterval(timer);
+        }
+        return nextStep;
+      });
+    }, 2200);
+    return () => window.clearInterval(timer);
+  }, [isAnalyzing, phoneState]);
+
+  function handleAudioUpload(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setAudioUrl(URL.createObjectURL(file));
+    setStatus(`${file.name} is ready for the mock call.`);
+  }
+
+  function analyzeDemo() {
     setIsAnalyzing(true);
     setTranscript("");
     setDetection(null);
-    try {
-      setStatus("Transcribing the call…");
-      const transcription = await postJson("/api/transcribe", { audio_id: "demo" });
-      setTranscript(transcription.text);
-      setStatus("Checking the conversation for scam signals…");
-      const result = await postJson("/api/analyze", { transcript: transcription.text });
-      setDetection(result);
-      setStatus("Analysis complete. Review the explanation below.");
-    } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Something went wrong.");
-    } finally {
-      setIsAnalyzing(false);
-    }
+    setConfidence(0);
+    setMockStep(0);
+    setShowScamWarning(false);
+    setStatus("Listening and transcribing live…");
   }
 
   function startIncomingCall() {
@@ -54,15 +90,17 @@ function App() {
     setPhoneState("active");
     setStatus("Call connected. Analyze the conversation when ready.");
     audioRef.current?.play().catch(() => {
-      setStatus("Call connected. Press play below to hear the demo recording.");
+      setStatus("Call connected. Audio playback is unavailable in this browser.");
     });
-    analyzeDemo();
+    window.setTimeout(analyzeDemo, 350);
   }
 
   function endCall() {
     setPhoneState("home");
     setStatus("Call ended. Start another demo when ready.");
     setIsAnalyzing(false);
+    setMockStep(0);
+    setShowScamWarning(false);
   }
 
   return (
@@ -74,7 +112,7 @@ function App() {
         
       </header>
       <section className="intro">
-        <p className="eyebrow">CALL MONITOR</p>
+       
         <h1>A quieter way to spot a risky call.</h1>
         <p className="lede">Play the prepared call, then see the conversation become a clear, explainable safety signal.</p>
       </section>
@@ -96,19 +134,20 @@ function App() {
               </div>}
               {phoneState === "active" && <div className="active-call">
                 <PhoneStatusBar /><div className="active-call-head">00:18</div><h2>Marlene</h2><p className="phone-caption">mobile</p>
+                {showScamWarning && <div className="phone-scam-warning" role="alert"><AlertTriangle /><div><strong>Possible scam</strong><small>Never share verification codes.</small></div><button type="button" onClick={() => setShowScamWarning(false)} aria-label="Dismiss warning">×</button></div>}
                 <div className="call-tools"><button type="button"><span><MicOff /></span><small>mute</small></button><button type="button"><span><Grid3X3 /></span><small>keypad</small></button><button type="button"><span><Volume2 /></span><small>audio</small></button><button type="button"><span><Plus /></span><small>add call</small></button><button type="button"><span><Video /></span><small>FaceTime</small></button><button type="button"><span><CircleUserRound /></span><small>contacts</small></button></div><button type="button" className="end-call-button" onClick={endCall}><PhoneOff /><span>End call</span></button>
               </div>}
               <div className="home-indicator" />
             </div>
           </div>
-          <audio className="hidden-audio" ref={audioRef} src="/audio/demo.wav" aria-label="Prepared demo recording" />
+          <audio className="hidden-audio" ref={audioRef} src={audioUrl} aria-label="Selected call recording" />
         </div>
         <div className="insights-panel">
-          <div className="analysis-header"><p className="eyebrow">BEHIND THE CALL</p><h2>What the model sees.</h2><span className={`analysis-state ${isAnalyzing ? "processing" : detection ? "complete" : "idle"}`}>{isAnalyzing ? "Analyzing" : detection ? "Updated" : "Waiting for call"}</span></div>
-          <div className="insight-block"><div className="section-index">01</div><div><p className="label">LIVE TRANSCRIPT</p><p className="transcript">{transcript || "The conversation appears here as soon as the call is accepted."}</p></div></div>
+          <div className="analysis-header"><div><p className="eyebrow">CALL NOTES</p><h2>Conversation log</h2></div><label className="upload-audio"><input type="file" accept="audio/*" onChange={handleAudioUpload} /><span>＋ Add recording</span></label><span className={`analysis-state ${isAnalyzing ? "processing" : detection ? "complete" : "idle"}`}>{isAnalyzing ? "Listening" : detection ? "Up to date" : "Standby"}</span></div>
+          <div className="insight-block"><div className="section-index">NOW</div><div><p className="label">TRANSCRIPT</p><p className="transcript">{transcript || "The conversation will appear here when the call starts."}</p></div></div>
           <div className={`result ${detection?.warning ? "warning" : detection ? "clear" : "empty"}`}>
-            <div className="section-index">02</div><div className="result-content"><p className="label">RISK ASSESSMENT</p>
-            {detection ? <><h2>{detection.warning ? "Possible scam detected" : "No warning detected"}</h2><p>{detection.reason || "No suspicious signals were found in this conversation."}</p>{detection.signals?.length > 0 && <div className="signals">{detection.signals.map((signal) => <span key={signal}>{signal}</span>)}</div>}</> : <><h2>Waiting for a signal</h2><p>Accept the demo call to start transcription and analysis automatically.</p></>}</div>
+            <div className="section-index">STATUS</div><div className="result-content"><p className="label">CALL CHECK</p>
+            {detection ? <><div className="risk-line"><h2>{detection.warning ? "Pause before sharing" : "No concern yet"}</h2><strong>{confidence}%</strong></div><div className="confidence-track"><span style={{ width: `${confidence}%` }} /></div><p>{detection.warning ? "This caller is applying pressure and asking for a one-time code." : "The call is being checked as new speech comes in."}</p>{detection.signals?.length > 0 && <div className="signals">{detection.signals.map((signal) => <span key={signal}>{signal.replace("_", " ")}</span>)}</div>}</> : <><h2>No notes yet</h2><p>Accept the call to begin the live transcript and call check.</p></>}</div>
           </div>
         </div>
       </section>
