@@ -13,6 +13,8 @@ Requires Python 3.13+ and [uv](https://docs.astral.sh/uv/).
 
 ```sh
 uv sync
+npm install
+npm run build
 uv run uvicorn main:app --reload
 ```
 
@@ -23,6 +25,41 @@ Use http://127.0.0.1:8000/docs to submit text to `/api/analyze`.
 
 The classifier uses **TF-IDF word and two-word features with logistic regression**.
 It receives only the conversation text, without speaker labels or scenario metadata.
+The page can play `data/audio/demo.wav`, a synthetic spoken sample. Playback is optional and not synchronised with analysis yet. The transcription mock checks that the file exists but does not process its audio. The detector warns whenever the text contains “bank” (case-insensitive); this is only a wiring check.
+
+| File | Responsibility |
+| --- | --- |
+| `main.py` | Serve the page/audio and connect the endpoints. |
+| `schemas.py` | Request and response data structures. |
+| `transcription.py` | Replace the fixed text with speech recognition here. |
+| `detector.py` | Replace the keyword rule with real detection here. |
+| `web/index.html` | Vite entry document for the React UI. |
+| `web/src/main.jsx` | React call monitor and API flow. |
+
+`POST /api/transcribe` accepts `{"audio_id": "demo"}` and returns `{"text": "..."}`. `POST /api/analyze` accepts `{"transcript": "..."}` and returns `warning`, `signals` and `reason`. Endpoint documentation: http://127.0.0.1:8000/docs.
+
+## app
+
+A browser-based call simulator plays a prepared English recording containing both sides of a conversation. Local speech recognition transcribes the audio incrementally, and a local detector checks the conversation for suspicious requests and manipulation.
+
+The call screen contains a file drop for call recordings, start/end controls, a call timer, a live transcript and a warning area. Warnings explain the concern in plain language:
+
+(here i want to change. it hsould say somethign like this: 
+the web app is there to demo the product. it contains two parts:
+1 .a regular looking call app screen meant to simlutare a normal phone call app. this is what the user would see. when our app detects a scam a big warning and options are displayed)
+2 . what happens behind that. so the transcript of the conversation and the current blocks ml prediction if its a scam, what reason etc.
+
+> **Possible scam**
+>
+> The caller is pressuring you to share a one-time code.
+>
+> **End call** · **Continue**
+
+Ending a call stops playback and analysis. Continuing dismisses the warning while analysis remains active. An unflagged call is not labelled “safe”.
+
+## Architecture
+
+One local Python backend serves the browser UI and runs transcription and detection. No database or external inference service is required.
 
 ```mermaid
 flowchart LR
