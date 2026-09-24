@@ -2,13 +2,14 @@
 
 import tempfile
 import unittest
+import json
 from pathlib import Path
 from unittest.mock import patch
 
 from detector import detect, load_model
 from evaluate import measure
-from prepare_data import iter_prefixes
-from train import selection_key
+from prepare_data import behavior_rows, iter_prefixes, validate_behaviors
+from evaluate_external import source_metrics, verify_file
 
 
 def call(label: int) -> dict:
@@ -24,6 +25,29 @@ def call(label: int) -> dict:
 
 
 class EvaluationTests(unittest.TestCase):
+    def test_external_metrics_keep_both_classes_and_serialize_numpy_scores(self) -> None:
+        import numpy as np
+        rows = [{"id": "scam", "label": 1}, {"id": "legitimate", "label": 0}]
+        result = source_metrics(rows, np.array([0.9, 0.8]), 0.7)
+        self.assertEqual(result["detected"], 1)
+        self.assertEqual(result["false_alarm"], 1)
+        self.assertEqual(result["balanced_accuracy"], 0.5)
+        json.dumps(result)
+
+    def test_frozen_evaluation_rejects_changed_inputs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "data.jsonl"
+            path.write_text("changed")
+            with self.assertRaisesRegex(ValueError, "Frozen evaluation input changed"):
+                verify_file(path, "0" * 64)
+
+    def test_behavior_data_has_separate_balanced_splits(self) -> None:
+        validate_behaviors()
+        for split in ("train", "validation", "test"):
+            rows = behavior_rows(split)
+            self.assertTrue(rows)
+            self.assertEqual(sum(r["label"] for r in rows), len(rows) // 2)
+
     def test_later_scam_does_not_make_early_warning_correct(self) -> None:
         result = measure([call(1), call(0)], [[0.9] * 4, [0.1] * 4], 0.5)
         self.assertEqual(result["premature_warning"], 1)
@@ -54,13 +78,6 @@ class EvaluationTests(unittest.TestCase):
     def test_incomplete_scores_are_rejected(self) -> None:
         with self.assertRaises(ValueError):
             measure([call(1), call(0)], [[0.1], [0.1]], 0.5)
-
-    def test_equal_detection_score_prefers_fewer_false_alarms(self) -> None:
-        cautious = {"balanced_call_score": 0.9, "false_alarm": 0,
-                    "premature_warning": 0, "mean_delay_turns": 0, "threshold": 0.6}
-        noisy = {**cautious, "false_alarm": 2, "threshold": 0.5}
-        self.assertGreater(selection_key(cautious), selection_key(noisy))
-
 
 class DetectorTests(unittest.TestCase):
     def tearDown(self) -> None:

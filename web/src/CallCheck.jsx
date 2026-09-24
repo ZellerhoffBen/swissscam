@@ -4,7 +4,7 @@ function timeLabel(seconds) {
 
 export function CallCheck({ detection, history, elapsed, analysisState }) {
   const score = detection?.score;
-  const threshold = detection?.threshold ?? 0.7;
+  const threshold = detection?.threshold ?? 0.95;
   const warning = detection?.warning ?? false;
   const title = detection
     ? warning ? "Potential scam detected" : "No warning so far"

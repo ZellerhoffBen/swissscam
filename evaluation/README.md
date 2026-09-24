@@ -1,67 +1,85 @@
-# Evaluation guide
+# Evaluation
 
-## The training recipe
+The active MiniLM classifier is a hackathon prototype. It still produces false
+alarms on security advice and reported scams. Scores are not calibrated probabilities.
+All local text cases are synthetic and assistant-labelled; both supplied recordings
+are synthetic voices. These are now known regression cases, not untouched tests.
 
-`train.py` uses the recipe that won our initial validation comparison:
-**75% training weight for authored text-so-far examples, 25% for public full calls**.
-Within each group, warning and no-warning examples get equal total weight.
-Identical prefixes are removed before training.
+## Run
 
-The initial comparison detected 19/20 validation scams with prefixes alone
-(one premature warning and one legitimate call flagged), versus 20/20 with public
-data included (no premature warnings or false alarms). That experiment is finished;
-the code now trains only the winning recipe.
+```sh
+uv run python evaluate.py                       # Call, behavior and wording checks
+uv run python evaluate_audio.py                 # Real Whisper on both supplied MP3s
+uv run python evaluate_external.py              # External corpus, downloaded below
+uv run python evaluate.py --model models/candidate
+```
 
-The model uses word/two-word TF-IDF features and logistic regression. Settings stay
-fixed: sublinear term frequency, minimum document frequency 2, maximum 20,000
-features, `C=4`, maximum 1,000 iterations. Only training text fits these components.
+The three scripts write `results.json`, `audio_results.json` and
+`external_results.json`, including model/data hashes. Candidate evaluation writes
+inside the candidate directory. No evaluation command changes model weights.
 
-Validation chooses a threshold from 0.05 to 0.95, in steps of 0.05. It balances
-correct scam warnings against quiet legitimate calls. Early warnings count against
-the model; ties prefer fewer false/early alerts, shorter delays, then thresholds
-closer to 0.5. The selected threshold is **0.70**, not a calibrated fraud probability.
+## Cases and measurements
 
-## Results on the 40 test calls
+- The `test` split in `data/scam/authored.jsonl` contains 48 calls.
+- `fresh_calls.jsonl` contains 80 further calls in 40 paired scenarios.
+- `regressions.jsonl` contains the two reported bank/SSA conversations.
+- The `test` split in `data/scam/behaviors.jsonl` contains 24 short texts. Checks
+  also remove punctuation or add an irrelevant introduction.
+- `data/audio/bank_legitimate.mp3` and `ssa_scam.mp3` exercise actual Whisper
+  segment boundaries. The first explicit SSN request ends at 29.12 seconds.
 
-| Measurement | Result |
-| --- | ---: |
-| Scam calls detected at/after the suspicious request | 19/20 |
-| Scam calls missed | 1/20 |
-| Scam calls warned before suspicious evidence | 0/20 |
-| Legitimate calls with any warning | 0/20 |
+Call scoring uses accumulated text after each turn. The first warning counts even
+if its score later drops. Warnings before annotated evidence are failures.
+Paired variants and formatting variants are related cases, not independent samples.
 
-Fourteen scams triggered at the evidence turn; five triggered one turn later.
-A turn is an utterance, not seconds. The average delay among detected scams was
-0.26 turns. An alert still counts even if a later score falls below the threshold.
+## Recorded model comparison
 
-The missed call is `local-test-test-police-coincollection-scam`: a fake official
-requests a coin collection for safekeeping and asks the recipient to hide the visit.
-Its final score is about 0.59. We did not lower the threshold after seeing this miss.
+Models and thresholds were frozen before the fresh evaluation: TF-IDF at 0.70 and
+MiniLM at 0.95. Neither was retrained on the fresh cases or external corpus.
 
-Separately, the fixed demo transcript also gets no warning despite asking for a
-verification code. This known short-text miss is outside the test counts.
+| Check | Previous TF-IDF | Active MiniLM |
+| --- | ---: | ---: |
+| 80 further calls: timely scam detection | 34/40 | 37/40 |
+| 80 further calls: premature scam warnings | 2/40 | 2/40 |
+| 80 further calls: false alarms | 15/40 | 14/40 |
+| Original 48 calls: timely scam detection | 23/24 | 24/24 |
+| Original 48 calls: false alarms | 3/24 | 4/24 |
+| Behavior checks | 15/24 | 19/24 |
+| External scam-labelled texts detected | 108/394 | 189/394 |
+| External legitimate texts flagged | 1/400 | 1/400 |
 
-## What to trust, and what to improve
+MiniLM handles both supplied recordings correctly: no warning on the bank call,
+and a warning at 29.12s on the scam. Warm CPU analysis averaged about 12ms per
+update on the development machine, excluding model load.
 
-These are small synthetic samples: 20 related scenario pairs per evaluation split,
-with shared author/style. Zero observed false alarms does not mean zero real-world
-false alarms. There are no real recordings, transcription errors, accents or
-word-level streaming tests. An unflagged call is not guaranteed safe.
+The predeclared target of at most 2/40 false alarms on the further calls **failed**.
+MiniLM was adopted as the relatively better prototype, not as production-ready.
+It changes six of 24 behavior decisions after a neutral introduction and misses
+205 external scam-labelled texts. Future accuracy claims need independent human
+review and genuinely new calls.
 
-The next useful work is independent human-written short scam/legitimate examples
-and separate recordings. Reserve fresh test calls before further tuning; the
-current test results are now known. The cleanup kept the training recipe and
-predictions unchanged, rather than tuning against these results.
+The completed comparison scripts, old model and intermediate reports were removed
+during cleanup. This table retains the historical result; the remaining scripts
+reproduce the active model's results. The active weight hash is recorded in
+`models/context/metadata.json`. Cleanup did not retrain or alter the model.
 
-## Generated reports
+## External data
 
-- `validation_results.json`: threshold comparison and selected validation result.
-- `test_results.json`: per-call outcomes and scores for the saved model.
+[Tee Connie et al., Scam and Non-Scam Call Conversation Dataset, version 1](https://www.kaggle.com/datasets/teeconnie/scam-and-non-scam-call-conversation-dataset/versions/1)
+contains 400 scam and 400 non-scam texts, combining collected scenarios with
+synthetic augmentation. Six exact duplicate scam texts are excluded before scoring.
+Source labels apply to whole texts, with no warning onset; some entries are ambiguous
+without more context. Report these scores separately from timed call detection.
 
-Run `uv run python evaluate.py` to reproduce the test report. Model/data hashes
-identify what was evaluated; an old report does not validate a newly trained model.
-The root README has the complete prepare/train/check/evaluate commands.
+License: **CC BY-NC-ND 4.0**. The archive is used locally for non-commercial research
+evaluation, never for training or redistribution. It stays in the ignored
+`evaluation/external/` directory; reports contain IDs/scores rather than source text.
 
-References: scikit-learn's [TF-IDF](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html),
-[logistic regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
-and [threshold selection](https://scikit-learn.org/stable/modules/classification_threshold.html).
+```sh
+mkdir -p evaluation/external
+curl -L --fail 'https://www.kaggle.com/api/v1/datasets/download/teeconnie/scam-and-non-scam-call-conversation-dataset?datasetVersionNumber=1' -o evaluation/external/calls.zip
+uv run python evaluate_external.py
+```
+
+The script verifies the pinned archive hash before evaluating. Synthetic and
+source-labelled test scores do not establish real-world accuracy.
