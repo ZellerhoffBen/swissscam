@@ -28,6 +28,15 @@ recording is short and currently does not trigger the classifier.
 For frontend development, run `npm run dev` alongside the backend on port 8000.
 Vite proxies API and demo-audio requests to the backend. API docs: http://127.0.0.1:8000/docs.
 
+## Demo interface
+
+The web app shows two views side by side:
+
+- **Call screen:** a simulated phone call with a prominent scam warning and options
+  to end the call or dismiss the warning.
+- **Analysis panel:** the transcript, current model score, risk history and warning
+  explanation, showing what the local pipeline is doing during playback.
+
 ## Call flow
 
 ```mermaid
