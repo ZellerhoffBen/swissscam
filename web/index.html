@@ -13,7 +13,7 @@
 </head>
 <body>
   <h1>swissscam</h1>
-  <p>Skeleton only. Transcription and detection are both mocked.</p>
+  <p>Prototype: a trained local classifier analyses a fixed mock transcript. All training examples are synthetic.</p>
   <audio controls src="/audio/demo.wav" aria-label="Prepared demo recording"></audio>
   <button id="analyze" type="button">Analyze demo audio</button>
   <p id="status" role="status">Ready. Playback is optional; analysis processes the whole demo.</p>
@@ -49,10 +49,10 @@
         transcript.textContent = transcription.text;
 
         // Step 2: detection receives text only, independent of the audio source.
-        statusText.textContent = "Analyzing (mock)…";
+        statusText.textContent = "Analyzing with the local classifier…";
         const detection = await postJson("/api/analyze", { transcript: transcription.text });
         result.textContent = JSON.stringify(detection, null, 2);
-        statusText.textContent = "Done — mock result, not a real safety assessment.";
+        statusText.textContent = "Done — prototype result on a mock transcript. No warning does not mean a call is safe.";
       } catch (error) {
         statusText.textContent = error.message;
       } finally {
