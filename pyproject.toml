@@ -4,4 +4,9 @@ version = "0.1.0"
 description = "Local scam-call detection skeleton"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["fastapi", "pydantic", "uvicorn"]
+dependencies = [
+    "fastapi",
+    "pydantic",
+    "scikit-learn>=1.7,<2",
+    "uvicorn",
+]
