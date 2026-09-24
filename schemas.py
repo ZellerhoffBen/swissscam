@@ -5,10 +5,24 @@ from pydantic import BaseModel, Field
 
 class TranscribeRequest(BaseModel):
     audio_id: str
+    up_to_seconds: float | None = Field(default=None, ge=0)
+
+
+class TranscriptSegment(BaseModel):
+    text: str
+    start_seconds: float
+    end_seconds: float
 
 
 class Transcript(BaseModel):
     text: str
+    segments: list[TranscriptSegment] = Field(default_factory=list)
+
+
+class TranscriptUpdate(BaseModel):
+    type: str
+    text: str
+    segment: TranscriptSegment | None = None
 
 
 class AnalyzeRequest(BaseModel):
