@@ -72,6 +72,8 @@ class DetectorTests(unittest.TestCase):
                      "Hello, this is your bank. Please share your verification code."):
             expected = bool(artifact["model"].predict_proba([text])[0, 1] >= artifact["threshold"])
             result = detect(text)
+            self.assertEqual(result.score, float(artifact["model"].predict_proba([text])[0, 1]))
+            self.assertEqual(result.threshold, artifact["threshold"])
             self.assertEqual(result.warning, expected)
             self.assertEqual(result.signals, [])
             self.assertEqual(bool(result.reason), expected)

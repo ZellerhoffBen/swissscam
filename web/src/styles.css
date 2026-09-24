@@ -326,3 +326,32 @@ audio { margin-bottom: 14px; }
 /* Keep long recordings readable inside the call monitor. */
 .insights-panel { overflow-y: auto; }
 .transcript { max-height: 12rem; overflow-y: auto; }
+
+
+/* Actual model scores, with a fixed warning threshold and a per-call history. */
+.result { flex: 0 0 auto; }
+.risk-readout { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.risk-readout h2 { flex: 1; min-width: 180px; }
+.risk-value { flex-shrink: 0; text-align: right; font: 12px "DM Mono", monospace; }
+.risk-value > span { display: block; margin-bottom: 5px; color: rgba(224,240,226,.5); font-size: 9px; }
+.risk-value strong { color: #b6dbcf; font-size: 23px; font-weight: 500; }
+.risk-value small { color: rgba(224,240,226,.45); font-size: 11px; }
+.result.warning .risk-value strong, .result.warning .risk-readout h2 { color: #f0b178; }
+.risk-meter { position: relative; height: 6px; margin-top: 14px; background: rgba(224,240,226,.13); border-radius: 3px; }
+.risk-meter-fill { display: block; height: 100%; border-radius: inherit; background: #9bcbbb; transition: width 180ms ease; }
+.result.warning .risk-meter-fill { background: #f0b178; }
+.risk-meter-threshold { position: absolute; top: -4px; width: 2px; height: 14px; background: #f0b178; transform: translateX(-1px); }
+.risk-scale, .risk-history-heading { display: flex; justify-content: space-between; gap: 8px; color: rgba(224,240,226,.5); font: 9px "DM Mono", monospace; }
+.risk-scale { margin-top: 8px; }
+.risk-history-heading { margin: 22px 0 8px; }
+.risk-chart { position: relative; height: 90px; border-bottom: 1px solid rgba(224,240,226,.15); }
+.risk-chart svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.risk-chart-threshold { stroke: rgba(240,177,120,.5); stroke-width: 1; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; }
+.risk-chart-line { fill: none; stroke: #9bcbbb; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.risk-point { fill: #9bcbbb; }
+.risk-point.warning { fill: #f0b178; }
+.risk-chart-empty { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(224,240,226,.4); font-size: 11px; text-align: center; pointer-events: none; }
+.risk-reason { margin-top: 20px; }
+.risk-reason h3 { margin: 0 0 8px; color: #b6dbcf; font-size: 14px; font-weight: 600; }
+.result.warning .risk-reason h3 { color: #f0b178; }
+@media (prefers-reduced-motion: reduce) { .risk-meter-fill { transition: none; } }

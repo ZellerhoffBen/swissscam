@@ -28,6 +28,8 @@ def detect(transcript: str) -> DetectionResult:
     warning = score >= artifact["threshold"]
     return DetectionResult(
         warning=warning,
+        score=score,
+        threshold=artifact["threshold"],
         # This binary model does not predict individual scam signals.
         signals=[],
         reason=("Possible scam: this conversation resembles scam requests in the training examples. "
