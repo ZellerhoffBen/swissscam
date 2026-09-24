@@ -1,141 +1,78 @@
 # swissscam
 
-A local scam-call detector that analyses conversations as they unfold and warns users when it detects signs of social engineering. Designed with elderly and vulnerable users in mind.
+Local scam-call detection for the Swisscom identity-fraud hackathon. The prototype
+classifies English conversations, including family impersonation (Enkeltrick),
+emergency scams (Schockanruf) and fake police calls.
 
-Built for the Swisscom identity-fraud challenge at the Swiss AI Weeks Zurich Hackathon.
+The demo page and text classifier work. Speech-to-text still returns a fixed mock
+transcript; analysis is not yet synchronised with audio playback.
 
-> A minimal mock skeleton is implemented. The sections below describe the target application.
+## Run
 
-## Run the skeleton
-
-With Python 3.13+ and uv installed:
+Requires Python 3.13+ and [uv](https://docs.astral.sh/uv/).
 
 ```sh
 uv sync
 uv run uvicorn main:app --reload
 ```
 
-Open http://127.0.0.1:8000 and click **Analyze demo audio**. No API keys are needed.
+Open http://127.0.0.1:8000. The trained model is included; no API key is needed.
+Use http://127.0.0.1:8000/docs to submit text to `/api/analyze`.
 
-```text
-Prepared audio ID → POST /api/transcribe → fixed transcript
-                  → POST /api/analyze    → mock detection result
-```
+## ML pipeline
 
-The page can play `data/audio/demo.wav`, a synthetic spoken sample. Playback is optional and not synchronised with analysis yet. The transcription mock checks that the file exists but does not process its audio. The detector warns whenever the text contains “bank” (case-insensitive); this is only a wiring check.
-
-| File | Responsibility |
-| --- | --- |
-| `main.py` | Serve the page/audio and connect the endpoints. |
-| `schemas.py` | Request and response data structures. |
-| `transcription.py` | Replace the fixed text with speech recognition here. |
-| `detector.py` | Replace the keyword rule with real detection here. |
-| `web/index.html` | Small UI and two sequential HTTP requests. |
-
-`POST /api/transcribe` accepts `{"audio_id": "demo"}` and returns `{"text": "..."}`. `POST /api/analyze` accepts `{"transcript": "..."}` and returns `warning`, `signals` and `reason`. Endpoint documentation: http://127.0.0.1:8000/docs.
-
-## app
-
-A browser-based call simulator plays a prepared English recording containing both sides of a conversation. Local speech recognition transcribes the audio incrementally, and a local detector checks the conversation for suspicious requests and manipulation.
-
-The call screen contains a file drop for call recordings, start/end controls, a call timer, a live transcript and a warning area. Warnings explain the concern in plain language:
-
-(here i want to change. it hsould say somethign like this: 
-the web app is there to demo the product. it contains two parts:
-1 .a regular looking call app screen meant to simlutare a normal phone call app. this is what the user would see. when our app detects a scam a big warning and options are displayed)
-2 . what happens behind that. so the transcript of the conversation and the current blocks ml prediction if its a scam, what reason etc.
-
-> **Possible scam**
->
-> The caller is pressuring you to share a one-time code.
->
-> **End call** · **Continue**
-
-Ending a call stops playback and analysis. Continuing dismisses the warning while analysis remains active. An unflagged call is not labelled “safe”.
-
-## Architecture
-
-One local Python backend serves the browser UI and runs transcription and detection. No database or external inference service is required.
+The classifier uses **TF-IDF word and two-word features with logistic regression**.
+It receives only the conversation text, without speaker labels or scenario metadata.
 
 ```mermaid
-flowchart TD
-    A[Prepared call recording] --> B[Browser: simulated call playback]
-    B -->|Audio segments already played| C[Python: local speech-to-text]
-    C --> D[Conversation text so far]
-    D --> E[Python: local scam detector]
-    E -->|Warning, signals, reason| F[Browser: warning area]
-    C -->|New transcript text| G[Browser: live transcript]
-    H[Timed transcript fixtures] -. Replay mode .-> D
-    H -. Replay mode .-> G
+flowchart LR
+    A[Transcript so far] --> B[TF-IDF features]
+    B --> C[Logistic regression]
+    C --> D[Warn if score ≥ 0.70]
 ```
 
-Playback determines how much audio is available for analysis. Segments are processed in order. Each completed transcript segment is appended to the conversation before detection runs. The detector never receives future dialogue or the scenario label.
+### Data and training
 
-Each call has its own in-memory state. Ending or restarting a call clears that state and ignores pending results from the previous call.
+All conversations are synthetic. Public data comes from
+[BothBosu/scam-dialogue](https://huggingface.co/datasets/BothBosu/scam-dialogue)
+under Apache 2.0. The additional scenarios and their labels are assistant-authored.
 
-## Components
+| Split | Conversations | Purpose |
+| --- | ---: | --- |
+| Training | 1,551 cleaned public + 240 authored | Learn text patterns |
+| Validation | 40 authored | Select the warning threshold |
+| Test | 40 authored | Evaluate the finished model |
 
-| Component | Responsibility |
-| --- | --- |
-| Frontend | Scenario selection, audio playback, call controls, transcript and warning display. |
-| Transcription and integration | Transcribe played audio segments locally, accumulate text, call the detector and return updates to the UI. |
-| Detection and data | Analyse partial conversations, identify suspicious signals, provide explanations and evaluate detection quality. |
+Related scenario pairs stay in the same split. Authored training calls produce
+960 distinct partial transcripts, labelled by whether a warning is justified at
+that point. A harmless opening remains negative even if the call later becomes a
+scam. Public calls have only whole-call labels, so they are used in full.
 
-Speech recognition processes short audio segments. Automatic speaker identification is outside the initial scope; the detector accepts plain conversation text.
+Training gives partial transcripts 75% of the weight and public calls 25%, with
+equal weight for positive and negative labels within each group. Validation selects
+a threshold that balances scam detection and false alarms, counting premature
+warnings as errors. The current threshold is **0.70**, not a calibrated probability
+of fraud.
 
-Detection looks for patterns such as pressure combined with requests for codes, credentials, money or remote access. A bank greeting or the word “urgent” alone should not trigger a warning.
+### Build and evaluate
 
-## Interfaces
-
-The transcription component produces text updates:
-
-```json
-{
-  "text": "Please read me the code we just sent you.",
-  "end_seconds": 24.0
-}
+```sh
+uv run python prepare_data.py                # Clean data and check splits
+uv run python train.py                       # Train and select the threshold
+uv run python -m unittest -v test_classifier  # Check timing and integration
+uv run python evaluate.py                    # Evaluate on test calls
 ```
 
-`end_seconds` marks the end of the processed audio segment in the recording. The integration layer appends `text` to the current conversation and passes that text history to `detect(transcript_history)`.
+The model is saved to `models/scam_classifier.pkl`; results go to `evaluation/`.
+`detector.py` loads the model and returns `warning`, an empty `signals` list and a
+general explanation. Specific scam tactics are not predicted. Restart the app after
+retraining. Only load trusted pickle files.
 
-The detector returns:
+The current synthetic test detects **19/20 scams**, with **0/20 legitimate calls
+flagged** and **no premature warnings**. It misses one fake-police valuables request.
+The short verification-code request in the fixed demo transcript is also missed.
+This small synthetic test does not establish real-world accuracy. A call without
+a warning may still be a scam. Reserve fresh test calls before further tuning.
 
-```json
-{
-  "warning": true,
-  "signals": ["urgency", "otp_request"],
-  "reason": "The caller is pressuring you to share a one-time code."
-}
-```
-
-When no warning is needed, it returns `warning: false`, an empty signals list and an empty reason. Reasons describe detected signals; the UI does not display an uncalibrated probability.
-
-The initial detector is a small rules baseline behind this interface. A local text classifier can replace or extend it without changing the call screen or transcription flow. Model and library choices remain open.
-
-## Demo modes
-
-- **Audio mode:** the recording plays while local speech recognition generates transcript updates for the detector.
-- **Transcript replay mode:** prepared, timed text segments feed the same detector as playback advances. This supports development and provides a fallback when speech recognition is unavailable or too slow.
-
-The active mode is visible in the UI. In both modes, warnings come from the detector rather than preset timestamps. End-to-end latency and model quality remain to be measured on the demo laptop.
-
-## Project layout
-
-```text
-main.py           # Local server and call-session coordination
-transcription.py  # Audio segments to transcript text
-detector.py       # Conversation text to detection result
-web/              # Browser UI
-data/             # Demo recordings, scripts and training data
-evaluation/       # Held-out conversations and evaluation results
-```
-
-The skeleton also includes `schemas.py`; the evaluation directory is not created yet. Future demo/test conversations will be kept separate from training data.
-
-## Validation
-
-Evaluate on held-out scam and legitimate calls, including legitimate security calls that sound superficially suspicious. Related scripts and paraphrases stay in the same dataset split.
-
-Report detected scams, false alarms and the first warning time relative to the victim sharing information or agreeing to payment. Audio mode is evaluated separately to capture transcription errors and processing delay.
-
-Consented, labelled internal fraud examples could improve scenario coverage and reduce false alarms. The prototype does not depend on access to Swisscom data.
+See [data sources and labels](data/scam/README.md) and
+[evaluation details](evaluation/README.md) for the full record.
