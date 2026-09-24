@@ -11,11 +11,26 @@ from transcription import transcribe
 ROOT = Path(__file__).parent
 app = FastAPI(title="swissscam skeleton")
 app.mount("/audio", StaticFiles(directory=ROOT / "data/audio"), name="audio")
+BUILT_FRONTEND = ROOT / "web/dist"
+if BUILT_FRONTEND.exists():
+    app.mount("/assets", StaticFiles(directory=BUILT_FRONTEND / "assets"), name="frontend-assets")
 
 
 @app.get("/")
 def index():
-    return FileResponse(ROOT / "web/index.html")
+    built_index = BUILT_FRONTEND / "index.html"
+    return FileResponse(built_index if built_index.exists() else ROOT / "web/index.html")
+
+
+@app.get("/swisscam-logo.png")
+def logo():
+    built_logo = BUILT_FRONTEND / "swissscam-logo.png"
+    source_logo = ROOT / "web/public/swissscam-logo.png"
+    if built_logo.exists():
+        return FileResponse(built_logo, media_type="image/png")
+    if source_logo.exists():
+        return FileResponse(source_logo, media_type="image/png")
+    raise HTTPException(status_code=404, detail="Logo asset not found")
 
 
 @app.post("/api/transcribe")

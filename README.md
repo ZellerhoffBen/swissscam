@@ -12,6 +12,8 @@ With Python 3.13+ and uv installed:
 
 ```sh
 uv sync
+npm install
+npm run build
 uv run uvicorn main:app --reload
 ```
 
@@ -30,7 +32,8 @@ The page can play `data/audio/demo.wav`, a synthetic spoken sample. Playback is 
 | `schemas.py` | Request and response data structures. |
 | `transcription.py` | Replace the fixed text with speech recognition here. |
 | `detector.py` | Replace the keyword rule with real detection here. |
-| `web/index.html` | Small UI and two sequential HTTP requests. |
+| `web/index.html` | Vite entry document for the React UI. |
+| `web/src/main.jsx` | React call monitor and API flow. |
 
 `POST /api/transcribe` accepts `{"audio_id": "demo"}` and returns `{"text": "..."}`. `POST /api/analyze` accepts `{"transcript": "..."}` and returns `warning`, `signals` and `reason`. Endpoint documentation: http://127.0.0.1:8000/docs.
 
