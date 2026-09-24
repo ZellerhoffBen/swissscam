@@ -2,13 +2,15 @@
 
 import tempfile
 import unittest
+import json
 from pathlib import Path
 from unittest.mock import patch
 
 from detector import detect, load_model
 from evaluate import measure
-from prepare_data import iter_prefixes
-from train import selection_key
+from prepare_data import behavior_rows, iter_prefixes, validate_behaviors
+from evaluate_external import source_metrics, verify_file
+from evaluate_validation import audio_outcome, audio_summary, compare_reports, load_suite, SUITE
 
 
 def call(label: int) -> dict:
@@ -24,6 +26,72 @@ def call(label: int) -> dict:
 
 
 class EvaluationTests(unittest.TestCase):
+    def test_validation_suite_is_frozen_balanced_and_separate(self) -> None:
+        calls, manifest = load_suite()
+        self.assertEqual(len(calls), 40)
+        self.assertEqual(sum(c["label"] for c in calls), 20)
+        self.assertEqual(len(manifest["audio"]), 14)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)
+            (path / "manifest.json").write_text((SUITE / "manifest.json").read_text())
+            (path / "calls.jsonl").write_text((SUITE / "calls.jsonl").read_text() + "\n")
+            with self.assertRaisesRegex(ValueError, "Frozen validation cases changed"):
+                load_suite(path)
+
+    def test_unlabelled_audio_and_missing_onsets_are_not_passing_tests(self) -> None:
+        self.assertEqual(audio_outcome(None, None, 5), "unlabelled")
+        self.assertEqual(audio_outcome(1, None, 5), "onset_not_annotated")
+        self.assertEqual(audio_outcome(1, 10, 5), "premature_warning")
+        self.assertEqual(audio_outcome(1, 10, 10), "detected")
+        self.assertEqual(audio_outcome(1, 10, None), "missed")
+        self.assertEqual(audio_outcome(0, None, 0), "false_alarm")
+        self.assertEqual(audio_outcome(0, None, None), "correctly_quiet")
+
+    def test_audio_summary_separates_call_warnings_from_verified_onsets(self) -> None:
+        report = audio_summary([
+            {"status": "missing"},
+            {"status": "tested", "label": None},
+            {"status": "tested", "label": 1, "ever_warned": True, "warning_onset_seconds": None},
+            {"status": "tested", "label": 0, "ever_warned": True, "warning_onset_seconds": None},
+        ])
+        self.assertEqual(report["labelled_recordings_tested"], 2)
+        self.assertEqual(report["scam_calls_flagged"], 1)
+        self.assertEqual(report["false_alarms"], 1)
+        self.assertEqual(report["scam_calls_without_onset_annotation"], 1)
+
+    def test_comparison_reports_lost_detections_even_if_false_alarms_improve(self) -> None:
+        before = {"cases_sha256": "same", "model_files_sha256": {"model.safetensors": "old"},
+                  "text": measure([call(1), call(0)], [[0, 0, 1, 1], [0, 0, 1, 1]], 0.5)}
+        after = {**before, "text": measure([call(1), call(0)], [[0]*4, [0]*4], 0.5)}
+        result = compare_reports(after, before)
+        self.assertEqual(result["count_changes"]["false_alarm"], -1)
+        self.assertEqual(result["lost_detections"], ["fixture-1"])
+        with self.assertRaisesRegex(ValueError, "different test cases"):
+            compare_reports({**after, "cases_sha256": "different"}, before)
+
+    def test_external_metrics_keep_both_classes_and_serialize_numpy_scores(self) -> None:
+        import numpy as np
+        rows = [{"id": "scam", "label": 1}, {"id": "legitimate", "label": 0}]
+        result = source_metrics(rows, np.array([0.9, 0.8]), 0.7)
+        self.assertEqual(result["detected"], 1)
+        self.assertEqual(result["false_alarm"], 1)
+        self.assertEqual(result["balanced_accuracy"], 0.5)
+        json.dumps(result)
+
+    def test_frozen_evaluation_rejects_changed_inputs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "data.jsonl"
+            path.write_text("changed")
+            with self.assertRaisesRegex(ValueError, "Frozen evaluation input changed"):
+                verify_file(path, "0" * 64)
+
+    def test_behavior_data_has_separate_balanced_splits(self) -> None:
+        validate_behaviors()
+        for split in ("train", "validation", "test"):
+            rows = behavior_rows(split)
+            self.assertTrue(rows)
+            self.assertEqual(sum(r["label"] for r in rows), len(rows) // 2)
+
     def test_later_scam_does_not_make_early_warning_correct(self) -> None:
         result = measure([call(1), call(0)], [[0.9] * 4, [0.1] * 4], 0.5)
         self.assertEqual(result["premature_warning"], 1)
@@ -55,13 +123,6 @@ class EvaluationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             measure([call(1), call(0)], [[0.1], [0.1]], 0.5)
 
-    def test_equal_detection_score_prefers_fewer_false_alarms(self) -> None:
-        cautious = {"balanced_call_score": 0.9, "false_alarm": 0,
-                    "premature_warning": 0, "mean_delay_turns": 0, "threshold": 0.6}
-        noisy = {**cautious, "false_alarm": 2, "threshold": 0.5}
-        self.assertGreater(selection_key(cautious), selection_key(noisy))
-
-
 class DetectorTests(unittest.TestCase):
     def tearDown(self) -> None:
         load_model.cache_clear()
@@ -72,6 +133,8 @@ class DetectorTests(unittest.TestCase):
                      "Hello, this is your bank. Please share your verification code."):
             expected = bool(artifact["model"].predict_proba([text])[0, 1] >= artifact["threshold"])
             result = detect(text)
+            self.assertEqual(result.score, float(artifact["model"].predict_proba([text])[0, 1]))
+            self.assertEqual(result.threshold, artifact["threshold"])
             self.assertEqual(result.warning, expected)
             self.assertEqual(result.signals, [])
             self.assertEqual(bool(result.reason), expected)

@@ -1,24 +1,22 @@
-import pickle
+import json
 from functools import lru_cache
 from pathlib import Path
 
-import sklearn
-
 from schemas import DetectionResult
 
-MODEL_PATH = Path(__file__).resolve().parent / "models" / "scam_classifier.pkl"
+MODELS = Path(__file__).resolve().parent / "models"
+MODEL_PATH = MODELS / "context" / "model.safetensors"
 
 
 @lru_cache(maxsize=1)
-def load_model() -> dict:
-    if not MODEL_PATH.exists():
-        raise RuntimeError("Classifier missing. Run: uv run python train.py")
-    # Only load this project's trusted, locally trained artifact. Pickle files
-    # can execute code; never load an uploaded or untrusted model here.
-    artifact = pickle.loads(MODEL_PATH.read_bytes())
-    if artifact["sklearn_version"] != sklearn.__version__:
-        raise RuntimeError("Classifier version mismatch. Run uv sync, then retrain if needed.")
-    return artifact
+def load_model(directory: Path | None = None) -> dict:
+    path = MODEL_PATH if directory is None else directory / "model.safetensors"
+    if not path.exists():
+        raise RuntimeError("Classifier missing. Restore models/context; train.py creates candidates separately.")
+    from context_model import ContextClassifier
+
+    metadata = json.loads((path.parent / "metadata.json").read_text())
+    return {**metadata, "model": ContextClassifier(path.parent)}
 
 
 def detect(transcript: str) -> DetectionResult:
@@ -28,6 +26,8 @@ def detect(transcript: str) -> DetectionResult:
     warning = score >= artifact["threshold"]
     return DetectionResult(
         warning=warning,
+        score=score,
+        threshold=artifact["threshold"],
         # This binary model does not predict individual scam signals.
         signals=[],
         reason=("Possible scam: this conversation resembles scam requests in the training examples. "

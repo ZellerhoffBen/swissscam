@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "created": "2026-09-24",
+  "calls_sha256": "1b64f9aa1b53e20e8cffe714e5bee9c943207fd0263d8e886d8b0a3392f86b34",
+  "review": "Assistant-authored and assistant-reviewed before inference. No independent human label validation.",
+  "selection": "40 fixed ordinary scenarios: 20 scam, 10 normal, 10 hard legitimate. Audio IDs selected before model inference. Originals: first two lexicographically sorted US-English WAV files lasting 10-60 seconds; not chosen by classifier output.",
+  "decision_rule": "First warning per text call; pre-evidence warnings count as failures. Report each legitimate group separately. No tuning on this set. Audio onset is annotated on the recording before timing outcomes can be scored; no wall-clock latency benchmark.",
+  "sources": {
+    "family": {
+      "title": "CFPB: Grandparent scams",
+      "url": "https://files.consumerfinance.gov/f/documents/cfpb_431_2025.pdf",
+      "use": "General scam mechanism only; dialogues are newly authored."
+    },
+    "emergency": {
+      "title": "US Office for Victims of Crime: Common scams and warning signs",
+      "url": "https://ovc.ojp.gov/program/stop-elder-fraud/common-scams-and-warning-signs",
+      "use": "Family emergencies and government impersonation; invented dialogue and details."
+    },
+    "swiss_phone_fraud": {
+      "title": "NCSC: Phone fraud in the cyber domain",
+      "url": "https://www.ncsc.admin.ch/dam/ncsc/en/dokumente/dokumentation/fachberichte/bacs-bericht-telefonbetrug_en.pdf.download.pdf/bacs-bericht-telefonbetrug_en.pdf",
+      "use": "Swiss impersonation context; invented dialogue, not a verbatim reported call."
+    },
+    "swiss_banking": {
+      "title": "NCSC: Staying safe online",
+      "url": "https://www.bacs.admin.ch/en/staying-safe-online",
+      "use": "Bank-password and OTP requests, protective advice; newly authored conversations."
+    },
+    "safe_account": {
+      "title": "FTC: Did someone tell you to move or transfer your money?",
+      "url": "https://consumer.ftc.gov/consumer-alerts/2024/01/did-someone-tell-you-move-or-transfer-your-money-it-could-be-scam",
+      "use": "Safe-account pretext and concealment; invented dialogue."
+    },
+    "tech_support": {
+      "title": "FTC: How to spot, avoid, and report tech support scams",
+      "url": "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams",
+      "use": "Unsolicited remote access and account access pretexts; invented dialogue."
+    },
+    "refund": {
+      "title": "FTC: Hang up on fake refund calls",
+      "url": "https://consumer.ftc.gov/consumer-alerts/2020/08/hang-fake-refund-calls",
+      "use": "Refund pretext used to obtain money or banking access; invented dialogue."
+    },
+    "robocalls": {
+      "title": "International Robocalls Dataset",
+      "authors": "Kemal Altwlkany, Andro Mercep, Tomislav Djuricic, Ante Kapetanovic, Emanuel Lacic (2026)",
+      "url": "https://zenodo.org/records/21066049",
+      "license": "CC-BY-NC-4.0",
+      "use": "Two unchanged original audio files, separate exploratory checks. The index confirms robocalls, not fraud labels for these individual files.",
+      "download": "https://zenodo.org/api/records/21066049/files/audio.zip/content",
+      "archive_md5": "c0e832c51613a8015ab586031b273876"
+    }
+  },
+  "audio": [
+    {
+      "id": "s01",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s01.m4a",
+      "sha256": "0901c3f3669bda8919ac61bd9c2b7a3e444369539f0bfad33a082bf983e1b67c",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-14-15 2.m4a"
+    },
+    {
+      "id": "s05",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s05.m4a",
+      "sha256": "37c15a0f51dda33dc16059ffe2ec8cc9babe70aae17a2295d560f93445363d11",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-18-03.m4a"
+    },
+    {
+      "id": "s09",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s09.m4a",
+      "sha256": "9a8beaab4c5c9edb6df6522e32e9ee0c2095722979a7b861de872a898a9bb681",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-15-04 2.m4a"
+    },
+    {
+      "id": "s13",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s13.m4a",
+      "sha256": "900ced49fa30cc639fe3c86f518bb2ddfa52e203ff7fdf718526bdc75610b080",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-18-53.m4a"
+    },
+    {
+      "id": "s17",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s17.m4a",
+      "sha256": "7a8ce209e57cb39eb065dd8aaa3deffca731d8787f703d00a3ca0faa3327c10b",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-22-11.m4a"
+    },
+    {
+      "id": "s20",
+      "kind": "human",
+      "file": "evaluation/validation/audio/s20.m4a",
+      "sha256": "bef90be6c4284f75bd7f5657312a421276376fb8c2cc11085e5bd3a269c6c050",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-23-04.m4a"
+    },
+    {
+      "id": "n01",
+      "kind": "human",
+      "file": "evaluation/validation/audio/n01.m4a",
+      "sha256": "92187997bb1a6182d558d5f4e239afb08cf6fb3aaa045711abc4eddc6965f0c0",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-23-57.m4a"
+    },
+    {
+      "id": "n03",
+      "kind": "human",
+      "file": "evaluation/validation/audio/n03.m4a",
+      "sha256": "256e3b8b0596bc2aeca318ef05cf4721d6c1fc5f4137083ef68610fc6e47079f",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-15-50 2.m4a"
+    },
+    {
+      "id": "n06",
+      "kind": "human",
+      "file": "evaluation/validation/audio/n06.m4a",
+      "sha256": "2d5296b1639dadc463665ceafb25187ac464bdaf7d3bc2893f1ac435713310b5",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-24-36.m4a"
+    },
+    {
+      "id": "h01",
+      "kind": "human",
+      "file": "evaluation/validation/audio/h01.m4a",
+      "sha256": "ad3594c11494a0b37aac8f001f05d6905e7a32f0c3f761a938df7e967e62e2f4",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-16-41 2.m4a"
+    },
+    {
+      "id": "h03",
+      "kind": "human",
+      "file": "evaluation/validation/audio/h03.m4a",
+      "sha256": "5e57b0ae17db8641b9049d875ea84b76c80a69e421bbec567c5a165ea849662d",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-25-24.m4a"
+    },
+    {
+      "id": "h07",
+      "kind": "human",
+      "file": "evaluation/validation/audio/h07.m4a",
+      "sha256": "4db5cf59e35d2578c456a6262b2a78ade137955bf2ebcfbd5d1a298a9cde1e0b",
+      "warning_onset_seconds": null,
+      "original_filename": "AUDIO-2026-09-24-22-26-16.m4a"
+    },
+    {
+      "id": "english_us_0004",
+      "kind": "original_robocall",
+      "source": "robocalls",
+      "file": "evaluation/external/robocalls/english_us_0004.wav",
+      "archive_member": "audio/english_us/english_us_0004.wav",
+      "sha256": "41b4dbbde9a5b9ddc081ab74b5e5052aac97d837d37b2269473d2c16d24dde5b",
+      "label": null,
+      "warning_onset_seconds": null
+    },
+    {
+      "id": "english_us_0006",
+      "kind": "original_robocall",
+      "source": "robocalls",
+      "file": "evaluation/external/robocalls/english_us_0006.wav",
+      "archive_member": "audio/english_us/english_us_0006.wav",
+      "sha256": "d12297c860b1c3f31fff54f406808bb3d21df698d06b1a493a434c6f36f6ff59",
+      "label": null,
+      "warning_onset_seconds": null
+    }
+  ],
+  "recording_review": "All twelve selected scripts were recorded by the user and a colleague. IDs assigned by reviewing recognised dialogue against the fixed scripts before audio classifier evaluation. Small wording/recognition differences remain; no independent verbatim reference transcript or manually verified onset timestamps are available."
+}

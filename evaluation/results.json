@@ -1,0 +1,2667 @@
+{
+  "model_sha256": "abd240fdd2c522e2bf14fd9717375192762dcd474bb48176b2d7509095f131d8",
+  "threshold": 0.9500000000000001,
+  "calls": {
+    "test": {
+      "threshold": 0.9500000000000001,
+      "scam_calls": 24,
+      "legitimate_calls": 24,
+      "detected": 24,
+      "missed": 0,
+      "premature_warning": 0,
+      "false_alarm": 4,
+      "correctly_quiet": 20,
+      "balanced_call_score": 0.9166666666666667,
+      "mean_delay_turns": 0,
+      "calls": [
+        {
+          "id": "local-test-test-family-orchestra-scam",
+          "category": "family",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001795,
+            0.001745,
+            0.998016,
+            0.998081
+          ]
+        },
+        {
+          "id": "local-test-test-family-orchestra-legitimate",
+          "category": "family",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001795,
+            0.001745,
+            0.001663,
+            0.001669
+          ]
+        },
+        {
+          "id": "local-test-test-family-dentist-scam",
+          "category": "family",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001728,
+            0.001656,
+            0.001652,
+            0.001657,
+            0.99836,
+            0.998361
+          ]
+        },
+        {
+          "id": "local-test-test-family-dentist-legitimate",
+          "category": "family",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001728,
+            0.001656,
+            0.001652,
+            0.001657,
+            0.001672,
+            0.00172
+          ]
+        },
+        {
+          "id": "local-test-test-shock-laboratory-scam",
+          "category": "shock",
+          "label": 1,
+          "warning_turn": 7,
+          "first_warning_turn": 7,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001689,
+            0.001641,
+            0.001635,
+            0.001638,
+            0.001635,
+            0.001637,
+            0.99831,
+            0.998321
+          ]
+        },
+        {
+          "id": "local-test-test-shock-laboratory-legitimate",
+          "category": "shock",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001689,
+            0.001641,
+            0.001635,
+            0.001638,
+            0.001635,
+            0.001637,
+            0.001715,
+            0.001746
+          ]
+        },
+        {
+          "id": "local-test-test-shock-maternity-scam",
+          "category": "shock",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001677,
+            0.001667,
+            0.998368,
+            0.998361
+          ]
+        },
+        {
+          "id": "local-test-test-shock-maternity-legitimate",
+          "category": "shock",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001677,
+            0.001667,
+            0.001941,
+            0.001971
+          ]
+        },
+        {
+          "id": "local-test-test-police-coincollection-scam",
+          "category": "police",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001671,
+            0.001663,
+            0.001638,
+            0.001653,
+            0.998307,
+            0.998311
+          ]
+        },
+        {
+          "id": "local-test-test-police-coincollection-legitimate",
+          "category": "police",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001671,
+            0.001663,
+            0.001638,
+            0.001653,
+            0.001666,
+            0.001672
+          ]
+        },
+        {
+          "id": "local-test-test-police-witnessfare-scam",
+          "category": "police",
+          "label": 1,
+          "warning_turn": 7,
+          "first_warning_turn": 7,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001718,
+            0.00166,
+            0.001654,
+            0.001663,
+            0.001666,
+            0.001643,
+            0.998382,
+            0.998389
+          ]
+        },
+        {
+          "id": "local-test-test-police-witnessfare-legitimate",
+          "category": "police",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001718,
+            0.00166,
+            0.001654,
+            0.001663,
+            0.001666,
+            0.001643,
+            0.001833,
+            0.00242
+          ]
+        },
+        {
+          "id": "local-test-test-bank-accessibility-scam",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001803,
+            0.001724,
+            0.99821,
+            0.998184
+          ]
+        },
+        {
+          "id": "local-test-test-bank-accessibility-legitimate",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001803,
+            0.001724,
+            0.001844,
+            0.001862
+          ]
+        },
+        {
+          "id": "local-test-test-bank-cardcollection-scam",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001711,
+            0.00166,
+            0.001641,
+            0.00165,
+            0.998322,
+            0.998346
+          ]
+        },
+        {
+          "id": "local-test-test-bank-cardcollection-legitimate",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001711,
+            0.00166,
+            0.001641,
+            0.00165,
+            0.00178,
+            0.001838
+          ]
+        },
+        {
+          "id": "local-test-test-support-thermostat-scam",
+          "category": "support",
+          "label": 1,
+          "warning_turn": 7,
+          "first_warning_turn": 7,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001732,
+            0.001666,
+            0.001648,
+            0.001638,
+            0.00163,
+            0.001637,
+            0.998375,
+            0.998374
+          ]
+        },
+        {
+          "id": "local-test-test-support-thermostat-legitimate",
+          "category": "support",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001732,
+            0.001666,
+            0.001648,
+            0.001638,
+            0.00163,
+            0.001637,
+            0.001776,
+            0.001779
+          ]
+        },
+        {
+          "id": "local-test-test-support-subtitles-scam",
+          "category": "support",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001782,
+            0.001659,
+            0.998345,
+            0.998346
+          ]
+        },
+        {
+          "id": "local-test-test-support-subtitles-legitimate",
+          "category": "support",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001782,
+            0.001659,
+            0.001727,
+            0.001714
+          ]
+        },
+        {
+          "id": "local-test-test-refund-locker-scam",
+          "category": "refund",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001674,
+            0.001643,
+            0.001634,
+            0.001657,
+            0.998321,
+            0.998349
+          ]
+        },
+        {
+          "id": "local-test-test-refund-locker-legitimate",
+          "category": "refund",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 5,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001674,
+            0.001643,
+            0.001634,
+            0.001657,
+            0.996803,
+            0.998077
+          ]
+        },
+        {
+          "id": "local-test-test-refund-workshop-scam",
+          "category": "refund",
+          "label": 1,
+          "warning_turn": 7,
+          "first_warning_turn": 7,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001771,
+            0.001675,
+            0.001661,
+            0.001656,
+            0.001655,
+            0.00166,
+            0.998363,
+            0.998361
+          ]
+        },
+        {
+          "id": "local-test-test-refund-workshop-legitimate",
+          "category": "refund",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 7,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001771,
+            0.001675,
+            0.001661,
+            0.001656,
+            0.001655,
+            0.00166,
+            0.996983,
+            0.998077
+          ]
+        },
+        {
+          "id": "local-test-test-delivery-flour-scam",
+          "category": "delivery",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001978,
+            0.001836,
+            0.998371,
+            0.998376
+          ]
+        },
+        {
+          "id": "local-test-test-delivery-flour-legitimate",
+          "category": "delivery",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001978,
+            0.001836,
+            0.002564,
+            0.002945
+          ]
+        },
+        {
+          "id": "local-test-test-delivery-luggage-scam",
+          "category": "delivery",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001698,
+            0.001665,
+            0.001647,
+            0.001637,
+            0.998043,
+            0.998066
+          ]
+        },
+        {
+          "id": "local-test-test-delivery-luggage-legitimate",
+          "category": "delivery",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001698,
+            0.001665,
+            0.001647,
+            0.001637,
+            0.00168,
+            0.001678
+          ]
+        },
+        {
+          "id": "local-test-test-insurance-volunteer-scam",
+          "category": "insurance",
+          "label": 1,
+          "warning_turn": 7,
+          "first_warning_turn": 7,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001693,
+            0.001648,
+            0.001639,
+            0.001639,
+            0.001642,
+            0.001637,
+            0.998344,
+            0.99833
+          ]
+        },
+        {
+          "id": "local-test-test-insurance-volunteer-legitimate",
+          "category": "insurance",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001693,
+            0.001648,
+            0.001639,
+            0.001639,
+            0.001642,
+            0.001637,
+            0.001689,
+            0.001699
+          ]
+        },
+        {
+          "id": "local-test-test-insurance-petoperation-scam",
+          "category": "insurance",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001708,
+            0.00168,
+            0.998344,
+            0.998354
+          ]
+        },
+        {
+          "id": "local-test-test-insurance-petoperation-legitimate",
+          "category": "insurance",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001708,
+            0.00168,
+            0.00246,
+            0.007815
+          ]
+        },
+        {
+          "id": "local-test-test-support-ebook-scam",
+          "category": "support",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001712,
+            0.001685,
+            0.001667,
+            0.001657,
+            0.998303,
+            0.998296
+          ]
+        },
+        {
+          "id": "local-test-test-support-ebook-legitimate",
+          "category": "support",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001712,
+            0.001685,
+            0.001667,
+            0.001657,
+            0.001965,
+            0.002204
+          ]
+        },
+        {
+          "id": "local-test-test-refund-charger-scam",
+          "category": "refund",
+          "label": 1,
+          "warning_turn": 7,
+          "first_warning_turn": 7,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001746,
+            0.001701,
+            0.001665,
+            0.001655,
+            0.001646,
+            0.001652,
+            0.998381,
+            0.998382
+          ]
+        },
+        {
+          "id": "local-test-test-refund-charger-legitimate",
+          "category": "refund",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001746,
+            0.001701,
+            0.001665,
+            0.001655,
+            0.001646,
+            0.001652,
+            0.001722,
+            0.001733
+          ]
+        },
+        {
+          "id": "local-test-test-delivery-costume-scam",
+          "category": "delivery",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001775,
+            0.001751,
+            0.998318,
+            0.99834
+          ]
+        },
+        {
+          "id": "local-test-test-delivery-costume-legitimate",
+          "category": "delivery",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001775,
+            0.001751,
+            0.001875,
+            0.001935
+          ]
+        },
+        {
+          "id": "local-test-test-insurance-cyclerace-scam",
+          "category": "insurance",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001679,
+            0.001667,
+            0.001643,
+            0.00164,
+            0.998354,
+            0.998348
+          ]
+        },
+        {
+          "id": "local-test-test-insurance-cyclerace-legitimate",
+          "category": "insurance",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001679,
+            0.001667,
+            0.001643,
+            0.00164,
+            0.001659,
+            0.00166
+          ]
+        },
+        {
+          "id": "bank-boundary-test-01-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 5,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.00176,
+            0.001673,
+            0.001646,
+            0.001653,
+            0.997906,
+            0.997951
+          ]
+        },
+        {
+          "id": "bank-boundary-test-01-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.00176,
+            0.001673,
+            0.001646,
+            0.001653,
+            0.998247,
+            0.99823
+          ]
+        },
+        {
+          "id": "bank-boundary-test-02-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.0022,
+            0.001834,
+            0.001686,
+            0.001675,
+            0.002778,
+            0.002317
+          ]
+        },
+        {
+          "id": "bank-boundary-test-02-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.0022,
+            0.001834,
+            0.001686,
+            0.001675,
+            0.996828,
+            0.996728
+          ]
+        },
+        {
+          "id": "bank-boundary-test-03-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001731,
+            0.001674,
+            0.001635,
+            0.001632,
+            0.001702,
+            0.001681
+          ]
+        },
+        {
+          "id": "bank-boundary-test-03-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001731,
+            0.001674,
+            0.001635,
+            0.001632,
+            0.998204,
+            0.998204
+          ]
+        },
+        {
+          "id": "bank-boundary-test-04-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 5,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001662,
+            0.001647,
+            0.001638,
+            0.005581,
+            0.967227,
+            0.790575
+          ]
+        },
+        {
+          "id": "bank-boundary-test-04-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001662,
+            0.001647,
+            0.001638,
+            0.005581,
+            0.998336,
+            0.998339
+          ]
+        }
+      ]
+    },
+    "fresh": {
+      "threshold": 0.9500000000000001,
+      "scam_calls": 40,
+      "legitimate_calls": 40,
+      "detected": 37,
+      "missed": 1,
+      "premature_warning": 2,
+      "false_alarm": 14,
+      "correctly_quiet": 26,
+      "balanced_call_score": 0.7875000000000001,
+      "mean_delay_turns": 0,
+      "calls": [
+        {
+          "id": "fresh-card-travel-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001707,
+            0.00166,
+            0.001949,
+            0.002075,
+            0.00574,
+            0.007911
+          ]
+        },
+        {
+          "id": "fresh-card-travel-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001707,
+            0.00166,
+            0.001949,
+            0.002075,
+            0.998352,
+            0.998355
+          ]
+        },
+        {
+          "id": "fresh-account-tail-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001734,
+            0.001703,
+            0.001748,
+            0.001829,
+            0.057523,
+            0.269551
+          ]
+        },
+        {
+          "id": "fresh-account-tail-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001734,
+            0.001703,
+            0.001748,
+            0.001829,
+            0.992117,
+            0.991921
+          ]
+        },
+        {
+          "id": "fresh-no-code-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001687,
+            0.001764,
+            0.998095,
+            0.997042
+          ]
+        },
+        {
+          "id": "fresh-no-code-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001687,
+            0.001764,
+            0.998346,
+            0.99829
+          ]
+        },
+        {
+          "id": "fresh-quoted-fraud-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 1,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.99807,
+            0.997938,
+            0.997902,
+            0.987817,
+            0.994848
+          ]
+        },
+        {
+          "id": "fresh-quoted-fraud-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 1,
+          "outcome": "premature_warning",
+          "delay_turns": null,
+          "scores": [
+            0.99807,
+            0.997938,
+            0.997902,
+            0.998353,
+            0.998359
+          ]
+        },
+        {
+          "id": "fresh-wallet-token-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001698,
+            0.001692,
+            0.998164,
+            0.998018
+          ]
+        },
+        {
+          "id": "fresh-wallet-token-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001698,
+            0.001692,
+            0.99837,
+            0.998378
+          ]
+        },
+        {
+          "id": "fresh-cash-machine-0",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 5,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001704,
+            0.001776,
+            0.001839,
+            0.001785,
+            0.984938,
+            0.996212
+          ]
+        },
+        {
+          "id": "fresh-cash-machine-1",
+          "category": "bank",
+          "label": 1,
+          "warning_turn": 5,
+          "first_warning_turn": 5,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001704,
+            0.001776,
+            0.001839,
+            0.001785,
+            0.998351,
+            0.998364
+          ]
+        },
+        {
+          "id": "fresh-bicycle-0",
+          "category": "police",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001676,
+            0.001678,
+            0.001686,
+            0.001844,
+            0.001834
+          ]
+        },
+        {
+          "id": "fresh-bicycle-1",
+          "category": "police",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 4,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001676,
+            0.001678,
+            0.001686,
+            0.998386,
+            0.998386
+          ]
+        },
+        {
+          "id": "fresh-cash-evidence-0",
+          "category": "police",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001738,
+            0.001726,
+            0.981483,
+            0.981279
+          ]
+        },
+        {
+          "id": "fresh-cash-evidence-1",
+          "category": "police",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001738,
+            0.001726,
+            0.998342,
+            0.998338
+          ]
+        },
+        {
+          "id": "fresh-witness-0",
+          "category": "police",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001854,
+            0.001709,
+            0.001706,
+            0.001721
+          ]
+        },
+        {
+          "id": "fresh-witness-1",
+          "category": "police",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001854,
+            0.001709,
+            0.998378,
+            0.998378
+          ]
+        },
+        {
+          "id": "fresh-new-number-0",
+          "category": "family",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001952,
+            0.001713,
+            0.001768,
+            0.001777,
+            0.001751
+          ]
+        },
+        {
+          "id": "fresh-new-number-1",
+          "category": "family",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 4,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001952,
+            0.001713,
+            0.001768,
+            0.997801,
+            0.997931
+          ]
+        },
+        {
+          "id": "fresh-travel-booking-0",
+          "category": "family",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001741,
+            0.001734,
+            0.001732,
+            0.001724
+          ]
+        },
+        {
+          "id": "fresh-travel-booking-1",
+          "category": "family",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001741,
+            0.001734,
+            0.998307,
+            0.99833
+          ]
+        },
+        {
+          "id": "fresh-hospital-contact-0",
+          "category": "emergency",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001707,
+            0.001667,
+            0.001656,
+            0.001736,
+            0.001741
+          ]
+        },
+        {
+          "id": "fresh-hospital-contact-1",
+          "category": "emergency",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 4,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001707,
+            0.001667,
+            0.001656,
+            0.998269,
+            0.998248
+          ]
+        },
+        {
+          "id": "fresh-accident-settlement-0",
+          "category": "emergency",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001701,
+            0.001691,
+            0.00185,
+            0.001894
+          ]
+        },
+        {
+          "id": "fresh-accident-settlement-1",
+          "category": "emergency",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001701,
+            0.001691,
+            0.998324,
+            0.998326
+          ]
+        },
+        {
+          "id": "fresh-printer-0",
+          "category": "support",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001682,
+            0.001676,
+            0.997764,
+            0.997724
+          ]
+        },
+        {
+          "id": "fresh-printer-1",
+          "category": "support",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001682,
+            0.001676,
+            0.998373,
+            0.998368
+          ]
+        },
+        {
+          "id": "fresh-shared-screen-0",
+          "category": "support",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001707,
+            0.001703,
+            0.001963,
+            0.001968,
+            0.001847
+          ]
+        },
+        {
+          "id": "fresh-shared-screen-1",
+          "category": "support",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 4,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001707,
+            0.001703,
+            0.001963,
+            0.998334,
+            0.998327
+          ]
+        },
+        {
+          "id": "fresh-scam-report-0",
+          "category": "support",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 2,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.933671,
+            0.993932,
+            0.898728,
+            0.1167,
+            0.016115
+          ]
+        },
+        {
+          "id": "fresh-scam-report-1",
+          "category": "support",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 2,
+          "outcome": "premature_warning",
+          "delay_turns": null,
+          "scores": [
+            0.933671,
+            0.993932,
+            0.898728,
+            0.998354,
+            0.998346
+          ]
+        },
+        {
+          "id": "fresh-return-shoes-0",
+          "category": "refund",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001719,
+            0.001706,
+            0.960535,
+            0.502219
+          ]
+        },
+        {
+          "id": "fresh-return-shoes-1",
+          "category": "refund",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001719,
+            0.001706,
+            0.998366,
+            0.998371
+          ]
+        },
+        {
+          "id": "fresh-overpayment-0",
+          "category": "refund",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 4,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001739,
+            0.00167,
+            0.001854,
+            0.995924,
+            0.994046
+          ]
+        },
+        {
+          "id": "fresh-overpayment-1",
+          "category": "refund",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 4,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001739,
+            0.00167,
+            0.001854,
+            0.998228,
+            0.998226
+          ]
+        },
+        {
+          "id": "fresh-gate-0",
+          "category": "delivery",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001991,
+            0.001738,
+            0.997672,
+            0.997513
+          ]
+        },
+        {
+          "id": "fresh-gate-1",
+          "category": "delivery",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001991,
+            0.001738,
+            0.998329,
+            0.998346
+          ]
+        },
+        {
+          "id": "fresh-customs-0",
+          "category": "delivery",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001671,
+            0.001657,
+            0.00174,
+            0.001762
+          ]
+        },
+        {
+          "id": "fresh-customs-1",
+          "category": "delivery",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001671,
+            0.001657,
+            0.998308,
+            0.998311
+          ]
+        },
+        {
+          "id": "fresh-storm-0",
+          "category": "insurance",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001716,
+            0.001676,
+            0.997681,
+            0.997881
+          ]
+        },
+        {
+          "id": "fresh-storm-1",
+          "category": "insurance",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001716,
+            0.001676,
+            0.998349,
+            0.998357
+          ]
+        },
+        {
+          "id": "fresh-policy-number-0",
+          "category": "insurance",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001697,
+            0.001677,
+            0.001773,
+            0.001773
+          ]
+        },
+        {
+          "id": "fresh-policy-number-1",
+          "category": "insurance",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001697,
+            0.001677,
+            0.998322,
+            0.998335
+          ]
+        },
+        {
+          "id": "fresh-appointment-0",
+          "category": "benefits",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 4,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001703,
+            0.001868,
+            0.018512,
+            0.967322
+          ]
+        },
+        {
+          "id": "fresh-appointment-1",
+          "category": "benefits",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001703,
+            0.001868,
+            0.998282,
+            0.998285
+          ]
+        },
+        {
+          "id": "fresh-letter-0",
+          "category": "benefits",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001713,
+            0.001706,
+            0.001708,
+            0.002098,
+            0.00218
+          ]
+        },
+        {
+          "id": "fresh-letter-1",
+          "category": "benefits",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 4,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001713,
+            0.001706,
+            0.001708,
+            0.998228,
+            0.998211
+          ]
+        },
+        {
+          "id": "fresh-return-question-0",
+          "category": "tax",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001712,
+            0.001697,
+            0.001758,
+            0.001767
+          ]
+        },
+        {
+          "id": "fresh-return-question-1",
+          "category": "tax",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001712,
+            0.001697,
+            0.998361,
+            0.998361
+          ]
+        },
+        {
+          "id": "fresh-meter-0",
+          "category": "utilities",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001964,
+            0.001889,
+            0.001759,
+            0.001803
+          ]
+        },
+        {
+          "id": "fresh-meter-1",
+          "category": "utilities",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001964,
+            0.001889,
+            0.996606,
+            0.997051
+          ]
+        },
+        {
+          "id": "fresh-phishing-0",
+          "category": "work",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.561685,
+            0.066652,
+            0.161862,
+            0.011287,
+            0.009329
+          ]
+        },
+        {
+          "id": "fresh-phishing-1",
+          "category": "work",
+          "label": 1,
+          "warning_turn": 4,
+          "first_warning_turn": 4,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.561685,
+            0.066652,
+            0.161862,
+            0.998251,
+            0.998258
+          ]
+        },
+        {
+          "id": "fresh-invoice-0",
+          "category": "work",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001691,
+            0.001719,
+            0.001869,
+            0.001835
+          ]
+        },
+        {
+          "id": "fresh-invoice-1",
+          "category": "work",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001691,
+            0.001719,
+            0.998343,
+            0.998325
+          ]
+        },
+        {
+          "id": "fresh-donation-0",
+          "category": "charity",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001862,
+            0.001739,
+            0.001934,
+            0.001931
+          ]
+        },
+        {
+          "id": "fresh-donation-1",
+          "category": "charity",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001862,
+            0.001739,
+            0.998314,
+            0.998314
+          ]
+        },
+        {
+          "id": "fresh-subscription-0",
+          "category": "shopping",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001834,
+            0.001704,
+            0.001728,
+            0.001707
+          ]
+        },
+        {
+          "id": "fresh-subscription-1",
+          "category": "shopping",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001834,
+            0.001704,
+            0.998356,
+            0.998342
+          ]
+        },
+        {
+          "id": "fresh-rail-refund-0",
+          "category": "travel",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.002233,
+            0.001779,
+            0.002535,
+            0.002104
+          ]
+        },
+        {
+          "id": "fresh-rail-refund-1",
+          "category": "travel",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.002233,
+            0.001779,
+            0.99837,
+            0.99837
+          ]
+        },
+        {
+          "id": "fresh-hotel-0",
+          "category": "travel",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.0018,
+            0.001995,
+            0.996912,
+            0.997432
+          ]
+        },
+        {
+          "id": "fresh-hotel-1",
+          "category": "travel",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.0018,
+            0.001995,
+            0.998352,
+            0.998347
+          ]
+        },
+        {
+          "id": "fresh-prescription-0",
+          "category": "health",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001737,
+            0.001716,
+            0.254444,
+            0.331322
+          ]
+        },
+        {
+          "id": "fresh-prescription-1",
+          "category": "health",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001737,
+            0.001716,
+            0.998345,
+            0.998359
+          ]
+        },
+        {
+          "id": "fresh-appointment-fee-0",
+          "category": "health",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001691,
+            0.00169,
+            0.001715,
+            0.001714
+          ]
+        },
+        {
+          "id": "fresh-appointment-fee-1",
+          "category": "health",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001691,
+            0.00169,
+            0.998356,
+            0.998351
+          ]
+        },
+        {
+          "id": "fresh-student-account-0",
+          "category": "education",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001833,
+            0.001701,
+            0.001833,
+            0.001834
+          ]
+        },
+        {
+          "id": "fresh-student-account-1",
+          "category": "education",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001833,
+            0.001701,
+            0.998301,
+            0.998316
+          ]
+        },
+        {
+          "id": "fresh-scholarship-0",
+          "category": "education",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001763,
+            0.001702,
+            0.00168,
+            0.001683
+          ]
+        },
+        {
+          "id": "fresh-scholarship-1",
+          "category": "education",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001763,
+            0.001702,
+            0.998187,
+            0.998245
+          ]
+        },
+        {
+          "id": "fresh-repair-0",
+          "category": "housing",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001765,
+            0.001706,
+            0.001767,
+            0.001776
+          ]
+        },
+        {
+          "id": "fresh-repair-1",
+          "category": "housing",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001765,
+            0.001706,
+            0.998354,
+            0.998347
+          ]
+        },
+        {
+          "id": "fresh-security-advice-0",
+          "category": "pension",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": 3,
+          "outcome": "false_alarm",
+          "delay_turns": null,
+          "scores": [
+            0.001703,
+            0.001705,
+            0.992893,
+            0.997145
+          ]
+        },
+        {
+          "id": "fresh-security-advice-1",
+          "category": "pension",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001703,
+            0.001705,
+            0.998348,
+            0.998352
+          ]
+        },
+        {
+          "id": "fresh-recovery-0",
+          "category": "account",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001747,
+            0.001694,
+            0.001918,
+            0.001954
+          ]
+        },
+        {
+          "id": "fresh-recovery-1",
+          "category": "account",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": null,
+          "outcome": "missed",
+          "delay_turns": null,
+          "scores": [
+            0.001747,
+            0.001694,
+            0.038477,
+            0.017122
+          ]
+        },
+        {
+          "id": "fresh-training-session-0",
+          "category": "security",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.00176,
+            0.001709,
+            0.08703,
+            0.02828
+          ]
+        },
+        {
+          "id": "fresh-training-session-1",
+          "category": "security",
+          "label": 1,
+          "warning_turn": 3,
+          "first_warning_turn": 3,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.00176,
+            0.001709,
+            0.998144,
+            0.998118
+          ]
+        }
+      ]
+    },
+    "reported": {
+      "threshold": 0.9500000000000001,
+      "scam_calls": 1,
+      "legitimate_calls": 1,
+      "detected": 1,
+      "missed": 0,
+      "premature_warning": 0,
+      "false_alarm": 0,
+      "correctly_quiet": 1,
+      "balanced_call_score": 1.0,
+      "mean_delay_turns": 0,
+      "calls": [
+        {
+          "id": "reported-bank",
+          "category": "bank",
+          "label": 0,
+          "warning_turn": null,
+          "first_warning_turn": null,
+          "outcome": "correctly_quiet",
+          "delay_turns": null,
+          "scores": [
+            0.001973,
+            0.001903,
+            0.001732,
+            0.001717,
+            0.001748,
+            0.001781,
+            0.002085,
+            0.002048,
+            0.002134,
+            0.002124,
+            0.116512
+          ]
+        },
+        {
+          "id": "reported-ssa",
+          "category": "ssa",
+          "label": 1,
+          "warning_turn": 8,
+          "first_warning_turn": 8,
+          "outcome": "detected",
+          "delay_turns": 0,
+          "scores": [
+            0.001866,
+            0.001814,
+            0.001796,
+            0.001709,
+            0.001692,
+            0.760519,
+            0.073324,
+            0.997399,
+            0.998117,
+            0.998112,
+            0.998077
+          ]
+        }
+      ]
+    }
+  },
+  "behaviors": {
+    "original": {
+      "correct": 19,
+      "total": 24,
+      "cases": [
+        {
+          "id": "behavior-test-01",
+          "kind": "negation",
+          "label": 0,
+          "score": 0.0058288173750042915,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-01",
+          "kind": "negation",
+          "label": 1,
+          "score": 0.9982750415802002,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-02",
+          "kind": "negation",
+          "label": 0,
+          "score": 0.9977565407752991,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-02",
+          "kind": "negation",
+          "label": 1,
+          "score": 0.9982783794403076,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-03",
+          "kind": "quotation",
+          "label": 0,
+          "score": 0.0025596236810088158,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-03",
+          "kind": "quotation",
+          "label": 1,
+          "score": 0.9983349442481995,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-04",
+          "kind": "mixed",
+          "label": 0,
+          "score": 0.0019012385746464133,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-04",
+          "kind": "mixed",
+          "label": 1,
+          "score": 0.9978362917900085,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-05",
+          "kind": "verification",
+          "label": 0,
+          "score": 0.004182691220194101,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-05",
+          "kind": "verification",
+          "label": 1,
+          "score": 0.00674858083948493,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-06",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.0019452865235507488,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-06",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.9982933402061462,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-07",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.0024466828908771276,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-07",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.9982730150222778,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-08",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.00181663001421839,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-08",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.9980706572532654,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-09",
+          "kind": "family",
+          "label": 0,
+          "score": 0.9975205063819885,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-09",
+          "kind": "family",
+          "label": 1,
+          "score": 0.9492886066436768,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-10",
+          "kind": "police",
+          "label": 0,
+          "score": 0.0022797221317887306,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-10",
+          "kind": "police",
+          "label": 1,
+          "score": 0.001963300397619605,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-11",
+          "kind": "refund",
+          "label": 0,
+          "score": 0.007009265944361687,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-11",
+          "kind": "refund",
+          "label": 1,
+          "score": 0.970655620098114,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-12",
+          "kind": "pressure",
+          "label": 0,
+          "score": 0.001782516948878765,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-12",
+          "kind": "pressure",
+          "label": 1,
+          "score": 0.9974531531333923,
+          "correct": true
+        }
+      ]
+    },
+    "no_punctuation": {
+      "correct": 19,
+      "total": 24,
+      "cases": [
+        {
+          "id": "behavior-test-01",
+          "kind": "negation",
+          "label": 0,
+          "score": 0.011558122001588345,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-01",
+          "kind": "negation",
+          "label": 1,
+          "score": 0.9982568621635437,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-02",
+          "kind": "negation",
+          "label": 0,
+          "score": 0.9976938366889954,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-02",
+          "kind": "negation",
+          "label": 1,
+          "score": 0.9980714917182922,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-03",
+          "kind": "quotation",
+          "label": 0,
+          "score": 0.019753072410821915,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-03",
+          "kind": "quotation",
+          "label": 1,
+          "score": 0.9982445240020752,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-04",
+          "kind": "mixed",
+          "label": 0,
+          "score": 0.001826288877055049,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-04",
+          "kind": "mixed",
+          "label": 1,
+          "score": 0.9969792366027832,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-05",
+          "kind": "verification",
+          "label": 0,
+          "score": 0.005830818321555853,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-05",
+          "kind": "verification",
+          "label": 1,
+          "score": 0.014016767032444477,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-06",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.0018605694640427828,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-06",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.9981696605682373,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-07",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.0030389847233891487,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-07",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.9982585310935974,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-08",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.0019007129594683647,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-08",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.9979714751243591,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-09",
+          "kind": "family",
+          "label": 0,
+          "score": 0.9687073230743408,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-09",
+          "kind": "family",
+          "label": 1,
+          "score": 0.9967750906944275,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-10",
+          "kind": "police",
+          "label": 0,
+          "score": 0.00220142281614244,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-10",
+          "kind": "police",
+          "label": 1,
+          "score": 0.0025325524620711803,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-11",
+          "kind": "refund",
+          "label": 0,
+          "score": 0.025464117527008057,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-11",
+          "kind": "refund",
+          "label": 1,
+          "score": 0.9907528162002563,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-12",
+          "kind": "pressure",
+          "label": 0,
+          "score": 0.001874590408988297,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-12",
+          "kind": "pressure",
+          "label": 1,
+          "score": 0.004815254360437393,
+          "correct": false
+        }
+      ],
+      "decision_changes": 2
+    },
+    "neutral_context": {
+      "correct": 17,
+      "total": 24,
+      "cases": [
+        {
+          "id": "behavior-test-01",
+          "kind": "negation",
+          "label": 0,
+          "score": 0.9975759387016296,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-01",
+          "kind": "negation",
+          "label": 1,
+          "score": 0.9983571171760559,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-02",
+          "kind": "negation",
+          "label": 0,
+          "score": 0.9982553124427795,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-02",
+          "kind": "negation",
+          "label": 1,
+          "score": 0.9983388185501099,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-03",
+          "kind": "quotation",
+          "label": 0,
+          "score": 0.9930235147476196,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-03",
+          "kind": "quotation",
+          "label": 1,
+          "score": 0.9983769655227661,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-04",
+          "kind": "mixed",
+          "label": 0,
+          "score": 0.002002454362809658,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-04",
+          "kind": "mixed",
+          "label": 1,
+          "score": 0.9982622265815735,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-05",
+          "kind": "verification",
+          "label": 0,
+          "score": 0.9912610650062561,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-05",
+          "kind": "verification",
+          "label": 1,
+          "score": 0.98842453956604,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-06",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.0020363281946629286,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-06",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.998331606388092,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-07",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.7460041642189026,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-07",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.9982752799987793,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-08",
+          "kind": "topic",
+          "label": 0,
+          "score": 0.0019489736296236515,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-08",
+          "kind": "topic",
+          "label": 1,
+          "score": 0.998320996761322,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-09",
+          "kind": "family",
+          "label": 0,
+          "score": 0.9983458518981934,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-09",
+          "kind": "family",
+          "label": 1,
+          "score": 0.9982823133468628,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-10",
+          "kind": "police",
+          "label": 0,
+          "score": 0.7985427975654602,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-10",
+          "kind": "police",
+          "label": 1,
+          "score": 0.07635530829429626,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-11",
+          "kind": "refund",
+          "label": 0,
+          "score": 0.9901896119117737,
+          "correct": false
+        },
+        {
+          "id": "behavior-test-11",
+          "kind": "refund",
+          "label": 1,
+          "score": 0.998123824596405,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-12",
+          "kind": "pressure",
+          "label": 0,
+          "score": 0.002047882415354252,
+          "correct": true
+        },
+        {
+          "id": "behavior-test-12",
+          "kind": "pressure",
+          "label": 1,
+          "score": 0.9983192086219788,
+          "correct": true
+        }
+      ],
+      "decision_changes": 6
+    }
+  },
+  "data_sha256": {
+    "authored.jsonl": "491dd7d395cb69f025b105481d99436ff3ec8ea23888e55ddd62ebfbd3c3b6a2",
+    "behaviors.jsonl": "e4815b0cdca331de93f5179b286c8275c052dca1d5975087473d5cf5e8ddd9d6",
+    "fresh_calls.jsonl": "fe0c5a4c08c61aace2346f176c11e52d60a4ef92ee549d39fd3e972bb1529015",
+    "regressions.jsonl": "b129bd856ff89ea5995832ea19e119221006dc3dc4f31ff3faff9a9305f0112c"
+  },
+  "limitation": "Synthetic, now-known regression cases; not independent evidence of real-call accuracy."
+}

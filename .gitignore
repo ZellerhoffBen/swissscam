@@ -1,10 +1,12 @@
 .vscode/
 
 .env*
-!.env.example
 
 .venv/
 __pycache__/
 node_modules/
 web/dist/
 **/.vite/
+models/candidate/
+evaluation/external/
+evaluation/validation/runs/
