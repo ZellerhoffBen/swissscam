@@ -35,5 +35,7 @@ class AnalyzeRequest(BaseModel):
 
 class DetectionResult(BaseModel):
     warning: bool
+    score: float = Field(ge=0, le=1)
+    threshold: float = Field(ge=0, le=1)
     signals: list[str]
     reason: str

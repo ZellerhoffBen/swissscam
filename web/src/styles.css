@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
 
 :root {
   color: #202522;
@@ -1809,4 +1809,204 @@ audio {
 .transcript {
   max-height: 12rem;
   overflow-y: auto;
+}
+  font-family: "Manrope", sans-serif;
+  font-synthesis: none;
+  color: var(--swisscom-navy);
+  background: #ffffff;
+  --swisscom-navy: #001155;
+  --swisscom-blue: #0445C8;
+  --swisscom-light-blue: #11AAFF;
+  --swisscom-magenta: #E32065;
+  --swisscom-purple: #573CE4;
+  --swisscom-red: #F20505;
+  --swisscom-background: #f7f8fb;
+  --swisscom-surface: #ffffff;
+  --swisscom-muted: #53617d;
+  --swisscom-line: #e2e6ef;
+  --swisscom-gradient: linear-gradient(155deg, var(--swisscom-red), var(--swisscom-magenta) 28%, var(--swisscom-purple) 62%, var(--swisscom-blue));
+  /* Warning red stays darker than brand red for readable text on white. */
+  --risk-red: #dc0018;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: default; }
+h1, h2, h3, p { margin: 0; }
+button:focus-visible, .upload-audio:focus-within, .transcript:focus-visible { outline: 3px solid var(--swisscom-light-blue); outline-offset: 3px; }
+.shell { position: relative; isolation: isolate; max-width: 1320px; margin: auto; padding: 14px 28px 12px; }
+.topbar { display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid var(--swisscom-line); }
+.brand { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 700; letter-spacing: -.03em; }
+.brand-logo { width: 58px; height: 58px; object-fit: contain; }
+.brand::after { content: "Call protection demo"; margin-left: 3px; border-left: 1px solid var(--swisscom-line); padding-left: 15px; color: var(--swisscom-muted); font-size: 12px; font-weight: 600; letter-spacing: 0; }
+.intro { display: none; }
+.workspace { display: grid; grid-template-columns: minmax(320px, .9fr) minmax(0, 1.1fr); gap: 32px; }
+.call-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 18px 24px; }
+.hidden-audio { display: none; }
+
+/* Two related cards: conversation above, assessment below. */
+.insights-panel { min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+.transcript-card, .result { border: 1px solid var(--swisscom-line); border-radius: 20px; padding: 20px 24px; background: var(--swisscom-surface); }
+.transcript-card { display: flex; flex-direction: column; flex: 1 1 240px; min-height: 212px; max-height: 320px; }
+.card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.card-header h2, .card-title { color: var(--swisscom-navy); font-size: 24px; font-weight: 700; letter-spacing: -.035em; line-height: 1.15; }
+.analysis-state { display: flex; align-items: center; gap: 7px; padding: 5px 9px; border-radius: 20px; color: var(--swisscom-muted); background: var(--swisscom-background); font-size: 11px; white-space: nowrap; }
+.analysis-state::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #9aa5b5; }
+.analysis-state.processing::before { background: var(--swisscom-blue); box-shadow: 0 0 0 3px rgba(17,170,255,.16); animation: state-pulse 1s infinite alternate; }
+.analysis-state.complete::before { background: #16834b; }
+.analysis-state.error::before { background: var(--risk-red); }
+.recording-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.upload-audio { position: relative; flex-shrink: 0; border: 1px solid var(--swisscom-blue); border-radius: 8px; padding: 8px 10px; color: #fff; background: var(--swisscom-blue); font-size: 12px; font-weight: 600; cursor: pointer; transition: background .18s, color .18s; }
+.upload-audio:hover { color: #fff; background: var(--swisscom-navy); border-color: var(--swisscom-navy); }
+.upload-audio input { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
+.audio-source { min-width: 0; overflow: hidden; color: var(--swisscom-muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.status { flex-shrink: 0; margin-top: 8px; color: var(--swisscom-muted); font-size: 12px; line-height: 1.4; }
+.transcript-content { position: relative; min-height: 48px; flex: 1; display: flex; flex-direction: column; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--swisscom-line); }
+.transcript { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #aab5c9 transparent; padding-right: 8px; color: var(--swisscom-navy); font-size: 17px; line-height: 1.5; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.transcript-latest { position: absolute; right: 4px; bottom: 0; border: 1px solid var(--swisscom-line); border-radius: 16px; padding: 5px 10px; color: var(--swisscom-blue); background: #fff; box-shadow: 0 2px 8px rgba(0,17,85,.06); font-size: 11px; }
+.result { flex-shrink: 0; }
+.result.warning { border-color: #edbec6; }
+.card-title { margin-bottom: 6px; }
+.risk-readout { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.risk-readout h3 { font-size: 18px; font-weight: 500; letter-spacing: -.02em; line-height: 1.3; }
+.risk-value { flex-shrink: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.risk-value > span { display: block; margin-bottom: 2px; color: var(--swisscom-muted); font-size: 11px; }
+.risk-value strong { font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -.035em; }
+.risk-value small { color: var(--swisscom-muted); font-size: 12px; font-weight: 500; letter-spacing: 0; }
+.result.warning .risk-value strong, .result.warning .risk-readout h3 { color: var(--risk-red); }
+.risk-meter { position: relative; height: 6px; margin-top: 10px; background: var(--swisscom-line); border-radius: 3px; }
+.risk-meter-fill { display: block; height: 100%; border-radius: inherit; background: var(--swisscom-blue); transition: width 180ms ease; }
+.result.warning .risk-meter-fill { background: var(--risk-red); }
+.risk-meter-threshold { position: absolute; top: -4px; width: 2px; height: 14px; background: var(--risk-red); transform: translateX(-1px); }
+.risk-scale, .risk-history-heading { display: flex; justify-content: space-between; gap: 8px; color: var(--swisscom-muted); font-size: 11px; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.risk-scale { margin-top: 6px; }
+.risk-history-heading { margin: 12px 0 8px; }
+.risk-history-heading > span:first-child { color: var(--swisscom-navy); font-weight: 600; }
+.risk-chart { position: relative; height: 56px; border-bottom: 1px solid var(--swisscom-line); }
+.risk-chart svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.risk-chart-threshold { stroke: var(--risk-red); stroke-width: 1; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; }
+.risk-chart-line { fill: none; stroke: var(--swisscom-blue); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.risk-point { fill: var(--swisscom-blue); }
+.risk-point.warning { fill: var(--risk-red); }
+.risk-chart-empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--swisscom-muted); font-size: 12px; text-align: center; pointer-events: none; }
+.risk-reason { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--swisscom-line); }
+.risk-reason h3 { margin-bottom: 4px; font-size: 13px; font-weight: 700; }
+.risk-reason p { color: var(--swisscom-muted); font-size: 13px; line-height: 1.45; }
+
+/* iPhone-inspired simulator, with display-only controls visibly disabled. */
+.phone-frame { position: relative; flex-shrink: 0; height: min(720px, calc(100dvh - 148px)); aspect-ratio: 9 / 19.5; padding: 7px; border: 2px solid #929ba9; border-radius: 44px; background: linear-gradient(145deg, #333943, #090b10 58%, #434b56); box-shadow: 0 0 0 1px #46516a, inset 0 0 0 1px rgba(255,255,255,.24), 0 22px 42px rgba(0,17,85,.22); }
+.phone-screen { position: relative; height: 100%; overflow: hidden; border-radius: 35px; background: var(--swisscom-navy); font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; color: #fff; }
+.phone-side { position: absolute; width: 3px; border-radius: 2px; background: #45494a; }
+.phone-side-left-one { top: 94px; left: -5px; height: 30px; }
+.phone-side-left-two { top: 135px; left: -5px; height: 54px; }
+.phone-side-right { top: 128px; right: -5px; height: 65px; }
+.dynamic-island { position: absolute; z-index: 5; top: 11px; left: 50%; width: 82px; height: 24px; transform: translateX(-50%); border-radius: 20px; background: #000; }
+.dynamic-island::after { position: absolute; top: 8px; right: 9px; width: 7px; height: 7px; border-radius: 50%; content: ""; background: #101a32; }
+.ios-status-bar { position: absolute; top: 16px; right: 15px; left: 18px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 600; }
+.ios-status-bar > div { display: flex; align-items: center; gap: 3px; }
+.ios-status-bar svg { width: 11px; height: 11px; }
+.ios-status-bar svg:last-child { width: 16px; }
+.home-indicator { position: absolute; z-index: 5; bottom: 8px; left: 50%; width: 90px; height: 4px; transform: translateX(-50%); border-radius: 4px; background: rgba(255,255,255,.9); }
+.phone-home, .incoming-call, .active-call { position: relative; height: 100%; padding: 72px 16px 22px; text-align: center; }
+.phone-home { background: var(--swisscom-gradient); }
+.lock-date { font-size: 13px; font-weight: 500; }
+.phone-time { margin-top: 3px; font-size: 68px; font-weight: 600; letter-spacing: -.06em; line-height: 1.1; }
+.incoming-notification { position: absolute; top: 44%; right: 12px; left: 12px; display: grid; grid-template-columns: 30px 1fr auto; gap: 8px; align-items: center; border: 1px solid rgba(255,255,255,.3); border-radius: 16px; padding: 12px 9px; color: #fff; text-align: left; background: rgba(0,17,85,.48); backdrop-filter: blur(18px); }
+.incoming-notification:hover { background: rgba(0,17,85,.65); }
+.notification-icon { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 8px; background: #30b65a; }
+.notification-icon svg { width: 18px; }
+.incoming-notification strong, .incoming-notification small { display: block; }
+.incoming-notification strong { font-size: 13px; }
+.incoming-notification small { margin-top: 3px; color: rgba(255,255,255,.85); font-size: 10px; }
+.incoming-notification > small { align-self: start; font-size: 9px; }
+.lock-actions { position: absolute; right: 22px; bottom: 29px; left: 22px; display: flex; justify-content: space-between; }
+.lock-actions button { display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; color: #fff; background: rgba(0,0,0,.4); }
+.lock-actions svg { width: 19px; }
+.lock-actions button:disabled { opacity: .6; }
+.incoming-call, .active-call { background: radial-gradient(ellipse at 15% 0%, #304e9b, var(--swisscom-navy) 80%); }
+.incoming-call h2, .active-call h2 { margin: 0 0 7px; font-size: clamp(23px, 3.6dvh, 30px); font-weight: 400; letter-spacing: -.03em; white-space: nowrap; }
+.phone-caption { color: rgba(255,255,255,.75); font-size: 15px; }
+.incoming-secondary { position: absolute; right: 22px; bottom: 145px; left: 22px; display: flex; justify-content: space-between; }
+.incoming-secondary button { display: flex; flex-direction: column; align-items: center; gap: 8px; border: 0; padding: 0; color: #fff; background: transparent; opacity: .5; }
+.incoming-secondary svg { width: 23px; height: 23px; }
+.incoming-secondary small, .call-action small { font-size: 12px; }
+.call-actions { position: absolute; right: 24px; bottom: 44px; left: 24px; display: flex; justify-content: space-between; }
+.call-action { border: 0; padding: 0; color: #fff; background: transparent; }
+.call-action span { display: grid; width: 60px; height: 60px; margin-bottom: 9px; place-items: center; border-radius: 50%; }
+.call-action svg { width: 27px; height: 27px; fill: currentColor; stroke-width: 1; }
+.call-decline span, .end-call-button { background: #ff3b30; }
+.call-accept span { background: #30b65a; }
+.hang-up { transform: rotate(135deg); }
+.call-tools { position: absolute; right: 17px; bottom: 126px; left: 17px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; }
+.call-tools button { border: 0; padding: 0; color: #fff; background: transparent; opacity: .5; }
+.call-tools span { display: grid; width: 52px; height: 52px; margin: 0 auto 7px; place-items: center; border-radius: 50%; background: rgba(255,255,255,.22); }
+.call-tools svg { width: 24px; height: 24px; }
+.call-tools small { font-size: 11px; }
+.end-call-button { position: absolute; bottom: 40px; left: 50%; display: grid; width: 60px; height: 60px; transform: translateX(-50%); place-items: center; border: 0; border-radius: 50%; color: #fff; }
+.end-call-button svg { width: 28px; height: 28px; fill: currentColor; stroke-width: 1; }
+.call-duration { margin-top: 8px; color: rgba(255,255,255,.55); font-size: 13px; }
+.new-call-button { position: absolute; bottom: 54px; left: 20px; right: 20px; display: flex; align-items: center; justify-content: center; gap: 9px; padding: 14px 8px; border: 1px solid rgba(255,255,255,.3); border-radius: 24px; color: #fff; background: rgba(255,255,255,.15); font-size: 14px; }
+.new-call-button svg { width: 18px; }
+.phone-scam-warning { position: absolute; z-index: 6; top: 35%; left: 10px; right: 10px; display: grid; grid-template-columns: 22px 1fr; gap: 8px; border: 1px solid #ff8c96; border-radius: 16px; padding: 14px 12px; color: #fff; text-align: left; background: #810c20; box-shadow: 0 12px 32px rgba(0,0,0,.25); animation: warning-in .2s ease-out; }
+.phone-scam-warning > svg { width: 22px; }
+.phone-scam-warning strong { display: block; font-size: 14px; line-height: 1.25; }
+.phone-scam-warning small { display: block; margin-top: 6px; color: #ffe5e9; font-size: 12px; line-height: 1.4; }
+.warning-end-call { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; margin-top: 12px; padding: 10px 4px; border: 0; border-radius: 9px; color: #fff; background: var(--risk-red); font-size: 13px; font-weight: 700; }
+.warning-end-call svg { width: 16px; height: 16px; }
+.warning-dismiss { margin-top: 8px; border: 0; padding: 4px 0; color: #ffe5e9; background: transparent; font-size: 12px; text-decoration: underline; }
+.active-call:has(.phone-scam-warning) .call-tools { visibility: hidden; }
+@keyframes warning-in { from { transform: translateY(-5px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes state-pulse { to { opacity: .4; } }
+
+@media (min-width: 761px) {
+  .shell { height: 100dvh; min-height: 720px; display: grid; grid-template-rows: 64px minmax(0, 1fr); }
+  .workspace { margin-top: 20px; min-height: 0; }
+}
+@media (min-width: 1001px) and (min-height: 800px) {
+  .transcript-card, .result { padding: 24px 28px; }
+  .transcript-card { max-height: 360px; }
+  .card-header h2, .card-title { font-size: 28px; }
+  .transcript { font-size: 20px; }
+  .risk-readout h3 { font-size: 20px; }
+  .risk-value strong { font-size: 34px; }
+  .analysis-state, .risk-value > span, .risk-scale, .risk-history-heading { font-size: 12px; }
+  .audio-source, .status, .upload-audio { font-size: 13px; }
+  .risk-chart { height: 72px; }
+  .risk-reason h3, .risk-reason p { font-size: 14px; }
+  .incoming-call h2, .active-call h2 { font-size: 34px; }
+  .phone-caption { font-size: 17px; }
+  .phone-time { font-size: 76px; }
+  .lock-date, .incoming-notification strong { font-size: 14px; }
+  .incoming-notification small, .call-tools small { font-size: 12px; }
+  .call-tools span { width: 58px; height: 58px; }
+  .call-action span, .end-call-button { width: 66px; height: 66px; }
+  .phone-scam-warning strong { font-size: 16px; }
+  .phone-scam-warning small { font-size: 13px; }
+}
+@media (max-width: 1000px) and (min-width: 761px) {
+  .shell { padding-left: 16px; padding-right: 16px; }
+  .workspace { grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr); gap: 20px; }
+  .transcript-card, .result { padding: 18px; }
+  .risk-readout { flex-wrap: wrap; }
+}
+@media (max-width: 760px) {
+  .shell { padding: 12px 14px 24px; }
+  .brand { font-size: 20px; }
+  .brand-logo { width: 46px; height: 46px; }
+  .brand::after { display: none; }
+  .intro { display: block; padding: 32px 4px; }
+  .intro h1 { font-size: 36px; line-height: 1.1; letter-spacing: -.05em; }
+  .lede { margin-top: 16px; color: var(--swisscom-muted); font-size: 16px; line-height: 1.5; }
+  .workspace { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .call-panel { padding: 8px 20px; }
+  .phone-frame { height: auto; width: min(100%, 300px); }
+  .phone-screen { aspect-ratio: 9 / 19.5; }
+  .transcript-card, .result { padding: 20px; border-radius: 18px; }
+  .transcript-card { flex: none; height: 280px; }
+  .risk-readout h3 { font-size: 17px; }
+  .risk-chart { height: 72px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }

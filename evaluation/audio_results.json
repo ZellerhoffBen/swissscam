@@ -1,0 +1,277 @@
+{
+  "model_sha256": "abd240fdd2c522e2bf14fd9717375192762dcd474bb48176b2d7509095f131d8",
+  "threshold": 0.9500000000000001,
+  "recordings": [
+    {
+      "file": "data/audio/ssa_scam.mp3",
+      "sha256": "068386dc611feecf8e0ad65251607db0b1c846f510086d2c8d2e27e404af4ea4",
+      "label": 1,
+      "warning_onset_seconds": 29.12,
+      "transcription_seconds": 3.2145746250025695,
+      "segments": [
+        {
+          "text": "Hello, this is Mr. Johnson speaking. Who's",
+          "start_seconds": 0.0,
+          "end_seconds": 3.26
+        },
+        {
+          "text": "calling?",
+          "start_seconds": 3.26,
+          "end_seconds": 3.56
+        },
+        {
+          "text": "My name is Officer Miller, and I'm calling from the Social Security",
+          "start_seconds": 4.3,
+          "end_seconds": 7.32
+        },
+        {
+          "text": "Administration.",
+          "start_seconds": 7.32,
+          "end_seconds": 7.9
+        },
+        {
+          "text": "Okay.",
+          "start_seconds": 8.88,
+          "end_seconds": 9.4
+        },
+        {
+          "text": "We've been trying to reach you, sir. There's been a problem with your social security",
+          "start_seconds": 10.16,
+          "end_seconds": 13.58
+        },
+        {
+          "text": "number.",
+          "start_seconds": 13.58,
+          "end_seconds": 13.86
+        },
+        {
+          "text": "What kind of problem?",
+          "start_seconds": 14.48,
+          "end_seconds": 15.66
+        },
+        {
+          "text": "It's been compromised and we need to verify some information to secure",
+          "start_seconds": 16.28,
+          "end_seconds": 19.32
+        },
+        {
+          "text": "your account.",
+          "start_seconds": 19.32,
+          "end_seconds": 19.98
+        },
+        {
+          "text": "Compromised? What do you mean?",
+          "start_seconds": 21.04,
+          "end_seconds": 22.74
+        },
+        {
+          "text": "I'm not at liberty to disclose that information over the phone,",
+          "start_seconds": 23.56,
+          "end_seconds": 26.24
+        },
+        {
+          "text": "but I need to confirm your social security number to proceed.",
+          "start_seconds": 26.24,
+          "end_seconds": 29.12
+        },
+        {
+          "text": "This is a matter of utmost importance.",
+          "start_seconds": 29.62,
+          "end_seconds": 31.6
+        },
+        {
+          "text": "If you don't cooperate, your benefits may be suspended.",
+          "start_seconds": 32.2,
+          "end_seconds": 34.78
+        },
+        {
+          "text": "Please state your social security number to proceed.",
+          "start_seconds": 35.46,
+          "end_seconds": 37.62
+        },
+        {
+          "text": "Okay, let me get my card. Sure.",
+          "start_seconds": 38.36,
+          "end_seconds": 41.08
+        },
+        {
+          "text": "Okay, my number is 8293",
+          "start_seconds": 41.72,
+          "end_seconds": 46.24
+        },
+        {
+          "text": "-4838.",
+          "start_seconds": 46.24,
+          "end_seconds": 48.84
+        }
+      ],
+      "scores": [
+        0.0019374728435650468,
+        0.0018618203466758132,
+        0.0018644928932189941,
+        0.0018208061810582876,
+        0.0018015142995864153,
+        0.0017190832877531648,
+        0.0017093250062316656,
+        0.0016866977093741298,
+        0.0026102247647941113,
+        0.5918533802032471,
+        0.04412733390927315,
+        0.9210999011993408,
+        0.9892906546592712,
+        0.9612967371940613,
+        0.996885359287262,
+        0.9973258972167969,
+        0.9980567097663879,
+        0.9980663657188416,
+        0.9980213642120361
+      ],
+      "first_warning_seconds": 29.12,
+      "max_score": 0.9980663657188416,
+      "mean_analysis_ms": 18.057554578454553,
+      "correct": true
+    },
+    {
+      "file": "data/audio/bank_legitimate.mp3",
+      "sha256": "f37e54b9748e29f4356f4d4a42f4e78c07b5cb6d6307d4453ae83fcc95245207",
+      "label": 0,
+      "warning_onset_seconds": null,
+      "transcription_seconds": 3.585476333999395,
+      "segments": [
+        {
+          "text": "Hello, this is Mr. Johnson speaking. Who's",
+          "start_seconds": 0.0,
+          "end_seconds": 3.12
+        },
+        {
+          "text": "calling?",
+          "start_seconds": 3.12,
+          "end_seconds": 3.46
+        },
+        {
+          "text": "My name is Sean Miller, calling from the Fraud Prevention Team at First National",
+          "start_seconds": 4.08,
+          "end_seconds": 7.12
+        },
+        {
+          "text": "Bank.",
+          "start_seconds": 7.12,
+          "end_seconds": 7.4
+        },
+        {
+          "text": "We're contacting you regarding a recent transaction on your credit card.",
+          "start_seconds": 7.94,
+          "end_seconds": 10.36
+        },
+        {
+          "text": "Okay, what transaction?",
+          "start_seconds": 11.12,
+          "end_seconds": 13.46
+        },
+        {
+          "text": "There was a purchase for $486.20 at an electronic",
+          "start_seconds": 14.28,
+          "end_seconds": 17.48
+        },
+        {
+          "text": "store in Boston earlier today.",
+          "start_seconds": 17.48,
+          "end_seconds": 19.08
+        },
+        {
+          "text": "We wanted to confirm whether you authorized it.",
+          "start_seconds": 19.4,
+          "end_seconds": 21.4
+        },
+        {
+          "text": "No, I'm in New York. I definitely didn't",
+          "start_seconds": 21.92,
+          "end_seconds": 25.2
+        },
+        {
+          "text": "make that purchase.",
+          "start_seconds": 25.2,
+          "end_seconds": 26.12
+        },
+        {
+          "text": "Thank you. In that case, we'll temporarily block the card and investigate",
+          "start_seconds": 26.68,
+          "end_seconds": 29.82
+        },
+        {
+          "text": "the transaction.",
+          "start_seconds": 29.82,
+          "end_seconds": 30.44
+        },
+        {
+          "text": "Before I do that, I need to verify that I'm speaking with the card holder.",
+          "start_seconds": 31.06,
+          "end_seconds": 33.74
+        },
+        {
+          "text": "Okay, what do you need?",
+          "start_seconds": 34.32,
+          "end_seconds": 35.88
+        },
+        {
+          "text": "Please confirm your full name and the last four digits of the card.",
+          "start_seconds": 36.44,
+          "end_seconds": 39.02
+        },
+        {
+          "text": "Do not provide your pin, password, or the full card number.",
+          "start_seconds": 39.46,
+          "end_seconds": 42.2
+        },
+        {
+          "text": "It's Robert Johnson, and the last four digits are",
+          "start_seconds": 42.76,
+          "end_seconds": 46.16
+        },
+        {
+          "text": "$4832.",
+          "start_seconds": 46.16,
+          "end_seconds": 48.46
+        },
+        {
+          "text": "Thank you. That matches our records. I'm blocking the card now.",
+          "start_seconds": 49.24,
+          "end_seconds": 51.88
+        },
+        {
+          "text": "You won't be responsible for the transaction while we investigate it.",
+          "start_seconds": 52.34,
+          "end_seconds": 54.94
+        }
+      ],
+      "scores": [
+        0.0019374728435650468,
+        0.0018618203466758132,
+        0.0017926301807165146,
+        0.001737158396281302,
+        0.0017479662783443928,
+        0.0017042518593370914,
+        0.0017637148266658187,
+        0.0017264229245483875,
+        0.0017237033462151885,
+        0.0017472708132117987,
+        0.0017483773408457637,
+        0.0018437261460348964,
+        0.0019058971665799618,
+        0.002052012598142028,
+        0.0020377568434923887,
+        0.001996682258322835,
+        0.0019481631461530924,
+        0.001980283996090293,
+        0.00199618237093091,
+        0.004323803354054689,
+        0.013715589419007301
+      ],
+      "first_warning_seconds": null,
+      "max_score": 0.013715589419007301,
+      "mean_analysis_ms": 13.625632857361953,
+      "correct": true
+    }
+  ],
+  "limitation": "Two known synthetic-voice regressions. CPU timings exclude model load and depend on hardware/cache state."
+}

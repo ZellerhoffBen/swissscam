@@ -1,17 +1,19 @@
 """Evaluate first warnings on held-out conversations, one turn at a time."""
 
+import argparse
 import hashlib
+import re
 import json
 import statistics
 from pathlib import Path
 
-from sklearn.pipeline import Pipeline
+from context_model import ContextClassifier
 
 from detector import MODEL_PATH, load_model
-from prepare_data import EVALUATION, iter_prefixes, read_jsonl
+from prepare_data import DATA, EVALUATION, behavior_rows, iter_prefixes, load_calls, read_jsonl
 
 
-def score_calls(model: Pipeline, calls: list[dict]) -> list[list[float]]:
+def score_calls(model: ContextClassifier, calls: list[dict]) -> list[list[float]]:
     """The model sees only spoken text up to the current turn."""
     result = []
     for call in calls:
@@ -68,19 +70,46 @@ def write_report(path: Path, result: dict) -> None:
     path.write_text(json.dumps(result, indent=2) + "\n")
 
 
+def behavior_result(model: ContextClassifier, rows: list[dict], threshold: float) -> dict:
+    values = model.predict_proba([r["text"] for r in rows])[:, 1]
+    cases = [{"id": r["id"], "kind": r["kind"], "label": r["label"], "score": float(score),
+              "correct": bool((score >= threshold) == r["label"])}
+             for r, score in zip(rows, values, strict=True)]
+    return {"correct": sum(r["correct"] for r in cases), "total": len(cases), "cases": cases}
+
+
 def main() -> None:
-    # Run only after selecting and freezing the model using validation.
-    artifact = load_model()
-    calls = read_jsonl(EVALUATION / "test.jsonl")
-    result = measure(calls, score_calls(artifact["model"], calls), artifact["threshold"])
-    report = {
-        "split": "test", "model_sha256": hashlib.sha256(MODEL_PATH.read_bytes()).hexdigest(),
-        "test_sha256": hashlib.sha256((EVALUATION / "test.jsonl").read_bytes()).hexdigest(),
-        "classifier": result,
-        "limitation": "Small synthetic text test; not evidence of real-call or speech-recognition performance.",
-    }
-    write_report(EVALUATION / "test_results.json", report)
-    print(json.dumps(summary(result), indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--model", type=Path, help="Candidate directory; defaults to the active model.")
+    args = parser.parse_args()
+    artifact = load_model(args.model)
+    model, threshold = artifact["model"], artifact["threshold"]
+    datasets = {"test": load_calls("test"),
+                "fresh": read_jsonl(EVALUATION / "fresh_calls.jsonl"),
+                "reported": read_jsonl(EVALUATION / "regressions.jsonl")}
+    calls = {name: measure(rows, score_calls(model, rows), threshold) for name, rows in datasets.items()}
+    behaviors = behavior_rows("test")
+    language = {"original": behavior_result(model, behaviors, threshold)}
+    for name, transform in {
+        "no_punctuation": lambda text: re.sub(r"[^\w\s]", "", text.lower()),
+        "neutral_context": lambda text: "Hello, my name is Alex. I called earlier about the 38 dollar purchase. " + text,
+    }.items():
+        language[name] = behavior_result(model, [{**r, "text": transform(r["text"])} for r in behaviors], threshold)
+        language[name]["decision_changes"] = sum(
+            (a["score"] >= threshold) != (b["score"] >= threshold)
+            for a, b in zip(language["original"]["cases"], language[name]["cases"], strict=True))
+    model_path = args.model / "model.safetensors" if args.model else MODEL_PATH
+    report = {"model_sha256": hashlib.sha256(model_path.read_bytes()).hexdigest(), "threshold": threshold,
+              "calls": calls, "behaviors": language,
+              "data_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in
+                              (DATA / "authored.jsonl", DATA / "behaviors.jsonl",
+                               EVALUATION / "fresh_calls.jsonl", EVALUATION / "regressions.jsonl")},
+              "limitation": "Synthetic, now-known regression cases; not independent evidence of real-call accuracy."}
+    output = args.model / "evaluation_results.json" if args.model else EVALUATION / "results.json"
+    write_report(output, report)
+    for name, result in calls.items():
+        print(name, json.dumps(summary(result)))
+    print(f"Behavior checks: {language['original']['correct']}/{language['original']['total']}")
 
 
 if __name__ == "__main__":

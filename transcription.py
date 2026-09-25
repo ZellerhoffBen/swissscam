@@ -23,12 +23,23 @@ def _transcribe_segments(audio_path: Path) -> tuple[TranscriptSegment, ...]:
 
 
 def transcribe_stream(audio_path: Path) -> Iterator[TranscriptSegment]:
-    """Yield each Whisper segment as soon as it has been transcribed."""
+    """Yield short, word-timed updates for playback and incremental detection."""
     if not audio_path.is_file():
         raise FileNotFoundError(audio_path)
 
-    whisper_segments, _ = _load_model().transcribe(str(audio_path), beam_size=5)
+    whisper_segments, _ = _load_model().transcribe(str(audio_path), beam_size=5, word_timestamps=True)
     for segment in whisper_segments:
+        if segment.words:
+            words = []
+            for index, word in enumerate(segment.words):
+                words.append(word)
+                # Preserve whole words and their timestamps; do not guess timings.
+                if word.end - words[0].start >= 3 or index == len(segment.words) - 1:
+                    text = "".join(item.word for item in words).strip()
+                    if text:
+                        yield TranscriptSegment(text=text, start_seconds=words[0].start, end_seconds=word.end)
+                    words = []
+            continue
         text = segment.text.strip()
         if text:
             yield TranscriptSegment(

@@ -1,385 +1,42 @@
 {
-  "source_revision": "321b961b5ae353e19ed479b960658dcd223d5e06",
-  "source_sha256": "fe8a8fa0aa2b8afb0b0a672fb7f9739b323cb6dd12064f786a68c2a1f49a4e0b",
-  "source_rows": 1600,
-  "seed_kept": 1551,
-  "seed_excluded": 49,
-  "stage_directions_removed_from_calls": 22,
-  "excluded_rows": [
-    {
-      "source_row": 21,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 24,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 37,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 45,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 58,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 74,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 77,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 79,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 123,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 174,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 197,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 200,
-      "category": "ssn",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 216,
-      "category": "refund",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 278,
-      "category": "refund",
-      "label": 1,
-      "reason": "Non-spoken fake-number annotation; supplied dialogue is incomplete."
-    },
-    {
-      "source_row": 288,
-      "category": "refund",
-      "label": 1,
-      "reason": "Non-spoken fake-number annotation; supplied dialogue is incomplete."
-    },
-    {
-      "source_row": 308,
-      "category": "refund",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 318,
-      "category": "refund",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 333,
-      "category": "refund",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 337,
-      "category": "refund",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 363,
-      "category": "refund",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 364,
-      "category": "refund",
-      "label": 1,
-      "reason": "Receiver comments on a callback number that the caller never supplies."
-    },
-    {
-      "source_row": 406,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 417,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 445,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 450,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 473,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 500,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 523,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 543,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 564,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 570,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 571,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 592,
-      "category": "support",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 607,
-      "category": "reward",
-      "label": 1,
-      "reason": "Receiver refers to an SSN request absent from the preceding dialogue."
-    },
-    {
-      "source_row": 624,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 651,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 667,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 697,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 723,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 749,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 761,
-      "category": "reward",
-      "label": 1,
-      "reason": "Duplicate after normalisation of data row 716."
-    },
-    {
-      "source_row": 763,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 769,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 776,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 790,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 796,
-      "category": "reward",
-      "label": 1,
-      "reason": "Possibly truncated ending; excluded rather than guessing missing speech."
-    },
-    {
-      "source_row": 807,
-      "category": "delivery",
-      "label": 0,
-      "reason": "Unrecognised order is treated as verified without resolving the mismatch."
-    },
-    {
-      "source_row": 877,
-      "category": "delivery",
-      "label": 0,
-      "reason": "Non-spoken fake-number annotation; supplied dialogue is incomplete."
-    },
-    {
-      "source_row": 1573,
-      "category": "wrong",
-      "label": 0,
-      "reason": "Duplicate after normalisation of data row 1413."
-    }
-  ],
-  "seed_review": {
-    "method": "Assistant qualitative sample review, not independent human annotation",
-    "sample_rows": [
-      7,
-      29,
-      164,
-      190,
-      207,
-      229,
-      364,
-      390,
-      407,
-      429,
-      564,
-      590,
-      607,
-      629,
-      764,
-      790,
-      807,
-      829,
-      964,
-      990,
-      1007,
-      1029,
-      1164,
-      1190,
-      1207,
-      1229,
-      1364,
-      1390,
-      1407,
-      1429,
-      1564,
-      1590
-    ],
-    "sample_size": 32
-  },
   "splits": {
     "train": {
-      "calls": 1791,
+      "calls": 272,
       "labels": {
-        "1": 874,
-        "0": 917
+        "1": 136,
+        "0": 136
       },
       "sources": {
-        "BothBosu/scam-dialogue": 1551,
-        "swissscam_authored_v1": 240
+        "swissscam_authored_v1": 240,
+        "swissscam_authored_v2": 32
       },
       "categories": {
-        "bank": 40,
-        "delivery": 218,
+        "bank": 72,
+        "delivery": 20,
         "family": 40,
-        "insurance": 220,
+        "insurance": 20,
         "police": 40,
-        "refund": 211,
-        "reward": 187,
+        "refund": 20,
         "shock": 40,
-        "ssn": 188,
-        "support": 208,
-        "telemarketing": 200,
-        "wrong": 199
+        "support": 20
       },
       "median_words_by_label": {
-        "0": 174,
-        "1": 269.5
+        "0": 61.0,
+        "1": 58.0
       }
     },
     "validation": {
-      "calls": 40,
+      "calls": 48,
       "labels": {
-        "1": 20,
-        "0": 20
+        "1": 24,
+        "0": 24
       },
       "sources": {
-        "swissscam_authored_v1": 40
+        "swissscam_authored_v1": 40,
+        "swissscam_authored_v2": 8
       },
       "categories": {
-        "bank": 6,
+        "bank": 14,
         "delivery": 4,
         "family": 6,
         "insurance": 4,
@@ -389,21 +46,22 @@
         "support": 4
       },
       "median_words_by_label": {
-        "0": 69.0,
-        "1": 68.5
+        "0": 65.0,
+        "1": 64.0
       }
     },
     "test": {
-      "calls": 40,
+      "calls": 48,
       "labels": {
-        "1": 20,
-        "0": 20
+        "1": 24,
+        "0": 24
       },
       "sources": {
-        "swissscam_authored_v1": 40
+        "swissscam_authored_v1": 40,
+        "swissscam_authored_v2": 8
       },
       "categories": {
-        "bank": 4,
+        "bank": 12,
         "delivery": 6,
         "family": 4,
         "insurance": 6,
@@ -413,40 +71,16 @@
         "support": 6
       },
       "median_words_by_label": {
-        "0": 67.0,
-        "1": 67.5
+        "0": 63.5,
+        "1": 63.0
       }
     }
   },
-  "authored_train": {
-    "calls": 240,
-    "labels": {
-      "1": 120,
-      "0": 120
-    },
-    "sources": {
-      "swissscam_authored_v1": 240
-    },
-    "categories": {
-      "bank": 40,
-      "delivery": 20,
-      "family": 40,
-      "insurance": 20,
-      "police": 40,
-      "refund": 20,
-      "shock": 40,
-      "support": 20
-    },
-    "median_words_by_label": {
-      "0": 62.0,
-      "1": 60.0
-    }
-  },
-  "train_prefixes": 1440,
-  "unique_train_prefix_texts": 960,
-  "prefix_labels": {
-    "false": 1200,
-    "true": 240
+  "training_examples": 1144,
+  "behavior_examples": {
+    "train": 56,
+    "validation": 16,
+    "test": 24
   },
   "overlap": {
     "exact_call_overlap": 0,
@@ -466,15 +100,8 @@
     }
   },
   "files_sha256": {
-    "data/scam/train.jsonl": "57ddc05a5a3b56d4fe45cb9cde75334e0173f8286701a983d4aba90b8b52b877",
-    "evaluation/validation.jsonl": "069970cdd0df4fd579523ea0a9af9edd0bdd797818d53e1feb44703c99a6e9c2",
-    "evaluation/test.jsonl": "98d938f3df0deac106cf8b697dba31cd9198f208efe05bdca91d7104f6bfe498"
+    "authored.jsonl": "491dd7d395cb69f025b105481d99436ff3ec8ea23888e55ddd62ebfbd3c3b6a2",
+    "behaviors.jsonl": "e4815b0cdca331de93f5179b286c8275c052dca1d5975087473d5cf5e8ddd9d6"
   },
-  "limitations": [
-    "All data is synthetic; no measured model accuracy or real-world validation.",
-    "Seed call labels are not turn labels and were only sample-reviewed.",
-    "Authored pairs share scaffolding; held-out calls are only 20 scenario pairs per split.",
-    "No audio timestamps, ASR errors, or harm-event annotations are supplied.",
-    "The small enrichment set reduces but does not eliminate seed topic bias."
-  ]
+  "limitation": "Synthetic assistant-authored data; matching pairs share scaffolding. Lexical checks cannot prove semantic independence."
 }

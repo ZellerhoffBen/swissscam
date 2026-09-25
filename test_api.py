@@ -5,12 +5,13 @@ import unittest
 from collections.abc import Iterator
 from pathlib import Path
 from unittest.mock import patch
+from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
 from main import app
 from schemas import TranscriptSegment
-from transcription import _transcribe_segments
+from transcription import _transcribe_segments, transcribe_stream
 
 SEGMENTS = [
     TranscriptSegment(text="Hello, this is your bank.", start_seconds=0, end_seconds=2),
@@ -38,6 +39,7 @@ class ApiTests(unittest.TestCase):
         result = self.client.post("/api/analyze", json={"transcript": complete.json()["text"]})
         self.assertEqual(result.status_code, 200)
         self.assertTrue(result.json()["warning"])
+        self.assertGreaterEqual(result.json()["score"], result.json()["threshold"])
         self.assertEqual(result.json()["signals"], [])
 
     def test_upload_events_and_temporary_file_cleanup(self) -> None:
@@ -72,6 +74,17 @@ class ApiTests(unittest.TestCase):
     def test_invalid_requests_are_rejected(self) -> None:
         self.assertEqual(self.client.post("/api/transcribe", json={"audio_id": "unknown"}).status_code, 404)
         self.assertEqual(self.client.post("/api/analyze", json={"transcript": ""}).status_code, 422)
+
+    def test_word_timed_updates_preserve_text_and_the_final_short_chunk(self) -> None:
+        words = [SimpleNamespace(word=text, start=start, end=end) for text, start, end in
+                 [("Hello", 0, 1), (" there.", 1, 3.2), (" Read", 3.3, 4), (" the code.", 4, 5)]]
+        segment = SimpleNamespace(words=words, text="Hello there. Read the code.", start=0, end=5)
+        with patch("transcription._load_model") as model:
+            model.return_value.transcribe.return_value = ([segment], None)
+            updates = list(transcribe_stream(Path("data/audio/demo.wav")))
+        self.assertEqual([s.text for s in updates], ["Hello there.", "Read the code."])
+        self.assertEqual([s.end_seconds for s in updates], [3.2, 5])
+        self.assertEqual(updates[1].start_seconds, 3.3)
 
 
 if __name__ == "__main__":

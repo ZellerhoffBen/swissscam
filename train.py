@@ -1,81 +1,96 @@
-"""Train the chosen model recipe; choose its warning threshold on validation."""
-
+"""Fine-tune MiniLM and choose its checkpoint/threshold using validation only."""
+import argparse
 import hashlib
 import json
-import pickle
-from collections import Counter
+import random
+import shutil
+from pathlib import Path
 
-import sklearn
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
+import numpy as np
 
-from detector import MODEL_PATH
 from evaluate import measure, score_calls, summary, write_report
-from prepare_data import DATA, EVALUATION, iter_prefixes, normalize, read_jsonl
+from prepare_data import DATA, behavior_rows, load_calls, training_rows, validate_data
 
 
-def training_rows() -> tuple[list[dict], list[dict]]:
-    calls = read_jsonl(DATA / "train.jsonl")
-    unique = {}
-    # Build text-so-far examples in memory instead of storing a duplicate dataset.
-    for call in calls:
-        for prefix in iter_prefixes(call):
-            key = normalize(prefix["text"])
-            label = int(prefix["warning"])
-            if key in unique and unique[key]["label"] != label:
-                raise ValueError("Conflicting training prefix labels.")
-            unique[key] = {"text": prefix["text"], "label": label}
-    seed = [call for call in calls if call["annotation"] == "source_call_label_only"]
-    return list(unique.values()), seed
+def choose_threshold(model: object, calls: list[dict], behaviors: list[dict]) -> dict:
+    call_scores = score_calls(model, calls)
+    behavior_scores = model.predict_proba([r["text"] for r in behaviors])[:, 1]
+    trials = []
+    for threshold in (i / 100 for i in range(5, 100, 5)):
+        call_result = measure(calls, call_scores, float(threshold))
+        correct = sum((score >= threshold) == r["label"] for r, score in zip(behaviors, behavior_scores))
+        # Equal influence for call-level behavior and the explicit language checks.
+        quality = (call_result["balanced_call_score"] + correct / len(behaviors)) / 2
+        trials.append({"quality": float(quality), "behavior_correct": int(correct),
+                       "behavior_total": len(behaviors), **summary(call_result)})
+    return max(trials, key=lambda r: (r["quality"], -r["false_alarm"] - r["premature_warning"],
+                                      -(r["mean_delay_turns"] or 0), -abs(r["threshold"] - 0.7)))
 
 
-def fit_model(local: list[dict], seed: list[dict]) -> Pipeline:
-    rows, weights = [], []
-    # Equal total weight for each label. Public whole-call labels get only 25%
-    # of the weight because they lack warning-onset labels.
-    for pool, share in ((local, 0.75), (seed, 0.25)):
-        counts = Counter(row["label"] for row in pool)
-        rows.extend(pool)
-        weights.extend(len(local) * share / (2 * counts[row["label"]]) for row in pool)
-    model = Pipeline([
-        ("words", TfidfVectorizer(ngram_range=(1, 2), sublinear_tf=True, min_df=2, max_features=20000)),
-        ("classifier", LogisticRegression(C=4.0, max_iter=1000, random_state=42)),
-    ])
-    model.fit([r["text"] for r in rows], [r["label"] for r in rows], classifier__sample_weight=weights)
-    return model
+def train_context(rows: list[dict], validation: list[dict], behaviors: list[dict], output: Path) -> dict:
+    import torch
+    from context_model import BASE_MODEL, BASE_REVISION, ContextClassifier
 
-
-def selection_key(result: dict) -> tuple:
-    # Balance correct scam warnings and quiet legitimate calls. Break ties with
-    # fewer false/premature alerts, faster warnings, then a threshold near 0.5.
-    delay = result["mean_delay_turns"]
-    return (result["balanced_call_score"],
-            -result["false_alarm"] - result["premature_warning"],
-            -delay if delay is not None else -float("inf"),
-            -abs(result["threshold"] - 0.5))
+    torch.manual_seed(42)
+    random.seed(42)
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    classifier = ContextClassifier(BASE_MODEL, device, BASE_REVISION)
+    optimizer = torch.optim.AdamW(classifier.model.parameters(), lr=2e-5, weight_decay=0.01)
+    counts = np.bincount([r["label"] for r in rows])
+    weights = torch.tensor(len(rows) / (2 * counts), dtype=torch.float32, device=device)
+    best = None
+    epochs = []
+    # Fixed budget; checkpoint selection uses validation only.
+    for epoch in range(1, 7):
+        classifier.model.train()
+        order = list(range(len(rows)))
+        random.shuffle(order)
+        loss_sum = 0.0
+        for start in range(0, len(order), 16):
+            batch_rows = [rows[i] for i in order[start:start + 16]]
+            inputs = classifier.tokenizer([r["text"] for r in batch_rows], padding=True,
+                                          truncation=True, max_length=512, return_tensors="pt").to(device)
+            labels = torch.tensor([r["label"] for r in batch_rows], device=device)
+            optimizer.zero_grad()
+            logits = classifier.model(**inputs).logits
+            loss = torch.nn.functional.cross_entropy(logits, labels, weight=weights)
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(classifier.model.parameters(), 1.0)
+            optimizer.step()
+            loss_sum += float(loss.detach().cpu())
+        selected = {"epoch": epoch, **choose_threshold(classifier, validation, behaviors)}
+        epochs.append(selected)
+        print(json.dumps({"loss_sum": loss_sum, **selected}), flush=True)
+        if best is None or selected["quality"] > best["quality"]:
+            best = selected
+            classifier.save(output)
+    return {"selected": best, "epochs": epochs,
+            "base_model": BASE_MODEL, "base_revision": BASE_REVISION,
+            "training": {"seed": 42, "epochs": 6, "batch_size": 16, "learning_rate": 2e-5,
+                         "weight_decay": 0.01, "max_tokens": 512, "examples": len(rows)},
+            "torch_version": torch.__version__}
 
 
 def main() -> None:
-    local, seed = training_rows()
-    model = fit_model(local, seed)
-    validation = read_jsonl(EVALUATION / "validation.jsonl")
-    scores = score_calls(model, validation)
-    trials = [measure(validation, scores, i / 100) for i in range(5, 100, 5)]
-    selected = max(trials, key=selection_key)
-    input_paths = [DATA / "train.jsonl", EVALUATION / "validation.jsonl"]
-    input_hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in input_paths}
-    artifact = {"model": model, "threshold": selected["threshold"],
-                "sklearn_version": sklearn.__version__, "input_sha256": input_hashes}
-    MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
-    MODEL_PATH.write_bytes(pickle.dumps(artifact, protocol=pickle.HIGHEST_PROTOCOL))
-    write_report(EVALUATION / "validation_results.json", {
-        "unique_training_prefixes": len(local), "public_training_calls": len(seed),
-        "input_sha256": input_hashes, "selected": summary(selected),
-        "threshold_trials": [summary(result) for result in trials],
-    })
-    print(json.dumps(summary(selected), indent=2))
-    print("Model frozen. Run: uv run python evaluate.py")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=Path("models/candidate"))
+    output = parser.parse_args().output
+    if output.resolve() == Path("models/context").resolve():
+        parser.error("Use a separate candidate directory; keep active weights unchanged.")
+    validate_data()
+    report = train_context(training_rows(), load_calls("validation"), behavior_rows("validation"), output)
+    metadata = {
+        "model_type": "MiniLM sequence classifier", "threshold": report["selected"]["threshold"],
+        "base_model": report["base_model"], "base_revision": report["base_revision"],
+        "training": report["training"], "selected_epoch": report["selected"]["epoch"],
+        "weights_sha256": hashlib.sha256((output / "model.safetensors").read_bytes()).hexdigest(),
+        "input_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                         for p in (DATA / "authored.jsonl", DATA / "behaviors.jsonl")},
+    }
+    write_report(output / "metadata.json", metadata)
+    write_report(output / "validation_results.json", report)
+    shutil.copyfile("models/context/LICENSE", output / "LICENSE")
+    print(f"Candidate saved to {output}. Active model unchanged.")
 
 
 if __name__ == "__main__":

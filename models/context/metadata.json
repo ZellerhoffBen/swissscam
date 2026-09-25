@@ -1,0 +1,19 @@
+{
+  "model_type": "MiniLM sequence classifier",
+  "threshold": 0.9500000000000001,
+  "base_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "base_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "training": {
+    "seed": 42,
+    "epochs": 6,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "weight_decay": 0.01,
+    "max_tokens": 512,
+    "examples": 1144
+  },
+  "selected_epoch": 6,
+  "weights_sha256": "abd240fdd2c522e2bf14fd9717375192762dcd474bb48176b2d7509095f131d8",
+  "adoption": "Hackathon prototype: comparatively better on fresh evaluation; absolute false-alarm quality floor failed. No production-readiness claim.",
+  "evaluation": "evaluation/README.md"
+}

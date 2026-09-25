@@ -128,7 +128,7 @@ export function startCall({
           signal,
         );
         if (signal.aborted) return;
-        onDetection(result);
+        onDetection(result, end);
       }
       if (transcribed && audio.ended && nextSegment === segments.length) {
         finished = true;

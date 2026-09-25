@@ -58,6 +58,11 @@ test("only heard segments reach the model, in order, with accumulated text", asy
     ...callbacks(),
     onDetection: (result) => results.push(result),
   });
+  const timestamps = [];
+  const stop = startCall({ audio, ...callbacks(), onDetection: (result, seconds) => {
+    results.push(result);
+    timestamps.push(seconds);
+  } });
   t.after(stop);
   await flush();
   assert.deepEqual(requests, []);
@@ -79,6 +84,9 @@ test("only heard segments reach the model, in order, with accumulated text", asy
     results.map((r) => r.warning),
     [false, true],
   );
+  assert.deepEqual(requests, [segments[0].text, segments.map((s) => s.text).join(" ")]);
+  assert.deepEqual(results.map((r) => r.warning), [false, true]);
+  assert.deepEqual(timestamps, [2, 4], "history uses transcript timestamps, not late response arrival times");
 });
 
 test("ending a call discards a late model response and stops playback", async (t) => {
