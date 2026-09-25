@@ -2,12 +2,10 @@
 
 ## Demo
 
-<video
-  src="https://github.com/user-attachments/assets/ad37ccc6-15ab-44ff-8f30-8527e91c24ff"
-  poster="https://github.com/user-attachments/assets/4f97aa5b-4f13-409d-b816-dc92a4da3afb"
-  controls
-  width="700">
-</video>
+
+https://github.com/user-attachments/assets/f72413dc-fa74-44a0-893c-ee13847bffc5
+
+
 
 Local scam-call detection for the Swisscom identity-fraud hackathon. The prototype
 plays English call recordings, transcribes them with Whisper and checks the
