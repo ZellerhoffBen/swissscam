@@ -7,7 +7,7 @@
     "dev": "vite web",
     "build": "vite build web",
     "test": "node --test web/src/callSession.test.js",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview web"
   },
   "dependencies": {
     "lucide-react": "^1.48.0",

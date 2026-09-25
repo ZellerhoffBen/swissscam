@@ -1,8 +1,9 @@
 # swissscam
 
-A local scam-call detector built for the Swisscom identity-fraud challenge.
-It transcribes call recordings and warns when the conversation looks suspicious.
-The demo runs locally on a Mac; integration into live smartphone calls is future work.
+Interactive replay of the Swisscom identity-fraud hackathon prototype.
+This branch serves one prerecorded call with saved transcript and model scores.
+There are no uploads, live AI inference, Python server or inference API charges.
+The original local application is on [`main`](https://github.com/ZellerhoffBen/swissscam/tree/main).
 
 https://github.com/user-attachments/assets/f72413dc-fa74-44a0-893c-ee13847bffc5
 
@@ -13,46 +14,72 @@ account access. Fake emergencies make their requests sound urgent and credible.
 We flag suspicious conversation content so the person receiving the call can
 stop and verify the caller.
 
-## How it works
+## How the website works
 
 ```mermaid
 flowchart LR
-    A[Call recording] --> B[Local Whisper]
-    B --> C[Transcript heard so far]
-    C --> D[Fine-tuned MiniLM]
-    D --> E[Risk score and warning]
+    A[Prerecorded audio] --> B[Playback position]
+    B --> C[Saved transcript and MiniLM scores]
+    C --> D[Risk history and warning]
 ```
 
-Whisper produces timestamped text. Each segment reaches MiniLM only after playback
-passes its end. The classifier reads the accumulated conversation, keeping the most
-recent 512 tokens. Audio, transcripts and inference stay on the computer.
-
-MiniLM was fine-tuned on 272 synthetic conversations, expanded into 1,088 partial
-transcripts, plus 56 short behavior examples. All were AI-authored and labelled.
-Separate validation data selected the checkpoint and warning threshold: **95/100**.
-The score is not a calibrated probability. See [training data](data/scam/README.md).
-
-The interface shows the transcript, score and risk history. Warnings leave the call
-running; users can dismiss them or hang up. Transcription can lag behind playback.
+The transcript and scores were generated once using the original Whisper and
+MiniLM pipeline. The browser reveals each result when playback reaches its timestamp.
+The page labels this as a prerecorded demo, not live analysis. Warnings leave the
+recording running; visitors can dismiss them, hang up or replay the call.
 
 ## Run locally
 
-Requires Python 3.13+, [uv](https://docs.astral.sh/uv/) and Node.js 22.12+.
+Requires Node.js 22.12+.
+
+```sh
+npm ci
+npm run dev
+```
+
+Open the address printed by Vite. Tap the phone notification, then **Accept**.
+
+To preview the production build:
+
+```sh
+npm run build
+npm run preview
+```
+
+## Deploy on Vercel
+
+Import this repository, select the `feature/demo-website` branch and keep the
+repository root as the Root Directory. `vercel.json` sets the Vite preset,
+`npm run build` command and `web/dist` output directory. No environment variables,
+Python runtime or paid integrations are needed. For a permanent public link, set
+this branch as the project's production branch and make that deployment public.
+
+The same `web/dist` folder can be served by another static host.
+
+## Refresh the saved demo
+
+Only needed when changing the recording or model. Requires the local Python setup:
 
 ```sh
 uv sync --locked
-npm ci
-npm run build
-uv run uvicorn main:app --reload
+uv run python -m ml.export_demo
 ```
 
-Open http://127.0.0.1:8000. Tap the phone notification, then **Accept** to play
-the included `possible_scam.m4a` recording. Use **Add recording** to try another call.
+This transcribes `data/audio/possible_scam.m4a`, scores the accumulating transcript
+and writes `web/src/demo.js` plus the audio in `web/public/demo/`. The export records
+audio and model hashes. These files are committed so website builds need only Node.js.
 
-No API key is needed for this flow. Whisper downloads its model on first use;
-MiniLM's weights are included.
+## Original model
+
+MiniLM was fine-tuned on 272 synthetic conversations, expanded into 1,088 partial
+transcripts, plus 56 behavior examples. All were AI-authored and labelled.
+Separate validation selected the checkpoint and **95/100** warning threshold.
+Scores are not calibrated probabilities. See [training data](data/scam/README.md).
 
 ## Testing
+
+`npm test` checks static playback timing, replay, stopping, errors and the audio hash.
+The following results describe the original model, not new tests of this replay.
 
 | Input | Scam calls flagged | Legitimate calls flagged |
 | --- | ---: | ---: |

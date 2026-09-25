@@ -8,8 +8,8 @@ export function CallCheck({ detection, history, elapsed, analysisState }) {
   const warning = detection?.warning ?? false;
   const title = detection
     ? warning ? "Potential scam detected" : "No warning so far"
-    : { idle: "Ready to analyse", processing: "Listening for speech…",
-        complete: "No speech recognised", stopped: "Analysis ended", error: "Analysis stopped" }[analysisState];
+    : { idle: "Ready for the demo", processing: "Waiting for recorded results…",
+        complete: "Demo complete", stopped: "Demo ended", error: "Demo stopped" }[analysisState];
   const thresholdLabel = Math.round(threshold * 100);
   // The chart starts at the first measurement, never at an invented zero score.
   const endTime = Math.max(elapsed, history.at(-1)?.seconds ?? 0, 1);
@@ -51,7 +51,7 @@ export function CallCheck({ detection, history, elapsed, analysisState }) {
             </circle>)}
           </svg>
           {!history.length && <span className="risk-chart-empty">{analysisState === "processing"
-            ? "Waiting for the first transcript segment" : "Scores appear as speech is analysed"}</span>}
+            ? "Waiting for the first recorded segment" : "Saved scores appear as the recording plays"}</span>}
         </div>
         <div className="risk-scale"><span>0:00</span><span>{timeLabel(elapsed)}</span></div>
         {detection && <div className="risk-reason">

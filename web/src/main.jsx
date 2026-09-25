@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { AlarmClock, AlertTriangle, BatteryFull, Camera, CircleUserRound, Flashlight, Grid3X3, MessageCircle, MicOff, Phone, Plus, Signal, Video, Volume2, Wifi } from "lucide-react";
 import { startCall } from "./callSession";
 import { CallCheck } from "./CallCheck";
+import demo from "./demo";
 import "./styles.css";
 
 function PhoneStatusBar() {
@@ -15,15 +16,13 @@ function formatTime(seconds) {
 }
 
 function App() {
-  const [status, setStatus] = useState("Choose a recording or start the demo call.");
+  const [status, setStatus] = useState("Tap the phone notification to start the demo.");
   const [transcript, setTranscript] = useState("");
   const [detection, setDetection] = useState(null);
   const [riskHistory, setRiskHistory] = useState([]);
   const [analysisState, setAnalysisState] = useState("idle");
   const [phoneState, setPhoneState] = useState("home");
   const [elapsed, setElapsed] = useState(0);
-  const [audioFile, setAudioFile] = useState(null);
-  const [audioUrl, setAudioUrl] = useState("/audio/possible_scam.m4a");
   const [showScamWarning, setShowScamWarning] = useState(false);
   const audioRef = useRef(null);
   const transcriptRef = useRef(null);
@@ -31,9 +30,6 @@ function App() {
   const stopCallRef = useRef(null);
 
   useEffect(() => () => stopCallRef.current?.(), []);
-  useEffect(() => () => {
-    if (audioUrl.startsWith("blob:")) URL.revokeObjectURL(audioUrl);
-  }, [audioUrl]);
 
   useEffect(() => {
     if (followTranscript && transcriptRef.current) {
@@ -59,18 +55,6 @@ function App() {
     setElapsed(0);
     setShowScamWarning(false);
     setFollowTranscript(true);
-  }
-
-  function handleAudioUpload(event) {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    endCall();
-    resetAnalysis();
-    setPhoneState("home");
-    setAudioFile(file);
-    setAudioUrl(URL.createObjectURL(file));
-    setStatus(`${file.name} is ready. Start a call to play and analyse it.`);
-    event.target.value = "";
   }
 
   function startIncomingCall() {
@@ -114,11 +98,10 @@ function App() {
     resetAnalysis();
     setPhoneState("active");
     setAnalysisState("processing");
-    setStatus("Playing and transcribing locally. Transcription may lag behind the audio.");
+    setStatus("Playing the recording with saved transcript and model results.");
     let warned = false;
     stopCallRef.current = startCall({
       audio: audioRef.current,
-      file: audioFile,
       onTime: setElapsed,
       onTranscript: setTranscript,
       onDetection: (result, seconds) => {
@@ -130,15 +113,15 @@ function App() {
           issueScamWarning();
         }
       },
-      onDone: (hasSpeech) => {
+      onDone: () => {
         setAnalysisState("complete");
-        setStatus(hasSpeech ? "Recording and analysis complete." : "No speech recognised in this recording.");
+        setStatus("Demo complete. Start a new demo call to replay it.");
       },
       onError: (message) => {
         setAnalysisState("error");
         setPhoneState("ended");
         setShowScamWarning(false);
-        setStatus(`Analysis stopped: ${message}`);
+        setStatus(message);
       },
     });
   }
@@ -150,7 +133,7 @@ function App() {
       </header>
       <section className="intro">
         <h1>Spot suspicious calls early.</h1>
-        <p className="lede">Play a recording and follow its transcript and scam warnings.</p>
+        <p className="lede">Play a prerecorded call and follow the saved transcript and scam warnings.</p>
       </section>
       <section className="workspace" aria-label="Call analysis workspace">
         <div className="call-panel">
@@ -210,21 +193,15 @@ function App() {
               <div className="home-indicator" />
             </div>
           </div>
-          <audio className="hidden-audio" ref={audioRef} src={audioUrl} onEnded={() => setPhoneState("ended")} aria-label="Selected call recording" />
+          <audio className="hidden-audio" ref={audioRef} src={demo.audio} preload="metadata" onEnded={() => setPhoneState("ended")} aria-label="Prerecorded demo call" />
         </div>
         <div className="insights-panel">
           <section className="transcript-card" aria-labelledby="transcript-title">
             <div className="card-header">
               <h2 id="transcript-title">Transcript</h2>
-              <span className={`analysis-state ${analysisState}`}>{{ idle: "Standby", processing: "Processing", complete: "Complete", stopped: "Ended", error: "Stopped" }[analysisState]}</span>
+              <span className={`analysis-state ${analysisState}`}>{{ idle: "Standby", processing: "Playing", complete: "Complete", stopped: "Ended", error: "Stopped" }[analysisState]}</span>
             </div>
-            <div className="recording-controls">
-              <p className="audio-source" title={audioFile?.name || "possible_scam.m4a"}>{audioFile?.name || "possible_scam.m4a"}</p>
-              <label className="upload-audio">
-                <input type="file" accept="audio/*" onChange={handleAudioUpload} />
-                <span>＋ Add recording</span>
-              </label>
-            </div>
+            <p className="demo-note"><strong>Prerecorded demo</strong> · Saved results, no live analysis.</p>
             <p className="status" role="status">{status}</p>
             <div className="transcript-content">
               <div className="transcript" ref={transcriptRef} tabIndex={0} aria-label="Call transcript" onScroll={(event) => {
