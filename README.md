@@ -1,11 +1,8 @@
 # swissscam
 
-## Demo
-
-
 https://github.com/user-attachments/assets/f72413dc-fa74-44a0-893c-ee13847bffc5
 
-
+##
 
 Local scam-call detection for the Swisscom identity-fraud hackathon. The prototype
 plays English call recordings, transcribes them with Whisper and checks the
