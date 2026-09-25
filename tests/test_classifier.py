@@ -6,11 +6,11 @@ import json
 from pathlib import Path
 from unittest.mock import patch
 
-from detector import detect, load_model
-from evaluate import measure
-from prepare_data import behavior_rows, iter_prefixes, validate_behaviors
-from evaluate_external import source_metrics, verify_file
-from evaluate_validation import audio_outcome, audio_summary, compare_reports, load_suite, SUITE
+from backend.detector import detect, load_model
+from ml.evaluate import measure
+from ml.prepare_data import behavior_rows, iter_prefixes, validate_behaviors
+from ml.evaluate_external import source_metrics, verify_file
+from ml.evaluate_validation import audio_outcome, audio_summary, compare_reports, load_suite, SUITE
 
 
 def call(label: int) -> dict:
@@ -142,8 +142,8 @@ class DetectorTests(unittest.TestCase):
     def test_missing_model_never_silently_returns_no_warning(self) -> None:
         load_model.cache_clear()
         with tempfile.TemporaryDirectory() as directory:
-            with patch("detector.MODEL_PATH", Path(directory) / "missing.pkl"):
-                with self.assertRaisesRegex(RuntimeError, "train.py"):
+            with patch("backend.detector.MODEL_PATH", Path(directory) / "model.safetensors"):
+                with self.assertRaisesRegex(RuntimeError, "Classifier missing"):
                     detect("Hello")
 
 

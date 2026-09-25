@@ -7,7 +7,7 @@ A negative label means no warning is justified by the text, not a verified calle
 | --- | --- |
 | `authored.jsonl` | 272 training, 48 validation and 48 test calls |
 | `behaviors.jsonl` | 28 training, eight validation and 12 test pairs |
-| `audit.json` | Generated counts, overlap checks and source hashes |
+| `audit.json` | Generated locally: counts, overlap checks and source hashes (not tracked) |
 
 Each JSONL line is one example. Calls contain spoken `turns`, a binary `label`,
 and `warning_turn`: the first turn that warrants a warning, or null. `evidence`
@@ -17,13 +17,13 @@ Each scenario pairs a benign and a harmful continuation. Related variants stay
 in the same split. Behavior pairs cover direct requests, negations, quoted scams,
 mixed safety advice and routine verification.
 
-`prepare_data.py` loads these files directly; there are no generated split copies.
+`ml/prepare_data.py` loads these files directly; there are no generated split copies.
 It checks labels, matched pairs, duplicate texts and cross-split overlap. Training
 uses 1,088 unique call prefixes plus 56 behavior texts: 1,144 examples in total.
 Prefixes before the harmful request remain negative.
 
 ```sh
-uv run python prepare_data.py
+uv run python -m ml.prepare_data
 ```
 
 The old public corpus and TF-IDF training path are no longer used. MiniLM's training

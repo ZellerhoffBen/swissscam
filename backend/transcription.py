@@ -6,7 +6,7 @@ from collections.abc import Iterator
 from dotenv import load_dotenv
 from faster_whisper import WhisperModel
 
-from schemas import Transcript, TranscriptSegment
+from backend.schemas import Transcript, TranscriptSegment
 
 load_dotenv()
 

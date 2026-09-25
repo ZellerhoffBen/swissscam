@@ -7,10 +7,10 @@ changed for this evaluation.
 ## Run
 
 ```sh
-uv run python evaluate_validation.py
-uv run python evaluate_validation.py --compare evaluation/validation/baseline.json
-uv run python evaluate_validation.py --model models/candidate --compare evaluation/validation/baseline.json
-uv run python evaluate_validation.py --audio
+uv run python -m ml.evaluate_validation
+uv run python -m ml.evaluate_validation --compare evaluation/validation/baseline.json
+uv run python -m ml.evaluate_validation --model models/candidate --compare evaluation/validation/baseline.json
+uv run python -m ml.evaluate_validation --audio
 ```
 
 Each run creates a new JSON report in ignored `runs/`. Use `--output path.json` to

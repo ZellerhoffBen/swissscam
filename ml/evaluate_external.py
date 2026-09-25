@@ -4,9 +4,9 @@ import re
 import zipfile
 from pathlib import Path
 
-from detector import MODEL_PATH, load_model
-from evaluate import write_report
-from prepare_data import EVALUATION, normalize
+from backend.detector import MODEL_PATH, load_model
+from ml.evaluate import write_report
+from ml.prepare_data import EVALUATION, normalize
 
 # CC BY-NC-ND 4.0: local research evaluation only; do not redistribute source texts.
 # https://www.kaggle.com/datasets/teeconnie/scam-and-non-scam-call-conversation-dataset/versions/1
@@ -60,7 +60,7 @@ def main() -> None:
     rows, excluded = external_calls(archive)
     artifact = load_model()
     result = source_metrics(rows, artifact["model"].predict_proba([r["text"] for r in rows])[:, 1], artifact["threshold"])
-    write_report(EVALUATION / "external_results.json", {
+    write_report(EVALUATION / "reports/external_results.json", {
         "model_sha256": hashlib.sha256(MODEL_PATH.read_bytes()).hexdigest(),
         "archive_sha256": ARCHIVE_SHA256, "threshold": artifact["threshold"],
         "excluded_duplicates": excluded, "result": result,

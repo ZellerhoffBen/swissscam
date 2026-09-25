@@ -9,9 +9,9 @@ from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
-from main import app
-from schemas import TranscriptSegment
-from transcription import _transcribe_segments, transcribe_stream
+from backend.api import app
+from backend.schemas import TranscriptSegment
+from backend.transcription import _transcribe_segments, transcribe_stream
 
 SEGMENTS = [
     TranscriptSegment(text="Hello, this is your bank.", start_seconds=0, end_seconds=2),
@@ -31,7 +31,7 @@ class ApiTests(unittest.TestCase):
         _transcribe_segments.cache_clear()
 
     def test_demo_cutoff_and_real_classifier(self) -> None:
-        with patch("transcription.transcribe_stream", return_value=iter(SEGMENTS)):
+        with patch("backend.transcription.transcribe_stream", return_value=iter(SEGMENTS)):
             early = self.client.post("/api/transcribe", json={"audio_id": "demo", "up_to_seconds": 1})
             self.assertEqual(early.json(), {"text": "", "segments": []})
             complete = self.client.post("/api/transcribe", json={"audio_id": "demo"})
@@ -50,7 +50,7 @@ class ApiTests(unittest.TestCase):
             self.assertEqual(path.read_bytes(), b"audio fixture")
             yield from SEGMENTS
 
-        with patch("main.transcribe_stream", side_effect=transcribe_fixture):
+        with patch("backend.api.transcribe_stream", side_effect=transcribe_fixture):
             response = self.client.post("/api/transcribe/upload", files={"audio": ("call.wav", b"audio fixture")})
         self.assertEqual(response.status_code, 200)
         events = [json.loads(frame.removeprefix("data: ")) for frame in response.text.strip().split("\n\n")]
@@ -65,7 +65,7 @@ class ApiTests(unittest.TestCase):
             paths.append(path)
             raise ValueError("Invalid recording")
 
-        with patch("main.transcribe_stream", side_effect=fail), self.assertLogs("main", level="ERROR"):
+        with patch("backend.api.transcribe_stream", side_effect=fail), self.assertLogs("backend.api", level="ERROR"):
             response = self.client.post("/api/transcribe/upload", files={"audio": ("bad.wav", b"invalid")})
         event = json.loads(response.text.removeprefix("data: "))
         self.assertEqual(event["type"], "error")
@@ -79,7 +79,7 @@ class ApiTests(unittest.TestCase):
         words = [SimpleNamespace(word=text, start=start, end=end) for text, start, end in
                  [("Hello", 0, 1), (" there.", 1, 3.2), (" Read", 3.3, 4), (" the code.", 4, 5)]]
         segment = SimpleNamespace(words=words, text="Hello there. Read the code.", start=0, end=5)
-        with patch("transcription._load_model") as model:
+        with patch("backend.transcription._load_model") as model:
             model.return_value.transcribe.return_value = ([segment], None)
             updates = list(transcribe_stream(Path("data/audio/demo.wav")))
         self.assertEqual([s.text for s in updates], ["Hello there.", "Read the code."])

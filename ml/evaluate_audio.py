@@ -3,10 +3,10 @@ import hashlib
 from pathlib import Path
 from time import perf_counter
 
-from detector import MODEL_PATH, load_model
-from evaluate import write_report
-from prepare_data import EVALUATION, ROOT
-from transcription import transcribe_stream
+from backend.detector import MODEL_PATH, load_model
+from ml.evaluate import write_report
+from ml.prepare_data import EVALUATION, ROOT
+from backend.transcription import transcribe_stream
 
 # The scam's first explicit SSN request ends at 29.12 seconds.
 RECORDINGS = [("ssa_scam.mp3", 1, 29.12), ("bank_legitimate.mp3", 0, None)]
@@ -36,7 +36,7 @@ def main() -> None:
                   "correct": (first is not None and first >= onset) if label else first is None}
         results.append(result)
         print(filename, "first warning:", first, "correct:", result["correct"])
-    write_report(EVALUATION / "audio_results.json", {
+    write_report(EVALUATION / "reports/audio_results.json", {
         "model_sha256": hashlib.sha256(MODEL_PATH.read_bytes()).hexdigest(), "threshold": artifact["threshold"],
         "recordings": results,
         "limitation": "Two known synthetic-voice regressions. CPU timings exclude model load and depend on hardware/cache state.",

@@ -8,8 +8,8 @@ from pathlib import Path
 
 import numpy as np
 
-from evaluate import measure, score_calls, summary, write_report
-from prepare_data import DATA, behavior_rows, load_calls, training_rows, validate_data
+from ml.evaluate import measure, score_calls, summary, write_report
+from ml.prepare_data import DATA, behavior_rows, load_calls, training_rows, validate_data
 
 
 def choose_threshold(model: object, calls: list[dict], behaviors: list[dict]) -> dict:
@@ -29,7 +29,7 @@ def choose_threshold(model: object, calls: list[dict], behaviors: list[dict]) ->
 
 def train_context(rows: list[dict], validation: list[dict], behaviors: list[dict], output: Path) -> dict:
     import torch
-    from context_model import BASE_MODEL, BASE_REVISION, ContextClassifier
+    from backend.context_model import BASE_MODEL, BASE_REVISION, ContextClassifier
 
     torch.manual_seed(42)
     random.seed(42)

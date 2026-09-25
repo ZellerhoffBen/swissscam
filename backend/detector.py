@@ -2,9 +2,9 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
-from schemas import DetectionResult
+from backend.schemas import DetectionResult
 
-MODELS = Path(__file__).resolve().parent / "models"
+MODELS = Path(__file__).resolve().parents[1] / "models"
 MODEL_PATH = MODELS / "context" / "model.safetensors"
 
 
@@ -12,8 +12,8 @@ MODEL_PATH = MODELS / "context" / "model.safetensors"
 def load_model(directory: Path | None = None) -> dict:
     path = MODEL_PATH if directory is None else directory / "model.safetensors"
     if not path.exists():
-        raise RuntimeError("Classifier missing. Restore models/context; train.py creates candidates separately.")
-    from context_model import ContextClassifier
+        raise RuntimeError("Classifier missing. Restore models/context; python -m ml.train creates candidates separately.")
+    from backend.context_model import ContextClassifier
 
     metadata = json.loads((path.parent / "metadata.json").read_text())
     return {**metadata, "model": ContextClassifier(path.parent)}
