@@ -2,14 +2,19 @@ async function checkedResponse(url, options) {
   const response = await fetch(url, options);
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
-    throw new Error(typeof body.detail === "string" ? body.detail : `Request failed (${response.status}).`);
+    throw new Error(
+      typeof body.detail === "string"
+        ? body.detail
+        : `Request failed (${response.status}).`,
+    );
   }
   return response;
 }
 
 async function postJson(url, data, signal) {
   const response = await checkedResponse(url, {
-    method: "POST", signal,
+    method: "POST",
+    signal,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
@@ -18,14 +23,22 @@ async function postJson(url, data, signal) {
 
 export async function transcribeRecording(file, signal, onSegment) {
   if (!file) {
-    const transcript = await postJson("/api/transcribe", { audio_id: "demo" }, signal);
+    const transcript = await postJson(
+      "/api/transcribe",
+      { audio_id: "demo" },
+      signal,
+    );
     transcript.segments.forEach(onSegment);
     return;
   }
 
   const form = new FormData();
   form.append("audio", file);
-  const response = await checkedResponse("/api/transcribe/upload", { method: "POST", body: form, signal });
+  const response = await checkedResponse("/api/transcribe/upload", {
+    method: "POST",
+    body: form,
+    signal,
+  });
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let buffer = "";
@@ -47,13 +60,22 @@ export async function transcribeRecording(file, signal, onSegment) {
       }
       if (done) break;
     }
-    if (!completed) throw new Error("Transcription connection ended before completion.");
+    if (!completed)
+      throw new Error("Transcription connection ended before completion.");
   } finally {
     reader.releaseLock();
   }
 }
 
-export function startCall({ audio, file, onTranscript, onDetection, onTime, onDone, onError }) {
+export function startCall({
+  audio,
+  file,
+  onTranscript,
+  onDetection,
+  onTime,
+  onDone,
+  onError,
+}) {
   const controller = new AbortController();
   const { signal } = controller;
   const segments = [];
@@ -78,7 +100,9 @@ export function startCall({ audio, file, onTranscript, onDetection, onTime, onDo
   }
 
   function playbackError() {
-    fail(new Error("This recording could not be played. Try a WAV or MP3 file."));
+    fail(
+      new Error("This recording could not be played. Try a WAV or MP3 file."),
+    );
   }
 
   async function update() {
@@ -91,13 +115,18 @@ export function startCall({ audio, file, onTranscript, onDetection, onTime, onDo
         const segment = segments[nextSegment];
         // Whisper may finish before playback. Never analyse unheard segments.
         const end = Number.isFinite(audio.duration)
-          ? Math.min(segment.end_seconds, audio.duration) : segment.end_seconds;
+          ? Math.min(segment.end_seconds, audio.duration)
+          : segment.end_seconds;
         if (end > audio.currentTime) break;
         heard.push(segment.text);
         nextSegment += 1;
-        const text = heard.join(" ");
+        const text = heard.join("\n\n");
         onTranscript(text);
-        const result = await postJson("/api/analyze", { transcript: text }, signal);
+        const result = await postJson(
+          "/api/analyze",
+          { transcript: text },
+          signal,
+        );
         if (signal.aborted) return;
         onDetection(result, end);
       }
@@ -123,10 +152,12 @@ export function startCall({ audio, file, onTranscript, onDetection, onTime, onDo
     if (signal.aborted) return;
     segments.push(segment);
     void update();
-  }).then(() => {
-    if (signal.aborted) return;
-    transcribed = true;
-    void update();
-  }).catch(fail);
+  })
+    .then(() => {
+      if (signal.aborted) return;
+      transcribed = true;
+      void update();
+    })
+    .catch(fail);
   return stop;
 }

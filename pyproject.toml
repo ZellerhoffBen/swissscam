@@ -10,9 +10,12 @@ dependencies = [
     "numpy>=2.5.3",
     "pydantic",
     "python-multipart",
+    "python-dotenv",
+    "scikit-learn>=1.7,<2",
     "torch>=2.6,<3",
     "transformers>=4.45,<5",
     "uvicorn",
+    "whisperx>=3.8.6",
 ]
 
 

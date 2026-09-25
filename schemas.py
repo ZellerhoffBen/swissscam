@@ -14,6 +14,7 @@ class TranscriptSegment(BaseModel):
     text: str
     start_seconds: float
     end_seconds: float
+    speaker: str | None = None
 
 
 class Transcript(BaseModel):

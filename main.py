@@ -19,7 +19,7 @@ from schemas import (
     TranscriptUpdate,
     TranscribeRequest,
 )
-from transcription import transcribe, transcribe_stream
+from transcription import transcribe, transcribe_stream, transcribe_with_speakers
 
 ROOT = Path(__file__).parent
 app = FastAPI(title="swissscam")
@@ -82,16 +82,16 @@ def transcribe_upload(audio: UploadFile = File(...)) -> StreamingResponse:
                 transcript_parts.append(segment.text)
                 event = TranscriptUpdate(
                     type="segment",
-                    text=" ".join(transcript_parts),
+                    text="\n\n".join(transcript_parts),
                     segment=segment,
                 )
                 yield f"data: {event.model_dump_json()}\n\n"
 
-            finished = TranscriptUpdate(type="done", text=" ".join(transcript_parts))
+            finished = TranscriptUpdate(type="done", text="\n\n".join(transcript_parts))
             yield f"data: {finished.model_dump_json()}\n\n"
         except Exception:
             logger.exception("Uploaded audio transcription failed")
-            failed = TranscriptUpdate(type="error", text=" ".join(transcript_parts),
+            failed = TranscriptUpdate(type="error", text="\n\n".join(transcript_parts),
                                       error="Transcription failed. Check the recording and server log.")
             yield f"data: {failed.model_dump_json()}\n\n"
         finally:
@@ -102,6 +102,27 @@ def transcribe_upload(audio: UploadFile = File(...)) -> StreamingResponse:
         headers={"Cache-Control": "no-cache"},
         background=BackgroundTask(temporary_path.unlink, missing_ok=True),
     )
+
+
+@app.post("/api/transcribe/upload/with-speakers")
+def transcribe_upload_with_speakers(audio: UploadFile = File(...)) -> Transcript:
+    """Transcribe a complete upload and attach WhisperX speaker labels."""
+    suffix = Path(audio.filename or "audio.wav").suffix or ".wav"
+    temporary_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+    temporary_path = Path(temporary_file.name)
+    try:
+        shutil.copyfileobj(audio.file, temporary_file)
+        temporary_file.close()
+        return transcribe_with_speakers(temporary_path)
+    except Exception as error:
+        logger.exception("Speaker transcription failed")
+        raise HTTPException(
+            status_code=503,
+            detail="Speaker transcription failed. Check HF_TOKEN, the recording, and the server log.",
+        ) from error
+    finally:
+        temporary_file.close()
+        temporary_path.unlink(missing_ok=True)
 
 
 @app.post("/api/analyze")
