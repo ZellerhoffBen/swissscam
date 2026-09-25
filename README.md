@@ -18,7 +18,9 @@ uv run uvicorn main:app --reload
 Open http://127.0.0.1:8000. Use the demo recording or **Add recording**, then tap the
 incoming-call notification and **Accept**. Transcript updates and warnings follow
 playback. A warning leaves playback and analysis running; dismissing it closes only
-the popup. **End call** stops playback and discards pending results.
+the popup. **End call** stops playback and pending analysis, keeping the transcript and results
+visible. Starting another call clears them. The phone controls other than call
+actions are display-only.
 
 No API key is needed. On first transcription, faster-whisper downloads its `base`
 model; subsequent calls run locally on CPU. The scam classifier is included.
