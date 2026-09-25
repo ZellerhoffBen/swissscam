@@ -37,7 +37,8 @@ npm ci
 npm run dev
 ```
 
-Open the address printed by Vite. Tap the phone notification, then **Accept**.
+Open the address printed by Vite. Click **Start demo**, then **Accept** on the phone.
+**About this demo** explains the replay; **Replay demo** starts the call again.
 
 To preview the production build:
 

@@ -1,6 +1,6 @@
 import { StrictMode, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { AlarmClock, AlertTriangle, BatteryFull, Camera, CircleUserRound, Flashlight, Grid3X3, MessageCircle, MicOff, Phone, Plus, Signal, Video, Volume2, Wifi } from "lucide-react";
+import { AlarmClock, AlertTriangle, BatteryFull, Camera, CircleUserRound, Flashlight, Grid3X3, Info, MessageCircle, MicOff, Phone, Play, Plus, Signal, Video, Volume2, Wifi } from "lucide-react";
 import { startCall } from "./callSession";
 import { CallCheck } from "./CallCheck";
 import demo from "./demo";
@@ -16,7 +16,7 @@ function formatTime(seconds) {
 }
 
 function App() {
-  const [status, setStatus] = useState("Tap the phone notification to start the demo.");
+  const [status, setStatus] = useState("Start the demo, then accept the call on the phone.");
   const [transcript, setTranscript] = useState("");
   const [detection, setDetection] = useState(null);
   const [riskHistory, setRiskHistory] = useState([]);
@@ -44,7 +44,7 @@ function App() {
     setPhoneState(phoneState === "incoming" ? "home" : "ended");
     setAnalysisState((state) => state === "processing" ? "stopped" : state);
     setShowScamWarning(false);
-    setStatus(phoneState === "incoming" ? "Call declined." : "Call ended. Your analysis is kept below.");
+    setStatus(phoneState === "incoming" ? "Call declined. Start the demo to try again." : "Call ended. Your transcript and results remain below.");
   }
 
   function resetAnalysis() {
@@ -107,7 +107,7 @@ function App() {
       onDetection: (result, seconds) => {
         setDetection(result);
         setRiskHistory((history) => [...history, { seconds, score: result.score }]);
-        // Dismissing a warning keeps analysis running without repeating the popup.
+        // Dismissing a warning keeps playback running without repeating the popup.
         if (result.warning && !warned) {
           warned = true;
           issueScamWarning();
@@ -115,7 +115,7 @@ function App() {
       },
       onDone: () => {
         setAnalysisState("complete");
-        setStatus("Demo complete. Start a new demo call to replay it.");
+        setStatus("Demo complete. Explore the transcript and results, or replay the call.");
       },
       onError: (message) => {
         setAnalysisState("error");
@@ -130,13 +130,30 @@ function App() {
     <main className="shell">
       <header className="topbar">
         <div className="brand"><img className="brand-logo" src="/swissscam-logo.png" alt="Swissscam" /><span>swissscam</span></div>
+        <details className="about-demo">
+          <summary><Info size={17} aria-hidden="true" />About this demo</summary>
+          <div className="about-panel">
+            <h2>How it works</h2>
+            <p>The original app turns call audio into text with Whisper. A local ML classifier checks the conversation for suspicious requests and triggers a warning.</p>
+            <p>This website replays one recorded call with its actual, previously calculated transcript and model scores. No live AI analysis runs here.</p>
+            <a href="https://github.com/ZellerhoffBen/swissscam">View project on GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
       </header>
       <section className="intro">
-        <h1>Spot suspicious calls early.</h1>
-        <p className="lede">Play a prerecorded call and follow the saved transcript and scam warnings.</p>
+        <h1>Hear the call. See the warning.</h1>
+        <p className="lede">A hackathon prototype that detects suspicious requests during phone calls.</p>
       </section>
       <section className="workspace" aria-label="Call analysis workspace">
         <div className="call-panel">
+          <div className="demo-controls">
+            {phoneState === "home" ? <>
+              <button className="start-demo-button" type="button" onClick={startIncomingCall}><Play size={17} aria-hidden="true" />Start demo <span>· 22 sec</span></button>
+              <p>Sound on for the full experience.</p>
+            </> : <p>{phoneState === "incoming" ? "Tap Accept on the phone to hear the call."
+              : phoneState === "active" ? "Follow the transcript and risk score as the call plays."
+              : analysisState === "complete" ? "Demo complete. Replay it whenever you like." : "Replay the demo to try again."}</p>}
+          </div>
           <div className="phone-frame">
             <span className="phone-side phone-side-left-one" /><span className="phone-side phone-side-left-two" /><span className="phone-side phone-side-right" />
             <div className="phone-screen">
@@ -170,7 +187,7 @@ function App() {
               {(phoneState === "active" || phoneState === "ended") && <div className="active-call">
                 <PhoneStatusBar />
                 <h2>Unknown caller</h2>
-                <p className="phone-caption">{phoneState === "ended" ? "Call ended" : formatTime(elapsed)}</p>
+                <p className="phone-caption">{phoneState === "ended" ? analysisState === "complete" ? "Demo complete" : "Call ended" : formatTime(elapsed)}</p>
                 {phoneState === "ended" && <p className="call-duration">{formatTime(elapsed)}</p>}
                 {showScamWarning && <div className="phone-scam-warning" role="alert">
                   <AlertTriangle />
@@ -188,7 +205,7 @@ function App() {
                     )}
                   </div>
                   <button type="button" className="end-call-button" aria-label="End call" onClick={endCall}><Phone className="hang-up" /></button>
-                </> : <button type="button" className="new-call-button" onClick={startIncomingCall}><Phone />New demo call</button>}
+                </> : <button type="button" className="new-call-button" onClick={startIncomingCall}><Phone />Replay demo</button>}
               </div>}
               <div className="home-indicator" />
             </div>
