@@ -81,7 +81,7 @@ class ApiTests(unittest.TestCase):
         segment = SimpleNamespace(words=words, text="Hello there. Read the code.", start=0, end=5)
         with patch("backend.transcription._load_model") as model:
             model.return_value.transcribe.return_value = ([segment], None)
-            updates = list(transcribe_stream(Path("data/audio/demo.wav")))
+            updates = list(transcribe_stream(Path("data/audio/possible_scam.m4a")))
         self.assertEqual([s.text for s in updates], ["Hello there.", "Read the code."])
         self.assertEqual([s.end_seconds for s in updates], [3.2, 5])
         self.assertEqual(updates[1].start_seconds, 3.3)

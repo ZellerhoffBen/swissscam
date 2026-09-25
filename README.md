@@ -46,12 +46,11 @@ npm run build
 uv run uvicorn main:app --reload
 ```
 
-Open http://127.0.0.1:8000. Choose **Add recording**, tap the phone notification,
-then **Accept**. Try `evaluation/validation/audio/s05.m4a` for a scam example.
-The built-in clip does not trigger a warning.
+Open http://127.0.0.1:8000. Tap the phone notification, then **Accept** to play
+the included `possible_scam.m4a` recording. Use **Add recording** to try another call.
 
 No API key is needed for this flow. Whisper downloads its model on first use;
-MiniLM's weights are included. Frontend development: `npm run dev` alongside the backend.
+MiniLM's weights are included.
 
 ## Testing
 
@@ -65,8 +64,6 @@ follow documented fraud patterns; dialogue and labels are AI-authored. Text warn
 occurred at the annotated harmful turn. Recordings are a subset of these scenarios;
 audio warning timing remains unverified.
 
-These results do not establish real-world accuracy. An earlier, harder text set
-produced 14 false alarms in 40 legitimate calls. No warning does not mean a safe call.
 [Validation protocol](evaluation/validation/README.md) · [Other results and limits](evaluation/README.md)
 
 ```sh
@@ -80,14 +77,10 @@ changed decisions. Keep these cases out of training and threshold selection.
 
 ## Improving with internal data
 
-With permission, anonymised internal fraud cases and legitimate service calls could
+With permission, anonymised internal fraud cases and legitimate service calls from Swisscom could
 replace synthetic examples. Human reviewers would label calls and the first harmful
 request. Similar legitimate calls could help reduce false alarms. Swiss languages,
 accents and transcription errors also need coverage.
-
-Train and test on separate callers and scam campaigns. Adopt a new model only if it
-reduces false alarms without losing timely detections. Smartphone integration and
-testing remain separate work.
 
 ## Repository
 

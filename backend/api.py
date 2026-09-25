@@ -54,7 +54,7 @@ def transcribe_audio(request: TranscribeRequest) -> Transcript:
     if request.audio_id != "demo":
         raise HTTPException(status_code=404, detail="Unknown demo audio")
     try:
-        return transcribe(ROOT / "data/audio/demo.wav", request.up_to_seconds)
+        return transcribe(ROOT / "data/audio/possible_scam.m4a", request.up_to_seconds)
     except Exception as error:
         logger.exception("Demo transcription failed")
         raise HTTPException(status_code=503, detail="Transcription failed. Check the server log and Whisper model download.") from error

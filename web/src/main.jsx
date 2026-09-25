@@ -23,7 +23,7 @@ function App() {
   const [phoneState, setPhoneState] = useState("home");
   const [elapsed, setElapsed] = useState(0);
   const [audioFile, setAudioFile] = useState(null);
-  const [audioUrl, setAudioUrl] = useState("/audio/demo.wav");
+  const [audioUrl, setAudioUrl] = useState("/audio/possible_scam.m4a");
   const [showScamWarning, setShowScamWarning] = useState(false);
   const audioRef = useRef(null);
   const transcriptRef = useRef(null);
@@ -219,7 +219,7 @@ function App() {
               <span className={`analysis-state ${analysisState}`}>{{ idle: "Standby", processing: "Processing", complete: "Complete", stopped: "Ended", error: "Stopped" }[analysisState]}</span>
             </div>
             <div className="recording-controls">
-              <p className="audio-source" title={audioFile?.name || "demo.wav"}>{audioFile?.name || "demo.wav"}</p>
+              <p className="audio-source" title={audioFile?.name || "possible_scam.m4a"}>{audioFile?.name || "possible_scam.m4a"}</p>
               <label className="upload-audio">
                 <input type="file" accept="audio/*" onChange={handleAudioUpload} />
                 <span>＋ Add recording</span>
