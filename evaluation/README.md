@@ -8,26 +8,26 @@ are synthetic voices. These are now known regression cases, not untouched tests.
 ## Run
 
 ```sh
-uv run python evaluate.py                       # Call, behavior and wording checks
-uv run python evaluate_audio.py                 # Real Whisper on both supplied MP3s
-uv run python evaluate_external.py              # External corpus, downloaded below
-uv run python evaluate.py --model models/candidate
+uv run python -m ml.evaluate                       # Call, behavior and wording checks
+uv run python -m ml.evaluate_audio                 # Real Whisper on both supplied MP3s
+uv run python -m ml.evaluate_external              # External corpus, downloaded below
+uv run python -m ml.evaluate --model models/candidate
 ```
 
 For the fixed **20 scam / 10 normal / 10 harder legitimate** pitch-validation set,
-run `uv run python evaluate_validation.py`. See [protocol, results and recording
+run `uv run python -m ml.evaluate_validation`. See [protocol, results and recording
 scripts](validation/README.md). It supports candidate comparison and optional audio
 checks; missing recordings are reported rather than counted as passing tests.
 
-The three scripts write `results.json`, `audio_results.json` and
-`external_results.json`, including model/data hashes. Candidate evaluation writes
+The three scripts write `reports/results.json`, `reports/audio_results.json` and
+`reports/external_results.json`, including model/data hashes. Candidate evaluation writes
 inside the candidate directory. No evaluation command changes model weights.
 
 ## Cases and measurements
 
 - The `test` split in `data/scam/authored.jsonl` contains 48 calls.
-- `fresh_calls.jsonl` contains 80 further calls in 40 paired scenarios.
-- `regressions.jsonl` contains the two reported bank/SSA conversations.
+- `cases/fresh_calls.jsonl` contains 80 further calls in 40 paired scenarios.
+- `cases/regressions.jsonl` contains the two reported bank/SSA conversations.
 - The `test` split in `data/scam/behaviors.jsonl` contains 24 short texts. Checks
   also remove punctuation or add an irrelevant introduction.
 - `data/audio/bank_legitimate.mp3` and `ssa_scam.mp3` exercise actual Whisper
@@ -117,7 +117,7 @@ evaluation, never for training or redistribution. It stays in the ignored
 ```sh
 mkdir -p evaluation/external
 curl -L --fail 'https://www.kaggle.com/api/v1/datasets/download/teeconnie/scam-and-non-scam-call-conversation-dataset?datasetVersionNumber=1' -o evaluation/external/calls.zip
-uv run python evaluate_external.py
+uv run python -m ml.evaluate_external
 ```
 
 The script verifies the pinned archive hash before evaluating. Synthetic and

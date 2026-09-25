@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Iterator
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "scam"
 EVALUATION = ROOT / "evaluation"
 SIGNALS = {

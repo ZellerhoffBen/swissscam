@@ -7,9 +7,9 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
-from detector import load_model
-from evaluate import measure, score_calls, summary, write_report
-from prepare_data import ROOT, normalize, read_jsonl, transcript
+from backend.detector import load_model
+from ml.evaluate import measure, score_calls, summary, write_report
+from ml.prepare_data import ROOT, normalize, read_jsonl, transcript
 
 SUITE = ROOT / "evaluation" / "validation"
 
@@ -44,8 +44,8 @@ def load_suite(directory: Path = SUITE) -> tuple[list[dict], dict]:
         if call["source"] and call["source"] not in manifest["sources"]:
             raise ValueError("Missing source attribution.")
     old_calls = []
-    for path in (ROOT / "data/scam/authored.jsonl", ROOT / "evaluation/fresh_calls.jsonl",
-                 ROOT / "evaluation/regressions.jsonl"):
+    for path in (ROOT / "data/scam/authored.jsonl", ROOT / "evaluation/cases/fresh_calls.jsonl",
+                 ROOT / "evaluation/cases/regressions.jsonl"):
         old_calls.extend(read_jsonl(path))
     if texts & {normalize(transcript(c["turns"])) for c in old_calls}:
         raise ValueError("Validation contains a full transcript already used in previous work.")
@@ -90,7 +90,7 @@ def audio_summary(recordings: list[dict]) -> dict:
 
 
 def evaluate_recording(item: dict, call: dict | None, artifact: dict) -> dict:
-    from transcription import transcribe_stream
+    from backend.transcription import transcribe_stream
 
     path = ROOT / item["file"]
     result = {"id": item["id"], "kind": item["kind"], "file": item["file"]}
@@ -170,7 +170,7 @@ def main() -> None:
         "model_files_sha256": {p.name: sha256(p) for p in sorted(args.model.iterdir())
                                if p.suffix in {".json", ".safetensors", ".txt"}},
         "evaluator_sha256": {name: sha256(ROOT / name) for name in
-                             ("evaluate_validation.py", "evaluate.py", "context_model.py", "transcription.py")},
+                             ("ml/evaluate_validation.py", "ml/evaluate.py", "backend/context_model.py", "backend/transcription.py")},
         "threshold": artifact["threshold"], "text": result, "groups": groups,
         "audio_requested": args.audio, "audio": [],
         "limitations": ["Authored, assistant-reviewed cases; not independent human validation or real-world accuracy.",

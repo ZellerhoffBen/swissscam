@@ -7,10 +7,10 @@ import json
 import statistics
 from pathlib import Path
 
-from context_model import ContextClassifier
+from backend.context_model import ContextClassifier
 
-from detector import MODEL_PATH, load_model
-from prepare_data import DATA, EVALUATION, behavior_rows, iter_prefixes, load_calls, read_jsonl
+from backend.detector import MODEL_PATH, load_model
+from ml.prepare_data import DATA, EVALUATION, behavior_rows, iter_prefixes, load_calls, read_jsonl
 
 
 def score_calls(model: ContextClassifier, calls: list[dict]) -> list[list[float]]:
@@ -85,8 +85,8 @@ def main() -> None:
     artifact = load_model(args.model)
     model, threshold = artifact["model"], artifact["threshold"]
     datasets = {"test": load_calls("test"),
-                "fresh": read_jsonl(EVALUATION / "fresh_calls.jsonl"),
-                "reported": read_jsonl(EVALUATION / "regressions.jsonl")}
+                "fresh": read_jsonl(EVALUATION / "cases/fresh_calls.jsonl"),
+                "reported": read_jsonl(EVALUATION / "cases/regressions.jsonl")}
     calls = {name: measure(rows, score_calls(model, rows), threshold) for name, rows in datasets.items()}
     behaviors = behavior_rows("test")
     language = {"original": behavior_result(model, behaviors, threshold)}
@@ -103,9 +103,9 @@ def main() -> None:
               "calls": calls, "behaviors": language,
               "data_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in
                               (DATA / "authored.jsonl", DATA / "behaviors.jsonl",
-                               EVALUATION / "fresh_calls.jsonl", EVALUATION / "regressions.jsonl")},
+                               EVALUATION / "cases/fresh_calls.jsonl", EVALUATION / "cases/regressions.jsonl")},
               "limitation": "Synthetic, now-known regression cases; not independent evidence of real-call accuracy."}
-    output = args.model / "evaluation_results.json" if args.model else EVALUATION / "results.json"
+    output = args.model / "evaluation_results.json" if args.model else EVALUATION / "reports/results.json"
     write_report(output, report)
     for name, result in calls.items():
         print(name, json.dumps(summary(result)))
