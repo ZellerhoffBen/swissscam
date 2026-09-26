@@ -1,0 +1,54 @@
+{
+  "id": "westpac",
+  "title": "Westpac · Card details",
+  "audio": "/demo/westpac-card.wav",
+  "source_title": "Westpac NZ: Scammer in action",
+  "source_url": "https://www.westpac.co.nz/about-us/media/westpac-releases-recording-of-scammer-in-action/",
+  "source_start_seconds": 135.1,
+  "source_end_seconds": 161.0,
+  "source_note": "A real customer call published by a Westpac Bank. A fake bank employee asks for credit card digits.",
+  "segments": [
+    {
+      "speaker": "Recipient",
+      "start_seconds": 0.195,
+      "end_seconds": 2.145,
+      "text": "Digit after eight? What does that mean?"
+    },
+    {
+      "speaker": "Caller",
+      "start_seconds": 2.735,
+      "end_seconds": 7.505,
+      "text": "Yeah, so on the credit card there that you can see beginning five, four, three, six, seven, eight."
+    },
+    {
+      "speaker": "Recipient",
+      "start_seconds": 7.575,
+      "end_seconds": 8.3,
+      "text": "Yeah, yeah."
+    },
+    {
+      "speaker": "Caller",
+      "start_seconds": 8.3,
+      "end_seconds": 10.825,
+      "text": "We need to confirm the digits after eight for cancellation."
+    },
+    {
+      "speaker": "Caller",
+      "start_seconds": 11.525,
+      "end_seconds": 15.545,
+      "text": "After that you'll be receiving a text message from us, and then that will be cancelled."
+    },
+    {
+      "speaker": "Recipient",
+      "start_seconds": 16.365,
+      "end_seconds": 20.385,
+      "text": "You can't just do it straight away? Do I need to respond to the text?"
+    },
+    {
+      "speaker": "Caller",
+      "start_seconds": 21.125,
+      "end_seconds": 25.745,
+      "text": "Yep, so we'll send you the text message after we've cancelled the card for you, what we're doing now for you."
+    }
+  ]
+}

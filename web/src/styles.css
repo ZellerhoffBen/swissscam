@@ -25,29 +25,23 @@ button { font: inherit; }
 button { cursor: pointer; }
 button:disabled { cursor: default; }
 h1, h2, h3, p { margin: 0; }
-button:focus-visible, a:focus-visible, summary:focus-visible, .transcript:focus-visible { outline: 3px solid var(--swisscom-light-blue); outline-offset: 3px; }
+button:focus-visible, a:focus-visible, .transcript:focus-visible { outline: 3px solid var(--swisscom-light-blue); outline-offset: 3px; }
 .shell { position: relative; isolation: isolate; max-width: 1320px; margin: auto; padding: 14px 28px 12px; }
 .topbar { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; border-bottom: 1px solid var(--swisscom-line); }
 .brand { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 700; letter-spacing: -.03em; }
+.brand h1 { font: inherit; }
 .brand-logo { width: 58px; height: 58px; object-fit: contain; }
 .brand::after { content: "Call protection demo"; margin-left: 3px; border-left: 1px solid var(--swisscom-line); padding-left: 15px; color: var(--swisscom-muted); font-size: 12px; font-weight: 600; letter-spacing: 0; }
-.about-demo summary { display: flex; align-items: center; gap: 7px; padding: 10px 0; color: var(--swisscom-blue); font-size: 13px; font-weight: 600; cursor: pointer; list-style: none; }
-.about-demo summary::-webkit-details-marker { display: none; }
-.about-demo summary:hover, .about-panel a:hover { text-decoration: underline; }
-.about-panel { position: absolute; top: calc(100% + 10px); right: 0; width: min(420px, 100%); padding: 24px; border: 1px solid var(--swisscom-line); border-radius: 16px; background: #fff; box-shadow: 0 12px 36px rgba(0,17,85,.12); }
-.about-panel h2 { margin-bottom: 12px; font-size: 20px; }
+.about-button { display: flex; align-items: center; gap: 7px; padding: 10px 0; border: 0; background: transparent; color: var(--swisscom-blue); font-size: 13px; font-weight: 600; }
+.about-button:hover, .about-panel a:hover { text-decoration: underline; }
+.about-panel { position: fixed; inset: 88px max(16px, calc((100vw - 1264px) / 2)) auto auto; margin: 0; width: min(420px, calc(100% - 28px)); max-height: calc(100dvh - 108px); overflow-y: auto; padding: 24px; border: 1px solid var(--swisscom-line); border-radius: 16px; background: #fff; color: var(--swisscom-navy); box-shadow: 0 12px 36px rgba(0,17,85,.12); }
+.about-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.about-heading h2 { font-size: 20px; }
+.about-heading button { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 50%; color: var(--swisscom-muted); background: var(--swisscom-background); }
 .about-panel p { margin-bottom: 12px; color: var(--swisscom-muted); font-size: 14px; line-height: 1.6; }
 .about-panel a { color: var(--swisscom-blue); font-size: 14px; font-weight: 600; text-underline-offset: 3px; }
-.intro { padding: 24px 0 8px; }
-.intro h1 { font-size: clamp(28px, 3vw, 38px); line-height: 1.2; letter-spacing: -.04em; }
-.lede { margin-top: 8px; color: var(--swisscom-muted); font-size: 15px; line-height: 1.5; }
 .workspace { display: grid; grid-template-columns: minmax(320px, .9fr) minmax(0, 1.1fr); gap: 32px; }
 .call-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 18px 24px; }
-.demo-controls { min-height: 72px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
-.demo-controls p { max-width: 320px; color: var(--swisscom-muted); font-size: 12px; line-height: 1.5; }
-.start-demo-button { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border: 0; border-radius: 12px; background: var(--swisscom-blue); color: white; font-size: 15px; font-weight: 700; }
-.start-demo-button span { font-weight: 500; }
-.start-demo-button:hover { background: var(--swisscom-navy); }
 .hidden-audio { display: none; }
 
 /* Two related cards: conversation above, assessment below. */
@@ -65,7 +59,10 @@ button:focus-visible, a:focus-visible, summary:focus-visible, .transcript:focus-
 .status { flex-shrink: 0; margin-top: 8px; color: var(--swisscom-muted); font-size: 12px; line-height: 1.4; }
 .transcript-content { position: relative; min-height: 48px; flex: 1; display: flex; flex-direction: column; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--swisscom-line); }
 .transcript { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #aab5c9 transparent; padding-right: 8px; color: var(--swisscom-navy); font-size: 17px; line-height: 1.5; letter-spacing: -.02em; overflow-wrap: anywhere; }
-.transcript p + p { margin-top: .75em; }
+.transcript-turn + .transcript-turn { margin-top: 16px; }
+.transcript-speaker { display: block; margin-bottom: 4px; color: var(--swisscom-blue); font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+.transcript-turn.recipient .transcript-speaker { color: var(--swisscom-muted); }
+.transcript-placeholder { max-width: 32ch; color: var(--swisscom-muted); }
 .transcript-latest { position: absolute; right: 4px; bottom: 0; border: 1px solid var(--swisscom-line); border-radius: 16px; padding: 5px 10px; color: var(--swisscom-blue); background: #fff; box-shadow: 0 2px 8px rgba(0,17,85,.06); font-size: 11px; }
 .result { flex-shrink: 0; }
 .result.warning { border-color: #edbec6; }
@@ -97,7 +94,7 @@ button:focus-visible, a:focus-visible, summary:focus-visible, .transcript:focus-
 .risk-reason p { color: var(--swisscom-muted); font-size: 13px; line-height: 1.45; }
 
 /* iPhone-inspired simulator, with display-only controls visibly disabled. */
-.phone-frame { position: relative; flex-shrink: 0; height: clamp(520px, calc(100dvh - 340px), 680px); aspect-ratio: 9 / 19.5; padding: 7px; border: 2px solid #929ba9; border-radius: 44px; background: linear-gradient(145deg, #333943, #090b10 58%, #434b56); box-shadow: 0 0 0 1px #46516a, inset 0 0 0 1px rgba(255,255,255,.24), 0 22px 42px rgba(0,17,85,.22); }
+.phone-frame { position: relative; flex-shrink: 0; height: min(720px, calc(100dvh - 148px)); aspect-ratio: 9 / 19.5; padding: 7px; border: 2px solid #929ba9; border-radius: 44px; background: linear-gradient(145deg, #333943, #090b10 58%, #434b56); box-shadow: 0 0 0 1px #46516a, inset 0 0 0 1px rgba(255,255,255,.24), 0 22px 42px rgba(0,17,85,.22); }
 .phone-screen { position: relative; height: 100%; overflow: hidden; border-radius: 35px; background: var(--swisscom-navy); font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; color: #fff; }
 .phone-side { position: absolute; width: 3px; border-radius: 2px; background: #45494a; }
 .phone-side-left-one { top: 94px; left: -5px; height: 30px; }
@@ -162,8 +159,8 @@ button:focus-visible, a:focus-visible, summary:focus-visible, .transcript:focus-
 @keyframes state-pulse { to { opacity: .4; } }
 
 @media (min-width: 761px) {
-  .shell { min-height: max(840px, 100dvh); display: grid; grid-template-rows: 64px auto minmax(0, 1fr); }
-  .workspace { margin-top: 8px; min-height: 0; }
+  .shell { height: 100dvh; min-height: 720px; display: grid; grid-template-rows: 64px minmax(0, 1fr); }
+  .workspace { margin-top: 20px; min-height: 0; }
 }
 @media (min-width: 1001px) and (min-height: 800px) {
   .transcript-card, .result { padding: 24px 28px; }
@@ -197,10 +194,8 @@ button:focus-visible, a:focus-visible, summary:focus-visible, .transcript:focus-
   .brand { font-size: 20px; }
   .brand-logo { width: 46px; height: 46px; }
   .brand::after { display: none; }
-  .intro { padding: 28px 4px 20px; }
-  .intro h1 { font-size: 32px; }
-  .about-demo summary { font-size: 12px; }
-  .workspace { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .about-button { font-size: 12px; }
+  .workspace { grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 20px; }
   .call-panel { padding: 8px 20px; }
   .phone-frame { height: auto; width: min(100%, 300px); }
   .phone-screen { aspect-ratio: 9 / 19.5; }

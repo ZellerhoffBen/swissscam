@@ -1,7 +1,5 @@
-import demo from "./demo.js";
-
 // Replay saved pipeline output against audio time; this performs no live inference.
-export function startCall({ audio, onTranscript, onDetection, onTime, onDone, onError }) {
+export function startCall({ demo, audio, onTranscript, onDetection, onTime, onDone, onError }) {
   let nextSegment = 0;
   let stopped = false;
   const heard = [];
@@ -33,8 +31,8 @@ export function startCall({ audio, onTranscript, onDetection, onTime, onDone, on
         ? Math.min(segment.end_seconds, audio.duration) : segment.end_seconds;
       if (end > audio.currentTime) break;
       nextSegment += 1;
-      heard.push(segment.text);
-      onTranscript(heard.join("\n\n"));
+      heard.push({ text: segment.text, speaker: segment.speaker });
+      onTranscript([...heard]);
       onDetection(segment.detection, end);
     }
     if (!stopped && audio.ended) {

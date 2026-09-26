@@ -1,7 +1,7 @@
 # swissscam
 
 Interactive replay of the Swisscom identity-fraud hackathon prototype.
-This branch serves one prerecorded call with saved transcript and model scores.
+This branch replays a 26-second real scam call with a prepared transcript and saved model scores.
 There are no uploads, live AI inference, Python server or inference API charges.
 The original local application is on [`main`](https://github.com/ZellerhoffBen/swissscam/tree/main).
 
@@ -19,14 +19,22 @@ stop and verify the caller.
 ```mermaid
 flowchart LR
     A[Prerecorded audio] --> B[Playback position]
-    B --> C[Saved transcript and MiniLM scores]
+    B --> C[Prepared transcript and saved MiniLM scores]
     C --> D[Risk history and warning]
 ```
 
-The transcript and scores were generated once using the original Whisper and
-MiniLM pipeline. The browser reveals each result when playback reaches its timestamp.
+The transcript was manually corrected and given speaker labels and timestamps.
+The unchanged MiniLM model scored the accumulating text in advance; speaker labels
+are display-only. The browser reveals each result when playback reaches its timestamp.
 The page labels this as a prerecorded demo, not live analysis. Warnings leave the
 recording running; visitors can dismiss them, hang up or replay the call.
+
+The recording is a **25.9-second excerpt (02:15.1–02:41.0)** from a
+[real customer call published by Westpac NZ](https://www.westpac.co.nz/about-us/media/westpac-releases-recording-of-scammer-in-action/).
+A fake bank employee asks for credit card digits to supposedly cancel a card.
+The published source has a voice altered. This is a continuous excerpt converted
+to mono WAV, without automated introductions or commentary. Permission for reuse
+here has not been verified.
 
 ## Run locally
 
@@ -37,7 +45,7 @@ npm ci
 npm run dev
 ```
 
-Open the address printed by Vite. Click **Start demo**, then **Accept** on the phone.
+Open the address printed by Vite. Tap **Start demo** in the phone notification, then **Accept**.
 **About this demo** explains the replay; **Replay demo** starts the call again.
 
 To preview the production build:
@@ -59,16 +67,18 @@ The same `web/dist` folder can be served by another static host.
 
 ## Refresh the saved demo
 
-Only needed when changing the recording or model. Requires the local Python setup:
+Only needed when changing the recording, prepared transcript or model.
+Edit `web/src/demo-transcript.json` to adjust the text, speakers or timings.
+Requires the local Python setup:
 
 ```sh
 uv sync --locked
 uv run python -m ml.export_demo
 ```
 
-This transcribes `data/audio/possible_scam.m4a`, scores the accumulating transcript
-and writes `web/src/demo.js` plus the audio in `web/public/demo/`. The export records
-audio and model hashes. These files are committed so website builds need only Node.js.
+This scores the accumulating prepared transcript and writes `web/src/demo.js`.
+It checks timings against `web/public/demo/westpac-card.wav` and records
+audio, transcript and model hashes. Website builds need only Node.js.
 
 ## Original model
 
@@ -79,7 +89,17 @@ Scores are not calibrated probabilities. See [training data](data/scam/README.md
 
 ## Testing
 
-`npm test` checks static playback timing, replay, stopping, errors and the audio hash.
+`npm test` checks playback timing, speaker labels, replay, stopping, errors and
+the audio/transcript hashes.
+
+On the prepared Westpac transcript, the unchanged model first warns at **15.55 s
+of 25.9 s**, with a score of **99.7/100** (threshold: 95). Playback continues after
+the warning. All scores are genuine saved model outputs; neither the model nor
+its threshold was adjusted for this clip.
+
+This checks the model on prepared text, not transcription accuracy or overall
+detection accuracy.
+
 The following results describe the original model, not new tests of this replay.
 
 | Input | Scam calls flagged | Legitimate calls flagged |
