@@ -1,7 +1,7 @@
 # swissscam
 
 Interactive replay of the Swisscom identity-fraud hackathon prototype.
-This branch replays a 26-second real scam call with a prepared transcript and saved model scores.
+This branch replays a 49-second scripted scam call with a prepared transcript and saved model scores.
 There are no uploads, live AI inference, Python server or inference API charges.
 The original local application is on [`main`](https://github.com/ZellerhoffBen/swissscam/tree/main).
 
@@ -29,12 +29,9 @@ are display-only. The browser reveals each result when playback reaches its time
 The page labels this as a prerecorded demo, not live analysis. Warnings leave the
 recording running; visitors can dismiss them, hang up or replay the call.
 
-The recording is a **25.9-second excerpt (02:15.1–02:41.0)** from a
-[real customer call published by Westpac NZ](https://www.westpac.co.nz/about-us/media/westpac-releases-recording-of-scammer-in-action/).
-A fake bank employee asks for credit card digits to supposedly cancel a card.
-The published source has a voice altered. This is a continuous excerpt converted
-to mono WAV, without automated introductions or commentary. Permission for reuse
-here has not been verified.
+The recording is a **49.24-second scripted demo** supplied as `NENENENEN.mp3`.
+A caller posing as a Social Security officer asks for the recipient's Social
+Security number and threatens to suspend their benefits. The MP3 is used unchanged.
 
 ## Run locally
 
@@ -77,7 +74,7 @@ uv run python -m ml.export_demo
 ```
 
 This scores the accumulating prepared transcript and writes `web/src/demo.js`.
-It checks timings against `web/public/demo/westpac-card.wav` and records
+It checks timings against `web/public/demo/social-security.mp3` and records
 audio, transcript and model hashes. Website builds need only Node.js.
 
 ## Original model
@@ -92,8 +89,8 @@ Scores are not calibrated probabilities. See [training data](data/scam/README.md
 `npm test` checks playback timing, speaker labels, replay, stopping, errors and
 the audio/transcript hashes.
 
-On the prepared Westpac transcript, the unchanged model first warns at **15.55 s
-of 25.9 s**, with a score of **99.7/100** (threshold: 95). Playback continues after
+On the prepared demo transcript, the unchanged model first warns at **29.12 s
+of 49.24 s**, with a score of **98.9/100** (threshold: 95). Playback continues after
 the warning. All scores are genuine saved model outputs; neither the model nor
 its threshold was adjusted for this clip.
 

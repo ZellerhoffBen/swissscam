@@ -230,8 +230,7 @@ function App() {
             and triggers a warning.
           </p>
           <p>
-            {demo.source_note}{" "}
-            <a href={demo.source_url}>Original recording and context</a>.
+            {demo.source_note}
           </p>
           <a href="https://github.com/ZellerhoffBen/swissscam">
             View project on GitHub <span aria-hidden="true">↗</span>
@@ -435,7 +434,7 @@ function App() {
               </span>
             </div>
             <p className="demo-note">
-              <strong>Real call excerpt</strong>
+              <strong>Prerecorded demo · Saved model results</strong>
             </p>
             <p className="status" role="status">
               {status}
